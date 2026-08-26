@@ -1,0 +1,1102 @@
+<title>flexIA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============ TOKENS (committed dark theme) ============ */
+:root{
+  --bg: #0a0b0f;
+  --bg-alt: #0d0f14;
+  --bg-raised: #14161d;
+  --bg-raised-2: #191c25;
+  --line: #24262f;
+  --line-strong: #343844;
+  --ink: #f3f5f8;
+  --ink-dim: #9aa3b2;
+  --ink-faint: #5f6675;
+  --cyan: #45e0f0;
+  --violet: #9b7bff;
+  --cyan-soft: rgba(69,224,240,0.13);
+  --violet-soft: rgba(155,123,255,0.15);
+  --warn: #ff5f57;
+  --warn-soft: rgba(255,95,87,0.13);
+  --radius-pill: 999px;
+  --radius-panel: 18px;
+  --shadow-panel: 0 30px 70px -25px rgba(0,0,0,0.65);
+}
+
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+::selection{ background:var(--cyan); color:#031014; }
+
+h1,h2,h3,h4{
+  font-family:"IBM Plex Sans", ui-sans-serif, sans-serif;
+  font-weight:800;
+  letter-spacing:-0.025em;
+  line-height:1.04;
+  text-wrap:balance;
+  margin:0;
+  color:var(--ink);
+}
+p{ margin:0; }
+a{ color:inherit; }
+
+.mono{ font-family:"IBM Plex Mono", ui-monospace, monospace; }
+
+.badge{
+  display:inline-flex; align-items:center; gap:0.55em;
+  font-family:"IBM Plex Mono", ui-monospace, monospace;
+  font-size:0.76rem; font-weight:500;
+  letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--cyan);
+  padding:0.4rem 0.85rem;
+  border-radius:var(--radius-pill);
+  background:var(--cyan-soft);
+  border:1px solid rgba(69,224,240,0.28);
+}
+.badge.violet{ color:var(--violet); background:var(--violet-soft); border-color:rgba(155,123,255,0.3); }
+.badge.warn{ color:var(--warn); background:var(--warn-soft); border-color:rgba(255,95,87,0.32); }
+
+.wrap{
+  max-width:1180px;
+  margin:0 auto;
+  padding-left:clamp(1.25rem,4vw,3rem);
+  padding-right:clamp(1.25rem,4vw,3rem);
+}
+
+/* ambient glow field, jetbrains-style soft light on dark ground */
+.glow-field{ position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; }
+.glow-field span{ position:absolute; border-radius:50%; filter:blur(110px); opacity:0.4; }
+.glow-1{ width:640px; height:640px; top:-220px; left:-120px; background:var(--cyan); opacity:0.16; }
+.glow-2{ width:560px; height:560px; top:-60px; right:-160px; background:var(--violet); opacity:0.18; }
+.glow-3{ width:520px; height:420px; bottom:-160px; left:30%; background:var(--violet); opacity:0.12; }
+
+/* ============ NAV ============ */
+nav{
+  position:sticky; top:0; z-index:40;
+  background:rgba(10,11,15,0.72);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  padding-top:0.85rem; padding-bottom:0.85rem;
+}
+.brand{ display:flex; align-items:center; gap:0.65rem; text-decoration:none; }
+.brand img{ width:28px; height:28px; border-radius:7px; display:block; }
+.brand span{
+  font-family:"IBM Plex Sans",sans-serif;
+  font-weight:800; font-size:1.2rem; letter-spacing:-0.02em;
+}
+.nav-links{ display:flex; align-items:center; gap:2.2rem; }
+.nav-links a{ font-size:0.92rem; text-decoration:none; color:var(--ink-dim); transition:color .15s ease; }
+.nav-links a:hover{ color:var(--ink); }
+.nav-cta{
+  font-family:"IBM Plex Sans",sans-serif;
+  font-size:0.85rem; font-weight:600;
+  padding:0.6rem 1.25rem;
+  border-radius:var(--radius-pill);
+  background:linear-gradient(100deg,var(--cyan),var(--violet));
+  color:#04141a !important;
+  text-decoration:none;
+  white-space:nowrap;
+}
+@media (max-width:760px){ .nav-links a:not(.nav-cta){ display:none; } }
+
+/* ============ BUTTONS ============ */
+.btn{
+  display:inline-flex; align-items:center; gap:0.5rem;
+  font-family:"IBM Plex Sans",sans-serif;
+  font-size:0.95rem; font-weight:600;
+  padding:0.9rem 1.7rem;
+  border-radius:var(--radius-pill);
+  text-decoration:none;
+  border:1px solid transparent;
+  cursor:pointer;
+}
+.btn-primary{
+  background:linear-gradient(100deg,var(--cyan),var(--violet));
+  color:#04141a;
+}
+.btn-ghost{
+  border-color:var(--line-strong);
+  color:var(--ink);
+  background:rgba(255,255,255,0.02);
+}
+.btn-ghost:hover{ border-color:var(--cyan); }
+
+/* ============ WINDOW-CHROME PANELS (screenshot / clip placeholders) ============ */
+.panel{
+  position:relative;
+  border:1px solid var(--line-strong);
+  border-radius:var(--radius-panel);
+  background:var(--bg-raised);
+  overflow:hidden;
+  box-shadow:var(--shadow-panel);
+}
+.panel-bar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0.7rem 1rem;
+  background:var(--bg-raised-2);
+  border-bottom:1px solid var(--line);
+}
+.dots{ display:flex; gap:6px; }
+.dots span{ width:9px; height:9px; border-radius:50%; opacity:0.55; }
+.dots span:nth-child(1){ background:#ff5f57; }
+.dots span:nth-child(2){ background:#febc2e; }
+.dots span:nth-child(3){ background:#28c840; }
+.panel-file{ font-family:"IBM Plex Mono",monospace; font-size:0.74rem; color:var(--ink-faint); }
+.panel-rec{ display:flex; align-items:center; gap:0.4em; font-family:"IBM Plex Mono",monospace; font-size:0.7rem; color:var(--ink-faint); }
+.panel-rec .dot-rec{ width:6px; height:6px; border-radius:50%; background:#ff5f57; }
+.panel-body{
+  position:relative;
+  aspect-ratio:16/10;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 20%, var(--cyan-soft), transparent 60%),
+    var(--bg-raised);
+}
+.stage-video{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:contain; display:none; background:var(--bg-raised);
+}
+.media-placeholder{
+  position:absolute; inset:0;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:0.9rem;
+}
+.panel-body.has-video .media-placeholder{ display:none; }
+.panel-body.has-video .stage-video{ display:block; }
+.panel-body.has-video{ cursor:pointer; }
+.play-glyph{
+  width:54px; height:54px; border-radius:50%;
+  border:1.4px solid var(--line-strong);
+  display:flex; align-items:center; justify-content:center;
+  background:var(--bg-raised-2);
+}
+.play-glyph svg{ width:16px; height:16px; fill:var(--ink); margin-left:2px; }
+.media-label{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:0.76rem; color:var(--ink-faint);
+  text-align:center; padding:0 1.5rem;
+}
+
+/* ============ HERO ============ */
+.hero{ padding-top:clamp(3rem,7vw,5.5rem); padding-bottom:clamp(3rem,6vw,4.5rem); }
+.hero-grid{ display:grid; grid-template-columns:1.05fr 0.95fr; gap:clamp(2rem,5vw,4rem); align-items:center; }
+@media (max-width:960px){ .hero-grid{ grid-template-columns:1fr; } }
+.hero h1{ font-size:clamp(2.9rem,6vw,5rem); margin-top:1.1rem; }
+.hero h1 .grad{
+  background:linear-gradient(100deg,var(--cyan),var(--violet));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hero-sub{ margin-top:1.3rem; max-width:46ch; font-size:1.14rem; color:var(--ink-dim); }
+.hero-actions{ margin-top:2.1rem; display:flex; gap:1rem; flex-wrap:wrap; }
+.hero-trust{
+  margin-top:2.3rem; font-size:0.83rem; color:var(--ink-faint);
+  border-top:1px solid var(--line); padding-top:1.1rem;
+  display:flex; gap:0.6em; align-items:baseline; flex-wrap:wrap;
+}
+.hero-trust b{ color:var(--ink-dim); font-weight:600; }
+
+.hero-art{ position:relative; }
+.hero-art .panel-body{ padding:1.2rem; aspect-ratio:auto; height:420px; }
+.hero-art svg{ width:100%; height:100%; display:block; }
+
+.zone-bg.design{ fill:var(--cyan-soft); }
+.zone-bg.runtime{ fill:var(--violet-soft); }
+.zone-divider{ stroke:var(--line-strong); stroke-width:1; stroke-dasharray:2 5; opacity:0.7; }
+.zone-label{ font-family:"IBM Plex Mono",monospace; font-size:10.5px; font-weight:600; letter-spacing:0.1em; text-anchor:middle; }
+.zone-label.c-cyan{ fill:var(--cyan); }
+.zone-label.c-violet{ fill:var(--violet); }
+
+.app-frame rect{ fill:none; stroke:var(--line-strong); stroke-width:1.2; stroke-dasharray:3 4; }
+.app-frame text{ font-family:"IBM Plex Mono",monospace; }
+.app-frame .app-label{ fill:var(--ink-dim); font-weight:600; letter-spacing:0.06em; }
+.app-frame .app-sub{ fill:var(--ink-faint); }
+
+.swc-box rect{ fill:var(--bg-raised-2); stroke-width:1.3; }
+.swc-box.c-cyan rect{ stroke:var(--cyan); }
+.swc-box.c-violet rect{ stroke:var(--violet); }
+.swc-box text{ font-family:"IBM Plex Mono",monospace; fill:var(--ink-dim); }
+.swc-box .swc-dot{ }
+.swc-box.c-cyan .swc-dot{ fill:var(--cyan); }
+.swc-box.c-violet .swc-dot{ fill:var(--violet); }
+
+.dev-box rect{ fill:#1c2029; stroke:var(--line-strong); stroke-width:1.4; }
+.dev-box.mixed rect{ stroke:url(#edgeGrad); }
+.dev-box.c-cyan rect{ stroke:var(--cyan); }
+.dev-box.c-violet rect{ stroke:var(--violet); }
+.dev-box text{ font-family:"IBM Plex Mono",monospace; fill:var(--ink); font-weight:600; }
+.dev-box .dev-sub{ fill:var(--ink-faint); font-weight:400; }
+
+.cloud-shape path{ fill:url(#edgeGrad); filter:drop-shadow(0 0 12px var(--violet-soft)); }
+.cloud-label{ font-family:"IBM Plex Sans",sans-serif; font-weight:700; font-size:13px; fill:var(--ink); text-anchor:middle; letter-spacing:-0.01em; }
+.cloud-sub{ font-family:"IBM Plex Mono",monospace; font-size:9px; fill:var(--ink-faint); text-anchor:middle; }
+.chip text{ font-family:"IBM Plex Mono",monospace; font-size:9.5px; fill:var(--ink-dim); }
+.chip.c-cyan circle{ fill:var(--cyan); }
+.chip.c-violet circle{ fill:var(--violet); }
+
+.trace{ fill:none; stroke-width:1.4; opacity:0.5; }
+.trace.c-cyan{ stroke:var(--cyan); }
+.trace.c-violet{ stroke:var(--violet); }
+.trace.dashed{ stroke-width:1.2; stroke-dasharray:3 4; opacity:0.4; }
+
+.pulse.c-cyan{ fill:var(--cyan); filter:drop-shadow(0 0 5px var(--cyan)); }
+.pulse.c-violet{ fill:var(--violet); filter:drop-shadow(0 0 5px var(--violet)); }
+.impact{ fill:none; stroke-width:1.6; opacity:0; }
+.impact.c-cyan{ stroke:var(--cyan); }
+.impact.c-violet{ stroke:var(--violet); }
+
+@media (prefers-reduced-motion:no-preference){
+  .pulse{ animation:travel 3.6s linear infinite; offset-rotate:0deg; }
+  .pulse.runtime{ animation:travel 4.2s ease-in-out infinite alternate; }
+  .impact{ animation:ping 3.6s linear infinite; }
+  .cloud-shape{ animation:breathe 2.8s ease-in-out infinite; transform-origin:320px 200px; }
+}
+@keyframes travel{
+  0%{ offset-distance:0%; opacity:0; }
+  8%{ opacity:1; }
+  90%{ opacity:1; }
+  100%{ offset-distance:100%; opacity:0; }
+}
+@keyframes ping{
+  0%, 88%{ opacity:0; r:3; }
+  92%{ opacity:0.9; r:5; }
+  100%{ opacity:0; r:15; }
+}
+@keyframes breathe{
+  0%, 100%{ filter:drop-shadow(0 0 6px var(--cyan-soft)); }
+  50%{ filter:drop-shadow(0 0 16px var(--violet)); }
+}
+
+/* ============ PROBLEM ============ */
+.problem{ padding-top:clamp(4.5rem,8vw,6.5rem); }
+.problem-art{ margin-top:2.6rem; }
+.problem-art .panel-body{ padding:0.9rem; aspect-ratio:auto; height:380px; }
+.problem-art svg{ width:100%; height:100%; display:block; }
+
+.zone-bg.warn{ fill:var(--warn-soft); }
+.zone-label.c-warn{ fill:var(--warn); }
+
+.silo-box rect{ fill:var(--bg-raised-2); stroke:var(--warn); stroke-width:1.2; stroke-dasharray:4 3; opacity:0.85; }
+.silo-box text{ font-family:"IBM Plex Mono",monospace; fill:var(--ink-dim); }
+.silo-box .silo-label{ fill:var(--ink); font-weight:600; }
+
+.dev-box.warn rect{ fill:#1c2029; stroke:var(--warn); stroke-width:1.4; opacity:0.9; }
+
+.trace.c-warn{ stroke:var(--warn); }
+.pulse.c-warn{ fill:var(--warn); filter:drop-shadow(0 0 5px var(--warn)); }
+
+.gap-line{ stroke:var(--warn); stroke-width:1.2; stroke-dasharray:2 4; opacity:0.6; fill:none; }
+.gap-x circle{ fill:var(--bg-raised-2); stroke:var(--warn); stroke-width:1.3; }
+.gap-x text{ fill:var(--warn); font-family:"IBM Plex Mono",monospace; font-weight:700; font-size:10px; text-anchor:middle; }
+.gap-note{ font-family:"IBM Plex Mono",monospace; font-size:9.5px; fill:var(--warn); text-anchor:middle; letter-spacing:0.04em; }
+
+.problem-lead{ margin-top:2.8rem; color:var(--ink-dim); font-size:1.02rem; max-width:60ch; }
+
+.gap-grid{ margin-top:1.6rem; display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; }
+@media (max-width:900px){ .gap-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:520px){ .gap-grid{ grid-template-columns:1fr; } }
+.gap-card{
+  background:var(--bg-raised); border:1px solid var(--line); border-radius:14px;
+  padding:1.5rem 1.35rem; display:flex; flex-direction:column; gap:0.65rem;
+}
+.gap-card .gap-num{ font-family:"IBM Plex Mono",monospace; font-size:0.76rem; color:var(--warn); font-weight:600; letter-spacing:0.06em; }
+.gap-card h4{ font-size:1.08rem; letter-spacing:-0.01em; }
+.gap-card p{ color:var(--ink-dim); font-size:0.88rem; }
+
+.diff-head{ margin-top:2.2rem; display:flex; justify-content:flex-end; }
+.diff-scroll{ overflow-x:auto; border:1px solid var(--line); border-radius:14px; }
+.diff-table{ min-width:640px; }
+.diff-row{ display:grid; grid-template-columns:1fr 1.15fr 1.15fr; }
+.diff-row.diff-cols-head{ background:var(--bg-raised-2); }
+.diff-row + .diff-row{ border-top:1px solid var(--line); }
+.diff-row > div{ padding:1rem 1.25rem; }
+.diff-row .diff-dim{ font-family:"IBM Plex Mono",monospace; font-size:0.78rem; color:var(--ink-faint); display:flex; align-items:center; letter-spacing:0.02em; }
+.diff-row .col-head{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-faint); }
+.diff-row .col-head.c-warn{ color:var(--warn); }
+.diff-row .col-head.c-cyan{ color:var(--cyan); }
+.diff-row .diff-old, .diff-row .diff-new{ font-size:0.89rem; display:flex; align-items:flex-start; gap:0.6em; }
+.diff-row .diff-old{ background:rgba(255,95,87,0.045); color:var(--ink-dim); }
+.diff-row .diff-new{ background:rgba(69,224,240,0.045); color:var(--ink); font-weight:500; }
+.diff-row .diff-old svg{ width:15px; height:15px; flex:none; margin-top:2px; stroke:var(--warn); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.diff-row .diff-new svg{ width:15px; height:15px; flex:none; margin-top:2px; stroke:var(--cyan); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
+.problem-quote{
+  margin:2.6rem auto 0; padding:0.3rem 0 0.3rem 1.5rem;
+  border-left:3px solid var(--cyan);
+  border-image:linear-gradient(180deg,var(--cyan),var(--violet)) 1;
+  font-size:clamp(1.3rem,2.4vw,1.6rem);
+  font-weight:600; letter-spacing:-0.015em; line-height:1.38;
+  color:var(--ink-dim); max-width:52ch; text-align:left;
+}
+.problem-quote .grad{
+  background:linear-gradient(100deg,var(--cyan),var(--violet));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+
+/* ============ BENEFIT STRIP ============ */
+.benefits{ padding-top:clamp(3rem,6vw,4.5rem); padding-bottom:clamp(3rem,6vw,4.5rem); }
+.benefit-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:2.75rem; }
+@media (max-width:820px){ .benefit-grid{ grid-template-columns:1fr; gap:2rem; } }
+.benefit-icon{
+  width:44px; height:44px; border-radius:11px;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--cyan-soft); border:1px solid rgba(69,224,240,0.25);
+}
+.benefit-icon svg{ width:22px; height:22px; stroke:var(--cyan); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.benefit-card:nth-child(2) .benefit-icon{ background:var(--violet-soft); border-color:rgba(155,123,255,0.28); }
+.benefit-card:nth-child(2) .benefit-icon svg{ stroke:var(--violet); }
+.benefit-card:nth-child(3) .benefit-icon{ background:var(--cyan-soft); border-color:rgba(69,224,240,0.25); }
+.benefit-card:nth-child(3) .benefit-icon svg{ stroke:var(--cyan); }
+.benefit-card h3{ font-size:1.4rem; margin-top:1rem; letter-spacing:-0.02em; }
+.benefit-card p{ margin-top:0.6rem; color:var(--ink-dim); font-size:0.97rem; max-width:32ch; }
+
+/* ============ SECTION HEAD ============ */
+.section-head{ padding-top:clamp(4.5rem,8vw,6.5rem); max-width:58ch; }
+.section-head h2{ font-size:clamp(2.1rem,4.4vw,3.1rem); margin-top:1rem; }
+.section-head p{ margin-top:1rem; color:var(--ink-dim); font-size:1.07rem; }
+
+/* ============ STAGES ============ */
+.stage{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,5vw,4.5rem); align-items:center; padding-top:clamp(3.5rem,7vw,5.5rem); }
+.stage.reverse .stage-text{ order:2; }
+.stage.reverse .stage-media{ order:1; }
+@media (max-width:880px){
+  .stage, .stage.reverse{ grid-template-columns:1fr; }
+  .stage.reverse .stage-text, .stage.reverse .stage-media{ order:initial; }
+}
+.stage-text h3{ font-size:clamp(1.75rem,3.2vw,2.4rem); margin-top:1rem; }
+.stage-text p{ margin-top:1rem; color:var(--ink-dim); font-size:1.03rem; max-width:46ch; }
+.check-row{ margin-top:1.4rem; display:flex; flex-direction:column; gap:0.6rem; }
+.check-row div{ display:flex; align-items:flex-start; gap:0.65rem; font-size:0.93rem; color:var(--ink-dim); }
+.check-row svg{ width:16px; height:16px; margin-top:3px; flex:none; stroke:var(--cyan); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.tag-row{ margin-top:1.3rem; display:flex; flex-wrap:wrap; gap:0.5rem; }
+.tag{
+  font-family:"IBM Plex Mono",monospace; font-size:0.74rem;
+  padding:0.35rem 0.75rem; border-radius:var(--radius-pill);
+  border:1px solid var(--line-strong); color:var(--ink-dim);
+}
+.env-row{ margin-top:1rem; display:flex; align-items:center; flex-wrap:wrap; gap:0.5rem; }
+.env-row .env-arrow{ color:var(--ink-faint); font-family:"IBM Plex Mono",monospace; font-size:0.8rem; }
+
+/* ============ ECOSYSTEM ============ */
+.ecosystem{ padding-top:clamp(4.5rem,8vw,6.5rem); }
+.eco-grid{ margin-top:2.6rem; display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; }
+@media (max-width:900px){ .eco-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:520px){ .eco-grid{ grid-template-columns:1fr; } }
+.eco-card{
+  background:var(--bg-raised); border:1px solid var(--line); border-radius:14px;
+  padding:1.6rem 1.4rem; display:flex; flex-direction:column; gap:0.9rem;
+  transition:border-color .15s ease;
+}
+.eco-card:hover{ border-color:var(--line-strong); }
+.eco-mono{
+  width:38px; height:38px; border-radius:9px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:"IBM Plex Mono",monospace; font-size:0.72rem; font-weight:600;
+  background:linear-gradient(135deg,var(--cyan-soft),var(--violet-soft));
+  border:1px solid var(--line-strong);
+  color:var(--ink);
+}
+.eco-card h4{ font-size:1.22rem; letter-spacing:-0.015em; }
+.eco-card p{ color:var(--ink-dim); font-size:0.89rem; }
+
+.compat{
+  margin-top:clamp(3rem,6vw,4rem); padding-top:2rem; padding-bottom:2rem;
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  display:flex; flex-wrap:wrap; gap:2.5rem; align-items:center; justify-content:space-between;
+}
+.compat-group{ display:flex; flex-wrap:wrap; align-items:center; gap:0.5rem; }
+.compat-group .g-label{
+  font-family:"IBM Plex Mono",monospace; font-size:0.72rem; color:var(--ink-faint);
+  margin-right:0.4rem; letter-spacing:0.08em;
+}
+
+/* ============ CLOSING ============ */
+.closing{
+  margin-top:clamp(4.5rem,8vw,6.5rem);
+  padding-top:clamp(4.5rem,8vw,6rem); padding-bottom:clamp(4.5rem,8vw,6rem);
+  text-align:center; border-top:1px solid var(--line);
+  background:
+    radial-gradient(ellipse 60% 100% at 50% 100%, var(--violet-soft), transparent 70%),
+    radial-gradient(ellipse 50% 80% at 50% 0%, var(--cyan-soft), transparent 70%);
+}
+.closing h2{ font-size:clamp(2.3rem,5vw,3.7rem); max-width:20ch; margin:0 auto; }
+.closing p{ margin-top:1.1rem; color:var(--ink-dim); font-size:1.07rem; max-width:48ch; margin-left:auto; margin-right:auto; }
+.closing .hero-actions{ justify-content:center; margin-top:2.1rem; }
+
+footer{
+  padding-top:2.5rem; padding-bottom:2.5rem;
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;
+  font-size:0.83rem; color:var(--ink-faint);
+}
+footer .brand span{ font-size:1.05rem; }
+footer a{ text-decoration:none; color:var(--ink-faint); }
+footer a:hover{ color:var(--cyan); }
+</style>
+
+<div class="glow-field"><span class="glow-1"></span><span class="glow-2"></span><span class="glow-3"></span></div>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <img src="assets/flexIA-logo.png" alt="flexIA logo">
+      <span>flexIA</span>
+    </a>
+    <div class="nav-links">
+      <a href="#problem">Problem</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#ecosystem">Ecosystem</a>
+      <a href="#about">About</a>
+      <a class="nav-cta" href="mailto:bert.vanacker@uantwerpen.be?subject=flexIA%20%E2%80%94%20walkthrough%20request">Request a walkthrough</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="badge">Flexible industrial automation</span>
+        <h1>Develop once.<br><span class="grad">Deploy anywhere.</span></h1>
+        <p class="hero-sub">flexIA is the end-to-end framework for software-intensive industrial automation — model your architecture once, verify it, and push it live across PLCs, SBCs, and microcontrollers with a single button.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="mailto:bert.vanacker@uantwerpen.be?subject=flexIA%20%E2%80%94%20walkthrough%20request">Request a walkthrough</a>
+          <a class="btn btn-ghost" href="#workflow">See how it works ↓</a>
+        </div>
+        <div class="hero-trust">
+          <span><b>Cosys-Lab</b> · University of Antwerp</span>
+          <span>·</span>
+          <span>IOF Industrial Research Fund</span>
+          <span>·</span>
+          <span>TRL3 → TRL5</span>
+        </div>
+      </div>
+
+      <div class="hero-art panel">
+        <div class="panel-bar">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <span class="panel-file mono">deployment-overview.flexia</span>
+          <span class="panel-rec"><span class="dot-rec"></span>LIVE</span>
+        </div>
+        <div class="panel-body">
+          <svg viewBox="0 0 640 460" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="edgeGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="var(--cyan)"/>
+                <stop offset="1" stop-color="var(--violet)"/>
+              </linearGradient>
+            </defs>
+
+            <!-- design time / runtime zones -->
+            <rect class="zone-bg design" x="0" y="0" width="230" height="460"/>
+            <rect class="zone-bg runtime" x="410" y="0" width="230" height="460"/>
+            <line class="zone-divider" x1="230" y1="0" x2="230" y2="460"/>
+            <line class="zone-divider" x1="410" y1="0" x2="410" y2="460"/>
+            <text class="zone-label c-cyan" x="115" y="24">DESIGN TIME</text>
+            <text class="zone-label c-violet" x="525" y="24">RUNTIME</text>
+
+            <!-- design-time deploy: SWC to cloud -->
+            <path class="trace c-cyan" d="M184,120 H210 V201 H242"/>
+            <path class="trace c-cyan" d="M184,194 H215 V201 H242"/>
+            <path class="trace c-cyan" d="M184,268 H220 V201 H242"/>
+            <path class="trace c-cyan" d="M184,342 H225 V201 H242"/>
+            <circle class="pulse c-cyan" r="3.2" style="offset-path:path('M184,120 H210 V201 H242'); animation-delay:0s;"/>
+            <circle class="pulse c-cyan" r="3.2" style="offset-path:path('M184,194 H215 V201 H242'); animation-delay:0.6s;"/>
+            <circle class="pulse c-cyan" r="3.2" style="offset-path:path('M184,268 H220 V201 H242'); animation-delay:1.2s;"/>
+            <circle class="pulse c-cyan" r="3.2" style="offset-path:path('M184,342 H225 V201 H242'); animation-delay:1.8s;"/>
+
+            <!-- deploy delivery: cloud to device -->
+            <path class="trace c-violet" d="M398,201 H430 V92  H470"/>
+            <path class="trace c-violet" d="M398,201 H420 V230 H470"/>
+            <path class="trace c-violet" d="M398,201 H435 V368 H470"/>
+            <circle class="pulse c-violet" r="3.2" style="offset-path:path('M398,201 H430 V92  H470'); animation-delay:0.4s;"/>
+            <circle class="pulse c-violet" r="3.2" style="offset-path:path('M398,201 H420 V230 H470'); animation-delay:1.2s;"/>
+            <circle class="pulse c-violet" r="3.2" style="offset-path:path('M398,201 H435 V368 H470'); animation-delay:2.0s;"/>
+            <circle class="impact c-violet" cx="470" cy="92"  style="animation-delay:0.4s;"/>
+            <circle class="impact c-violet" cx="470" cy="230" style="animation-delay:1.2s;"/>
+            <circle class="impact c-violet" cx="470" cy="368" style="animation-delay:2.0s;"/>
+
+            <!-- runtime channel: monitoring up, reasoning &amp; reconfiguration down -->
+            <path class="trace dashed c-violet" d="M470,106 H432 V215 H398"/>
+            <path class="trace dashed c-violet" d="M470,244 H422 V215 H398"/>
+            <path class="trace dashed c-violet" d="M470,382 H440 V215 H398"/>
+            <circle class="pulse runtime c-violet" r="2.6" style="offset-path:path('M470,106 H432 V215 H398'); animation-delay:0s;"/>
+            <circle class="pulse runtime c-violet" r="2.6" style="offset-path:path('M470,244 H422 V215 H398'); animation-delay:1.4s;"/>
+            <circle class="pulse runtime c-violet" r="2.6" style="offset-path:path('M470,382 H440 V215 H398'); animation-delay:2.8s;"/>
+
+            <!-- design time: application, modeled as multiple SWCs -->
+            <g class="app-frame">
+              <rect x="16" y="42" width="198" height="374" rx="12"/>
+              <text class="app-label" x="34" y="64" font-size="10.5">APPLICATION</text>
+              <text class="app-sub" x="34" y="78" font-size="9.5">.flexia · 4 SWCs</text>
+            </g>
+            <g class="swc-box c-cyan">
+              <rect x="34" y="94" width="150" height="52" rx="6"/>
+              <circle class="swc-dot" cx="50" cy="120" r="4"/>
+              <text x="64" y="124" font-size="11">SWC A</text>
+            </g>
+            <g class="swc-box c-violet">
+              <rect x="34" y="168" width="150" height="52" rx="6"/>
+              <circle class="swc-dot" cx="50" cy="194" r="4"/>
+              <text x="64" y="198" font-size="11">SWC B</text>
+            </g>
+            <g class="swc-box c-cyan">
+              <rect x="34" y="242" width="150" height="52" rx="6"/>
+              <circle class="swc-dot" cx="50" cy="268" r="4"/>
+              <text x="64" y="272" font-size="11">SWC C</text>
+            </g>
+            <g class="swc-box c-violet">
+              <rect x="34" y="316" width="150" height="52" rx="6"/>
+              <circle class="swc-dot" cx="50" cy="342" r="4"/>
+              <text x="64" y="346" font-size="11">SWC D</text>
+            </g>
+
+            <!-- flexCloud: the actual platform bridging design time and runtime -->
+            <g class="cloud-shape">
+              <path transform="translate(242,123) scale(6.5)" d="M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
+            </g>
+            <text class="cloud-label" x="320" y="283">flexCloud</text>
+            <g class="chip c-cyan"><circle cx="250" cy="304" r="3"/><text x="260" y="307">Deploy</text></g>
+            <g class="chip c-violet"><circle cx="250" cy="330" r="3"/><text x="260" y="333">Monitor</text></g>
+            <g class="chip c-violet"><circle cx="250" cy="356" r="3"/><text x="260" y="359">Reason</text></g>
+            <g class="chip c-violet"><circle cx="250" cy="382" r="3"/><text x="260" y="385">Reconfigure</text></g>
+
+            <!-- runtime: heterogeneous deployment targets -->
+            <g class="dev-box mixed">
+              <rect x="470" y="60" width="150" height="64" rx="8"/>
+              <text x="545" y="90" font-size="13" text-anchor="middle">PLC</text>
+              <text class="dev-sub" x="545" y="106" font-size="9.5" text-anchor="middle">2 SWCs</text>
+            </g>
+            <g class="dev-box c-violet">
+              <rect x="470" y="198" width="150" height="64" rx="8"/>
+              <text x="545" y="228" font-size="13" text-anchor="middle">SBC</text>
+              <text class="dev-sub" x="545" y="244" font-size="9.5" text-anchor="middle">1 SWC</text>
+            </g>
+            <g class="dev-box c-cyan">
+              <rect x="470" y="336" width="150" height="64" rx="8"/>
+              <text x="545" y="366" font-size="13" text-anchor="middle">SERVER</text>
+              <text class="dev-sub" x="545" y="382" font-size="9.5" text-anchor="middle">1 SWC</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROBLEM ============ -->
+  <section id="problem" class="wrap problem">
+    <div class="section-head">
+      <span class="badge warn">The problem</span>
+      <h2>Your system already spans PLCs, SBCs, and servers. Your tooling doesn't.</h2>
+      <p>Industrial applications are increasingly distributed across genuinely different hardware classes — often within the same system. But nothing today treats that as one application: the same logical system gets modeled, built, deployed, and monitored three or four separate times, once per target, with no single source of truth tying it together.</p>
+    </div>
+
+    <div class="problem-art panel">
+      <div class="panel-bar">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <span class="panel-file mono">today-vs-flexia.flexia</span>
+        <span class="panel-rec"><span class="dot-rec"></span>LIVE</span>
+      </div>
+      <div class="panel-body">
+        <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+          <!-- zones -->
+          <rect class="zone-bg warn" x="0" y="0" width="352" height="340"/>
+          <rect class="zone-bg design" x="368" y="0" width="176" height="340"/>
+          <rect class="zone-bg runtime" x="544" y="0" width="176" height="340"/>
+          <line class="zone-divider" x1="360" y1="0" x2="360" y2="340"/>
+          <text class="zone-label c-warn" x="176" y="24">TODAY — THREE SEPARATE WORLDS</text>
+          <text class="zone-label c-violet" x="540" y="24">FLEXIA — ONE COHERENT SYSTEM</text>
+
+          <!-- LEFT: three isolated silos -->
+          <g class="silo-box">
+            <rect x="16" y="46" width="140" height="52" rx="6"/>
+            <text class="silo-label" x="30" y="66" font-size="10.5">Vendor IDE</text>
+            <text x="30" y="82" font-size="9">PLC program push</text>
+          </g>
+          <g class="dev-box warn">
+            <rect x="196" y="46" width="140" height="52" rx="6"/>
+            <text x="266" y="68" font-size="12" text-anchor="middle">PLC</text>
+            <text class="dev-sub" x="266" y="84" font-size="9" text-anchor="middle">no cloud reach</text>
+          </g>
+          <path class="trace c-warn" d="M156,72 H196" style="opacity:0.6;"/>
+          <circle class="pulse c-warn" r="2.8" style="offset-path:path('M156,72 H196'); animation-delay:0s;"/>
+
+          <g class="silo-box">
+            <rect x="16" y="136" width="140" height="52" rx="6"/>
+            <text class="silo-label" x="30" y="156" font-size="10.5">Container Runtime</text>
+            <text x="30" y="172" font-size="9">Docker / Kubernetes</text>
+          </g>
+          <g class="dev-box warn">
+            <rect x="196" y="136" width="140" height="52" rx="6"/>
+            <text x="266" y="158" font-size="12" text-anchor="middle">SBC / SERVER</text>
+            <text class="dev-sub" x="266" y="174" font-size="9" text-anchor="middle">no PLC reach</text>
+          </g>
+          <path class="trace c-warn" d="M156,162 H196" style="opacity:0.6;"/>
+          <circle class="pulse c-warn" r="2.8" style="offset-path:path('M156,162 H196'); animation-delay:1.1s;"/>
+
+          <g class="silo-box">
+            <rect x="16" y="226" width="140" height="52" rx="6"/>
+            <text class="silo-label" x="30" y="246" font-size="10.5">IT Tools</text>
+            <text x="30" y="262" font-size="9">logs, metrics</text>
+          </g>
+          <g class="silo-box">
+            <rect x="196" y="226" width="140" height="52" rx="6"/>
+            <text class="silo-label" x="210" y="246" font-size="10.5">OT Tools</text>
+            <text x="210" y="262" font-size="9">SCADA / HMI</text>
+          </g>
+          <path class="gap-line" d="M156,252 H196"/>
+          <g class="gap-x"><circle cx="176" cy="252" r="8"/><text x="176" y="255">✕</text></g>
+
+          <!-- gaps between the three silo rows -->
+          <path class="gap-line" d="M10,113 H346"/>
+          <g class="gap-x"><circle cx="176" cy="113" r="8"/><text x="176" y="116">✕</text></g>
+          <path class="gap-line" d="M10,203 H346"/>
+          <g class="gap-x"><circle cx="176" cy="203" r="8"/><text x="176" y="206">✕</text></g>
+          <text class="gap-note" x="176" y="300">no shared model — no single source of truth</text>
+
+          <!-- RIGHT: one flexCloud hub reaching every target -->
+          <path class="trace c-cyan" d="M470,170 H500 V72  H560"/>
+          <path class="trace c-violet" d="M470,170 H500 V170 H560"/>
+          <path class="trace c-cyan" d="M470,170 H500 V268 H560"/>
+          <circle class="pulse c-cyan" r="3" style="offset-path:path('M470,170 H500 V72  H560'); animation-delay:0.2s;"/>
+          <circle class="pulse c-violet" r="3" style="offset-path:path('M470,170 H500 V170 H560'); animation-delay:1.0s;"/>
+          <circle class="pulse c-cyan" r="3" style="offset-path:path('M470,170 H500 V268 H560'); animation-delay:1.8s;"/>
+          <circle class="impact c-cyan" cx="560" cy="72" style="animation-delay:0.2s;"/>
+          <circle class="impact c-violet" cx="560" cy="170" style="animation-delay:1.0s;"/>
+          <circle class="impact c-cyan" cx="560" cy="268" style="animation-delay:1.8s;"/>
+
+          <g class="cloud-shape">
+            <path transform="translate(392,148) scale(5.2)" d="M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
+          </g>
+          <text class="cloud-sub" x="437" y="207" font-size="8.5">single source of truth</text>
+
+          <g class="dev-box c-cyan">
+            <rect x="560" y="46" width="140" height="52" rx="6"/>
+            <text x="630" y="68" font-size="12" text-anchor="middle">PLC</text>
+          </g>
+          <g class="dev-box c-violet">
+            <rect x="560" y="144" width="140" height="52" rx="6"/>
+            <text x="630" y="166" font-size="12" text-anchor="middle">SBC / SERVER</text>
+          </g>
+          <g class="dev-box c-cyan">
+            <rect x="560" y="242" width="140" height="52" rx="6"/>
+            <text x="630" y="264" font-size="12" text-anchor="middle">MICROCONTROLLER</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <p class="problem-lead">The gap isn't an oversight, it's structural, and it shows up at every stage:</p>
+
+    <div class="gap-grid">
+      <div class="gap-card">
+        <span class="gap-num">01</span>
+        <h4>Two worlds, no bridge</h4>
+        <p>Container tooling covers SBCs and servers but hard-stops at classic PLCs. Vendor program-push covers PLCs but never reaches the cloud. Nothing spans both.</p>
+      </div>
+      <div class="gap-card">
+        <span class="gap-num">02</span>
+        <h4>The wrong unit of deployment</h4>
+        <p>Even within one world, tools push a single artifact replicated across similar devices — fleet repetition, not orchestration of components that must land on different targets and stay wired together.</p>
+      </div>
+      <div class="gap-card">
+        <span class="gap-num">03</span>
+        <h4>No model, so no early warning</h4>
+        <p>Without a shared architecture model linking components to the hardware they're bound to, mismatches surface during commissioning on real hardware — not on a screen beforehand.</p>
+      </div>
+      <div class="gap-card">
+        <span class="gap-num">04</span>
+        <h4>Implementation locked to one world</h4>
+        <p>Legacy control code, a Simulink model, a partner's IP-protected model — integrating it usually means rewriting it, because no common component model spans language and platform boundaries.</p>
+      </div>
+    </div>
+
+    <div class="diff-head">
+      <span class="badge">Head-to-head</span>
+    </div>
+    <div class="diff-scroll">
+      <div class="diff-table">
+        <div class="diff-row diff-cols-head">
+          <div></div>
+          <div class="col-head c-warn">Existing tooling</div>
+          <div class="col-head c-cyan">flexIA</div>
+        </div>
+        <div class="diff-row">
+          <div class="diff-dim">Device coverage</div>
+          <div class="diff-old"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>Container tools <i>or</i> vendor PLC tools — pick one</div>
+          <div class="diff-new"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>One model spans PLC, SBC, microcontroller, and server</div>
+        </div>
+        <div class="diff-row">
+          <div class="diff-dim">Deployment unit</div>
+          <div class="diff-old"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>A single artifact, replicated across a fleet</div>
+          <div class="diff-new"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>A wired set of interdependent components, placed correctly</div>
+        </div>
+        <div class="diff-row">
+          <div class="diff-dim">Correctness checking</div>
+          <div class="diff-old"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>Found on the shop floor, during commissioning</div>
+          <div class="diff-new"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Caught on screen, before a single node ships</div>
+        </div>
+        <div class="diff-row">
+          <div class="diff-dim">Implementation</div>
+          <div class="diff-old"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>Rewrite legacy code, Simulink, or IP models per target</div>
+          <div class="diff-new"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Reuse existing code, models, and protected IP as-is</div>
+        </div>
+        <div class="diff-row">
+          <div class="diff-dim">Monitoring</div>
+          <div class="diff-old"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>Separate IT and OT tools, no system-level view</div>
+          <div class="diff-new"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>One dashboard for software and hardware together</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="problem-quote">Deployment isn't hard. PLCs aren't hard to program. What's missing is treating it all as <span class="grad">one coherent system</span> — across every device it runs on.</p>
+  </section>
+
+  <!-- ============ BENEFIT STRIP ============ -->
+  <section class="benefits wrap">
+    <div class="benefit-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <h3>Escape the rebuild</h3>
+        <p>One architecture model targets PLCs, SBCs, and microcontrollers — stop re-engineering the same logic for every new controller.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Catch it before it ships</h3>
+        <p>Architecture-level consistency checks surface broken component-to-hardware links at design time, not during commissioning.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
+        <h3>Reason about the whole system</h3>
+        <p>AI-based architecture reasoning helps engineers understand and reason about distributed, heterogeneous application behavior — without digging through logs component by component.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WORKFLOW ============ -->
+  <section id="workflow" class="wrap">
+    <div class="section-head">
+      <span class="badge violet">The flexIA workflow</span>
+      <h2>Four stages. One model, start to finish.</h2>
+      <p>flexIA follows the same path your application actually takes — from architecture down to the controller it runs on — without switching tools in between.</p>
+    </div>
+
+    <div class="stage">
+      <div class="stage-text">
+        <span class="badge mono">01 · Model — flexModeler</span>
+        <h3>Design the architecture. Not four versions of it.</h3>
+        <p>Model your application's components and architecture explicitly, independent of implementation language — then bind them to real hardware I/O. One design, portable across PLCs, embedded devices, and cloud infrastructure.</p>
+        <div class="check-row">
+          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Architecture &amp; software-component models in AADL</div>
+          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Explicit hardware I/O binding</div>
+          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>High-level patterns — state machines, services, actions,...</div>
+          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Code generation for complete applications, not individual components, supporting multiple formalisms (Python, C/C++,...)</div>
+        </div>
+      </div>
+      <div class="stage-media panel">
+        <div class="panel-bar">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <span class="panel-file mono">flexmodeler — architecture-view</span>
+          <span class="panel-rec"><span class="dot-rec"></span>00:00</span>
+        </div>
+        <div class="panel-body" data-video-panel>
+          <video class="stage-video" autoplay muted loop playsinline preload="metadata">
+            <source src="videos/01-flexmodeler-architecture-view.mp4" type="video/mp4">
+          </video>
+          <div class="media-placeholder">
+            <div class="play-glyph"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
+            <div class="media-label">Drop in: videos/01-flexmodeler-architecture-view.mp4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage reverse">
+      <div class="stage-text">
+        <span class="badge mono">02 · Implement — flexCommunicator</span>
+        <h3>Build it the way your team already works.</h3>
+        <p>Implement components in C/C++, Python, Rust, or IEC 61131-3 languages such as Structured Text or Function Block Diagram, using high-level patterns like services, actions, and state machines. You can also drop in a simulation model as behavior — a Simulink model or an IP-protected model such as an Functional Mock-up Unit (FMU) — no rewrite required.</p>
+        <div class="tag-row">
+          <span class="tag">C/C++</span><span class="tag">Python</span><span class="tag">Rust</span><span class="tag">IEC 61131-3</span><span class="tag">FMUs &amp; Simulink</span>
+        </div>
+      </div>
+      <div class="stage-media panel">
+        <div class="panel-bar">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <span class="panel-file mono">flexcommunicator — component-build</span>
+          <span class="panel-rec"><span class="dot-rec"></span>00:00</span>
+        </div>
+        <div class="panel-body" data-video-panel>
+          <video class="stage-video" autoplay muted loop playsinline preload="metadata">
+            <source src="videos/02-flexcommunicator-component-build.mp4" type="video/mp4">
+          </video>
+          <div class="media-placeholder">
+            <div class="play-glyph"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
+            <div class="media-label">Drop in: videos/02-flexcommunicator-component-build.mp4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="stage-text">
+        <span class="badge mono">03 · Verify — consistency &amp; correctness</span>
+        <h3>Find the wiring mistake on screen, not on the shop floor.</h3>
+        <p>flexIA checks the explicit model — software components, system architecture, and the hardware I/O they're bound to, including OPC UA and TwinCAT — so an inconsistent or incorrect deployment gets flagged before a single node ships.</p>
+        <div class="tag-row">
+          <span class="tag">OPC UA</span><span class="tag">TwinCAT</span><span class="tag">Architecture consistency</span><span class="tag">Deployment correctness</span>
+        </div>
+      </div>
+      <div class="stage-media panel">
+        <div class="panel-bar">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <span class="panel-file mono">consistency-check — arch-vs-hw</span>
+          <span class="panel-rec"><span class="dot-rec"></span>00:00</span>
+        </div>
+        <div class="panel-body" data-video-panel>
+          <video class="stage-video" autoplay muted loop playsinline preload="metadata">
+            <source src="videos/03-consistency-check-arch-vs-hw.mp4" type="video/mp4">
+          </video>
+          <div class="media-placeholder">
+            <div class="play-glyph"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
+            <div class="media-label">Drop in: videos/03-consistency-check-arch-vs-hw.mp4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage reverse">
+      <div class="stage-text">
+        <span class="badge mono">04 · Deploy — flexCloud + flexEngine</span>
+        <h3>One button. Every device, in the right order.</h3>
+        <p>flexCloud orchestrates a single push across a heterogeneous, distributed application. flexEngine, a lightweight on-device agent, brings deterministic startup even to PLC-like hardware where containers aren't an option. The same package promotes across environments too — what you validate in test is exactly what ships to production.</p>
+        <div class="check-row">
+          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Single-button deployment across the whole fleet</div>
+          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Deterministic, orchestrated startup</div>
+          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>No containers required — native on PLC-like targets</div>
+          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>One package, promoted across every environment</div>
+        </div>
+        <div class="env-row">
+          <span class="tag">Test</span><span class="env-arrow">→</span><span class="tag">Pre-production</span><span class="env-arrow">→</span><span class="tag">Production</span>
+        </div>
+      </div>
+      <div class="stage-media panel">
+        <div class="panel-bar">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <span class="panel-file mono">flexcloud — fleet-deployment</span>
+          <span class="panel-rec"><span class="dot-rec"></span>00:00</span>
+        </div>
+        <div class="panel-body" data-video-panel>
+          <video class="stage-video" autoplay muted loop playsinline preload="metadata">
+            <source src="videos/04-flexcloud-fleet-deployment.mp4" type="video/mp4">
+          </video>
+          <div class="media-placeholder">
+            <div class="play-glyph"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
+            <div class="media-label">Drop in: videos/04-flexcloud-fleet-deployment.mp4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RUNTIME CAPABILITIES ============ -->
+  <section id="capabilities" class="wrap">
+    <div class="section-head">
+      <span class="badge">Once it's live</span>
+      <h2>The platform doesn't stop at deployment.</h2>
+      <p>flexIA keeps watching after rollout, reasons about what it sees, and keeps every device reachable from the same place your application was designed in.</p>
+    </div>
+
+    <div class="stage">
+      <div class="stage-text">
+        <span class="badge mono">Monitor — flexCloud</span>
+        <h3>One dashboard for software and hardware alike.</h3>
+        <p>Software components and the devices running them show up in the same environment. Trigger actions straight from flexCloud — ping a device, request a communication-protocol change, restart a component — without walking out to the shop floor.</p>
+        <div class="check-row">
+          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Unified view of SWC and device health</div>
+          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Remote actions: ping, restart, reconfigure protocol</div>
+          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Centralized logging and diagnostics</div>
+        </div>
+      </div>
+      <div class="stage-media panel">
+        <div class="panel-bar">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <span class="panel-file mono">flexcloud — centralized-monitoring</span>
+          <span class="panel-rec"><span class="dot-rec"></span>00:00</span>
+        </div>
+        <div class="panel-body" data-video-panel>
+          <video class="stage-video" autoplay muted loop playsinline preload="metadata">
+            <source src="videos/05-flexcloud-centralized-monitoring.mp4" type="video/mp4">
+          </video>
+          <div class="media-placeholder">
+            <div class="play-glyph"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
+            <div class="media-label">Drop in: videos/05-flexcloud-centralized-monitoring.mp4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage reverse">
+      <div class="stage-text">
+        <span class="badge mono">Connect — flexCommunicator</span>
+        <h3>Speak IT and OT natively, in the same application.</h3>
+        <p>flexCommunicator bridges both worlds out of the box — IT protocols like MQTT, Redis, and Kafka alongside OT protocols like OPC UA and TwinCAT ADS — so one flexNode can talk to a message broker and a PLC without a translation layer bolted on the side.</p>
+        <div class="tag-row">
+          <span class="tag">MQTT</span><span class="tag">Redis</span><span class="tag">Kafka</span><span class="tag">OPC UA</span><span class="tag">TwinCAT ADS</span>
+        </div>
+      </div>
+      <div class="stage-media panel">
+        <div class="panel-bar">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <span class="panel-file mono">flexcommunicator — it-ot-bridge</span>
+          <span class="panel-rec"><span class="dot-rec"></span>00:00</span>
+        </div>
+        <div class="panel-body" data-video-panel>
+          <video class="stage-video" autoplay muted loop playsinline preload="metadata">
+            <source src="videos/06-flexcommunicator-it-ot-bridge.mp4" type="video/mp4">
+          </video>
+          <div class="media-placeholder">
+            <div class="play-glyph"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
+            <div class="media-label">Drop in: videos/06-flexcommunicator-it-ot-bridge.mp4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="stage-text">
+        <span class="badge mono">Reason — flexCloud</span>
+        <h3>An agent that reasons over your architecture, not just your logs.</h3>
+        <p>flexCloud's reasoning layer connects an LLM agent to centralized logging and the explicit architecture model — including its generated communication matrices — so it understands not just what happened, but how your SWCs and hardware are wired together. Ask it to diagnose an anomaly, and it can act: sending data, adjusting parameters, or commanding a component directly.</p>
+        <div class="check-row">
+          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Root-cause reasoning across SWC and device logs</div>
+          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Grounded in the real architecture model, not a black box</div>
+          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Closed-loop: can command components, not just report on them</div>
+        </div>
+      </div>
+      <div class="stage-media panel">
+        <div class="panel-bar">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <span class="panel-file mono">flexcloud — ai-reasoning-agent</span>
+          <span class="panel-rec"><span class="dot-rec"></span>00:00</span>
+        </div>
+        <div class="panel-body" data-video-panel>
+          <video class="stage-video" autoplay muted loop playsinline preload="metadata">
+            <source src="videos/07-flexcloud-ai-reasoning-agent.mp4" type="video/mp4">
+          </video>
+          <div class="media-placeholder">
+            <div class="play-glyph"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
+            <div class="media-label">Drop in: videos/07-flexcloud-ai-reasoning-agent.mp4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ECOSYSTEM ============ -->
+  <section id="ecosystem" class="wrap ecosystem">
+    <div class="section-head">
+      <span class="badge">The toolbox</span>
+      <h2>Four building blocks. One ecosystem.</h2>
+      <p>Each tool package covers one stage of the workflow above — use them together, or drop flexIA into an existing pipeline one block at a time.</p>
+    </div>
+
+    <div class="eco-grid">
+      <div class="eco-card">
+        <span class="eco-mono">MD</span>
+        <h4>flexModeler</h4>
+        <p>AADL-based modeling environment for system architecture, software components, and hardware I/O — with code generation toward C/C++, Python, Rust, and IEC 61131-3.</p>
+      </div>
+      <div class="eco-card">
+        <span class="eco-mono">CM</span>
+        <h4>flexCommunicator</h4>
+        <p>Client libraries in Python, C/C++, and Rust implementing the flexIA software architecture — IT/OT messaging, online parametrization, and health monitoring built in.</p>
+      </div>
+      <div class="eco-card">
+        <span class="eco-mono">CL</span>
+        <h4>flexCloud</h4>
+        <p>The orchestration center — build, package, and manage flexIA applications, trigger single-button deployment, centrally monitor and act on SWCs and devices, and reason over system logs with an architecture-grounded LLM agent.</p>
+      </div>
+      <div class="eco-card">
+        <span class="eco-mono">EN</span>
+        <h4>flexEngine</h4>
+        <p>The on-device agent. Connects every target back to flexCloud and performs platform-aware dependency checks — including hardware where containers won't run.</p>
+      </div>
+    </div>
+
+    <div class="compat">
+      <div class="compat-group">
+        <span class="g-label">FORMALISMS</span>
+        <span class="tag">C/C++</span><span class="tag">Python</span><span class="tag">Rust</span><span class="tag">IEC 61131-3</span><span class="tag">Simulink</span><span class="tag">FMU</span>
+      </div>
+      <div class="compat-group">
+        <span class="g-label">TARGETS</span>
+        <span class="tag">PLC</span><span class="tag">SBC</span><span class="tag">Microcontroller</span><span class="tag">Cloud / Edge</span><span class="tag">...</span>
+      </div>
+      <div class="compat-group">
+        <span class="g-label">IT PROTOCOLS</span>
+        <span class="tag">MQTT</span><span class="tag">Redis</span><span class="tag">Kafka</span><span class="tag">Zenoh</span><span class="tag">...</span>
+      </div>
+      <div class="compat-group">
+        <span class="g-label">OT PROTOCOLS</span>
+        <span class="tag">OPC UA</span><span class="tag">TwinCAT ADS</span><span class="tag">MODBUS</span><span class="tag">...</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CLOSING ============ -->
+  <section id="about" class="closing">
+    <div class="wrap">
+      <span class="badge violet" style="justify-content:center;">From research bench to shop floor</span>
+      <h2 style="margin-top:1.1rem;">Ready to stop rebuilding for every controller?</h2>
+      <p>flexIA is developed at Cosys-Lab, University of Antwerp, under the IOF Industrial Research Fund POC program — open-core by design, with an active Company Interest Group shaping what ships next.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="mailto:bert.vanacker@uantwerpen.be?subject=flexIA%20%E2%80%94%20walkthrough%20request">Request a walkthrough</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="wrap">
+    <a class="brand" href="#top">
+      <img src="assets/flexIA-logo.png" alt="flexIA logo" style="width:24px;height:24px;">
+      <span>flexIA</span>
+    </a>
+    <span>Cosys-Lab · University of Antwerp · <a href="mailto:bert.vanacker@uantwerpen.be">bert.vanacker@uantwerpen.be</a></span>
+  </footer>
+
+</main>
+
+<script>
+document.querySelectorAll('[data-video-panel]').forEach(function(panel){
+  var video = panel.querySelector('.stage-video');
+  if(!video) return;
+  video.addEventListener('loadedmetadata', function(){
+    if(video.videoWidth && video.videoHeight){
+      panel.style.aspectRatio = video.videoWidth + ' / ' + video.videoHeight;
+    }
+    panel.classList.add('has-video');
+    video.play().catch(function(){});
+  });
+  panel.addEventListener('click', function(){
+    if(!panel.classList.contains('has-video')) return;
+    video.setAttribute('controls','');
+    if(video.paused){ video.play(); }
+    else{ video.pause(); }
+  });
+});
+</script>
