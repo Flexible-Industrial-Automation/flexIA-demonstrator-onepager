@@ -390,6 +390,88 @@ nav{
 .env-row{ margin-top:1rem; display:flex; align-items:center; flex-wrap:wrap; gap:0.5rem; }
 .env-row .env-arrow{ color:var(--ink-faint); font-family:"IBM Plex Mono",monospace; font-size:0.8rem; }
 
+/* ============ FEATURES (design time / runtime) ============ */
+.features{ --accent:var(--cyan); --accent-soft:var(--cyan-soft); }
+.features[data-active="runtime"]{ --accent:var(--violet); --accent-soft:var(--violet-soft); }
+
+.feat-cats{
+  margin-top:2.2rem;
+  display:inline-flex; gap:0.3rem;
+  padding:0.32rem;
+  border:1px solid var(--line);
+  border-radius:var(--radius-pill);
+  background:var(--bg-raised);
+}
+.feat-cat{
+  font-family:"IBM Plex Sans",sans-serif;
+  font-size:0.9rem; font-weight:600;
+  color:var(--ink-dim);
+  padding:0.55rem 1.5rem;
+  border:none; border-radius:var(--radius-pill);
+  background:transparent; cursor:pointer;
+  transition:color .15s ease, background .15s ease;
+}
+.feat-cat:hover{ color:var(--ink); }
+.feat-cat.is-active{ color:#04141a; background:linear-gradient(100deg,var(--cyan),var(--violet)); }
+
+.feat-layout{
+  margin-top:2.6rem;
+  display:grid; grid-template-columns:0.82fr 1.18fr;
+  gap:clamp(1.8rem,4.5vw,3.5rem); align-items:start;
+}
+@media (max-width:880px){ .feat-layout{ grid-template-columns:1fr; } }
+
+.feat-list{ display:flex; flex-direction:column; }
+.feat-item{
+  display:none;
+  width:100%; text-align:left;
+  font-family:inherit; color:var(--ink);
+  background:transparent; cursor:pointer;
+  border:none; border-left:2px solid var(--line);
+  padding:1.1rem 1.3rem;
+  transition:border-color .15s ease, background .15s ease;
+}
+.feat-item.is-visible{ display:block; }
+.feat-item:hover{ background:rgba(255,255,255,0.025); }
+.feat-item.is-active{
+  border-left-color:var(--accent);
+  background:linear-gradient(90deg,var(--accent-soft),transparent 82%);
+}
+.feat-item h4{
+  font-size:1.08rem; letter-spacing:-0.01em;
+  display:flex; align-items:center; gap:0.6rem;
+}
+.feat-item h4 svg{
+  width:17px; height:17px; flex:none;
+  stroke:var(--ink-faint); fill:none; stroke-width:1.9;
+  stroke-linecap:round; stroke-linejoin:round;
+  transition:stroke .15s ease;
+}
+.feat-item.is-active h4 svg{ stroke:var(--accent); }
+.feat-item p{
+  color:var(--ink-dim); font-size:0.9rem; max-width:44ch;
+  max-height:0; overflow:hidden; opacity:0;
+  transition:max-height .22s ease, opacity .22s ease, margin-top .22s ease;
+}
+.feat-item.is-active p{ margin-top:0.5rem; max-height:8rem; opacity:1; }
+
+.feat-visual{ position:relative; }
+.feat-visual .panel{ display:none; }
+.feat-visual .panel.is-active{ display:block; }
+
+.feat-note{
+  grid-column:1 / -1;
+  border:1px solid var(--line); border-radius:var(--radius-panel);
+  background:var(--bg-raised); color:var(--ink-dim);
+  padding:1.5rem 1.6rem; font-size:0.92rem; line-height:1.6;
+}
+.feat-note code{
+  font-family:"IBM Plex Mono",monospace; font-size:0.84rem;
+  color:var(--ink); background:var(--bg-raised-2);
+  border:1px solid var(--line); border-radius:6px;
+  padding:0.1rem 0.4rem;
+}
+
 /* ============ ECOSYSTEM ============ */
 .ecosystem{ padding-top:clamp(4.5rem,8vw,6.5rem); }
 .eco-grid{ margin-top:2.6rem; display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; }
@@ -914,99 +996,39 @@ footer a:hover{ color:var(--cyan); }
     </div>
   </section>
 
-  <!-- ============ RUNTIME CAPABILITIES ============ -->
-  <section id="capabilities" class="wrap">
+  <!-- ============ CAPABILITIES (design time / runtime features) ============ -->
+  <!--
+    The feature list is data-driven. Content lives in:
+
+        features/designtime.md   ->  "Design time" tab
+        features/runtime.md      ->  "Runtime" tab
+
+    Edit those files and reload the page — the list on the left and the mock
+    window panels on the right are generated from them at load time. Each file
+    documents its own format (title, enabled flag, icon name, video, panel label).
+
+    Note: the page reads those files with fetch(), so it must be served over HTTP
+    (e.g. `python3 -m http.server` in this folder). Opening index.html straight
+    from disk blocks the read and a short note is shown in place of the list.
+  -->
+  <section id="capabilities" class="wrap features" data-active="design">
     <div class="section-head">
-      <span class="badge">Once it's live</span>
-      <h2>The platform doesn't stop at deployment.</h2>
-      <p>flexIA keeps watching after rollout, reasons about what it sees, and keeps every device reachable from the same place your application was designed in.</p>
+      <span class="badge">Capabilities</span>
+      <h2>Everything flexIA gives you — design time to runtime.</h2>
+      <p>One model, one ecosystem, across the whole lifecycle. Pick a phase to see what the platform does for you there.</p>
     </div>
 
-    <div class="stage">
-      <div class="stage-text">
-        <span class="badge mono">Monitor — flexCloud</span>
-        <h3>One dashboard for software and hardware alike.</h3>
-        <p>Software components and the devices running them show up in the same environment. Trigger actions straight from flexCloud — ping a device, request a communication-protocol change, restart a component — without walking out to the shop floor.</p>
-        <div class="check-row">
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Unified view of SWC and device health</div>
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Remote actions: ping, restart, reconfigure protocol</div>
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Centralized logging and diagnostics</div>
-        </div>
-      </div>
-      <div class="stage-media panel">
-        <div class="panel-bar">
-          <div class="dots"><span></span><span></span><span></span></div>
-          <span class="panel-file mono">flexcloud — centralized-monitoring</span>
-          <span class="panel-rec"><span class="dot-rec"></span>00:00</span>
-        </div>
-        <div class="panel-body" data-video-panel>
-          <video class="stage-video" autoplay muted loop playsinline preload="metadata">
-            <source src="videos/05-flexcloud-centralized-monitoring.mp4" type="video/mp4">
-          </video>
-          <div class="media-placeholder">
-            <div class="play-glyph"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
-            <div class="media-label">Drop in: videos/05-flexcloud-centralized-monitoring.mp4</div>
-          </div>
-        </div>
-      </div>
+    <div class="feat-cats" role="tablist">
+      <button class="feat-cat is-active" data-cat="design" type="button">Design time</button>
+      <button class="feat-cat" data-cat="runtime" type="button">Runtime</button>
     </div>
 
-    <div class="stage reverse">
-      <div class="stage-text">
-        <span class="badge mono">Connect — flexCommunicator</span>
-        <h3>Speak IT and OT natively, in the same application.</h3>
-        <p>flexCommunicator bridges both worlds out of the box — IT protocols like MQTT, Redis, and Kafka alongside OT protocols like OPC UA and TwinCAT ADS — so one flexNode can talk to a message broker and a PLC without a translation layer bolted on the side.</p>
-        <div class="tag-row">
-          <span class="tag">MQTT</span><span class="tag">Redis</span><span class="tag">Kafka</span><span class="tag">OPC UA</span><span class="tag">TwinCAT ADS</span>
-        </div>
-      </div>
-      <div class="stage-media panel">
-        <div class="panel-bar">
-          <div class="dots"><span></span><span></span><span></span></div>
-          <span class="panel-file mono">flexcommunicator — it-ot-bridge</span>
-          <span class="panel-rec"><span class="dot-rec"></span>00:00</span>
-        </div>
-        <div class="panel-body" data-video-panel>
-          <video class="stage-video" autoplay muted loop playsinline preload="metadata">
-            <source src="videos/06-flexcommunicator-it-ot-bridge.mp4" type="video/mp4">
-          </video>
-          <div class="media-placeholder">
-            <div class="play-glyph"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
-            <div class="media-label">Drop in: videos/06-flexcommunicator-it-ot-bridge.mp4</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="stage">
-      <div class="stage-text">
-        <span class="badge mono">Reason — flexCloud</span>
-        <h3>An agent that reasons over your architecture, not just your logs.</h3>
-        <p>flexCloud's reasoning layer connects an LLM agent to centralized logging and the explicit architecture model — including its generated communication matrices — so it understands not just what happened, but how your SWCs and hardware are wired together. Ask it to diagnose an anomaly, and it can act: sending data, adjusting parameters, or commanding a component directly.</p>
-        <div class="check-row">
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Root-cause reasoning across SWC and device logs</div>
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Grounded in the real architecture model, not a black box</div>
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Closed-loop: can command components, not just report on them</div>
-        </div>
-      </div>
-      <div class="stage-media panel">
-        <div class="panel-bar">
-          <div class="dots"><span></span><span></span><span></span></div>
-          <span class="panel-file mono">flexcloud — ai-reasoning-agent</span>
-          <span class="panel-rec"><span class="dot-rec"></span>00:00</span>
-        </div>
-        <div class="panel-body" data-video-panel>
-          <video class="stage-video" autoplay muted loop playsinline preload="metadata">
-            <source src="videos/07-flexcloud-ai-reasoning-agent.mp4" type="video/mp4">
-          </video>
-          <div class="media-placeholder">
-            <div class="play-glyph"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
-            <div class="media-label">Drop in: videos/07-flexcloud-ai-reasoning-agent.mp4</div>
-          </div>
-        </div>
-      </div>
+    <div class="feat-layout" data-features-root>
+      <div class="feat-list" data-feat-list></div>
+      <div class="feat-visual" data-feat-visual></div>
     </div>
   </section>
+
 
   <!-- ============ ECOSYSTEM ============ -->
   <section id="ecosystem" class="wrap ecosystem">
@@ -1082,21 +1104,185 @@ footer a:hover{ color:var(--cyan); }
 </main>
 
 <script>
-document.querySelectorAll('[data-video-panel]').forEach(function(panel){
+/* ---------- window-chrome video panels (static markup + generated ones) ---------- */
+function initVideoPanel(panel){
   var video = panel.querySelector('.stage-video');
   if(!video) return;
+  var body = panel.matches('.panel-body') ? panel : panel.querySelector('.panel-body');
+  var target = body || panel;
   video.addEventListener('loadedmetadata', function(){
     if(video.videoWidth && video.videoHeight){
-      panel.style.aspectRatio = video.videoWidth + ' / ' + video.videoHeight;
+      target.style.aspectRatio = video.videoWidth + ' / ' + video.videoHeight;
     }
-    panel.classList.add('has-video');
+    target.classList.add('has-video');
     video.play().catch(function(){});
   });
   panel.addEventListener('click', function(){
-    if(!panel.classList.contains('has-video')) return;
+    if(!target.classList.contains('has-video')) return;
     video.setAttribute('controls','');
-    if(video.paused){ video.play(); }
-    else{ video.pause(); }
+    if(video.paused){ video.play(); } else { video.pause(); }
   });
-});
+}
+document.querySelectorAll('[data-video-panel]').forEach(initVideoPanel);
+
+/* ---------- capabilities: features built from features/designtime.md + features/runtime.md ---------- */
+(function(){
+  var root = document.querySelector('.features');
+  if(!root) return;
+  var rootEl   = root.querySelector('[data-features-root]');
+  var listEl   = root.querySelector('[data-feat-list]');
+  var visualEl = root.querySelector('[data-feat-visual]');
+  var catBtns  = root.querySelectorAll('.feat-cat');
+
+  var ICONS = {
+    dot:['M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z'],
+    layers:['M12 2 2 7l10 5 10-5-10-5z','M2 17l10 5 10-5','M2 12l10 5 10-5'],
+    binding:['M9 2v6','M15 2v6','M6 8h12v3a6 6 0 0 1-12 0z','M12 17v5'],
+    code:['M16 18l6-6-6-6','M8 6l-6 6 6 6'],
+    cube:['M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z','M3.27 6.96 12 12l8.73-5.04','M12 22V12'],
+    shield:['M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z','M9 12l2 2 4-4'],
+    rocket:['M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91 0z','M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z'],
+    gauge:['M12 14 4 6','M2 20a10 10 0 1 1 20 0z'],
+    bolt:['M13 2 3 14h9l-1 8 10-12h-9l1-8z'],
+    list:['M8 6h13','M8 12h13','M8 18h13','M3 6h.01','M3 12h.01','M3 18h.01'],
+    share:['M6 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z','M18 3a3 3 0 1 0 0 6 3 3 0 0 0 0-6z','M18 15a3 3 0 1 0 0 6 3 3 0 0 0 0-6z','M8.6 10.7l6.8-3.9','M8.6 13.3l6.8 3.9'],
+    sliders:['M4 21v-7','M4 10V3','M12 21v-9','M12 8V3','M20 21v-5','M20 12V3','M1 14h6','M9 8h6','M17 16h6'],
+    brain:['M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z','M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z'],
+    cloud:['M17.5 19a4.5 4.5 0 1 0 0-9 7 7 0 0 0-13.4-1.5A4 4 0 0 0 5 19z'],
+    chip:['M6 6h12v12H6z','M9 9h6v6H9z','M9 2v2','M15 2v2','M9 20v2','M15 20v2','M2 9h2','M2 15h2','M20 9h2','M20 15h2'],
+    search:['M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z','M21 21l-4.35-4.35'],
+    refresh:['M23 4v6h-6','M1 20v-6h6','M3.5 9a9 9 0 0 1 14.85-3.36L23 10','M1 14l4.64 4.36A9 9 0 0 0 20.5 15'],
+    lock:['M5 11h14v10H5z','M8 11V7a4 4 0 0 1 8 0v4'],
+    download:['M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4','M7 10l5 5 5-5','M12 15V3'],
+    power:['M12 3v9','M6.4 6.4a9 9 0 1 0 11.2 0'],
+    activity:['M22 12h-4l-3 9L9 3l-3 9H2'],
+    branch:['M6 3v12','M18 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z','M6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6z','M15 6a9 9 0 0 1-9 9'],
+    check:['M20 6 9 17l-5-5'],
+    link:['M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71','M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71']
+  };
+
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c];
+    });
+  }
+  function iconSvg(name){
+    var d = ICONS[name] || ICONS.dot;
+    return '<svg viewBox="0 0 24 24">' + d.map(function(p){ return '<path d="' + p + '"/>'; }).join('') + '</svg>';
+  }
+  function slug(s){ return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+
+  /* markdown config -> [{cat,title,id,icon,enabled,video,label,desc}] */
+  function parse(text, cat){
+    /* everything before the marker comment is documentation and is ignored */
+    var mark = '<' + '!-- features -->';
+    var at = text.indexOf(mark);
+    var body = at >= 0 ? text.slice(at + mark.length) : text;
+    /* a heading must sit at column 0, so an indented "## " in an example is safe */
+    var parts = body.split(/^##[ \t]+/m);
+    parts.shift(); /* drop whatever precedes the first heading */
+    return parts.map(function(block){
+      var lines = block.split('\n');
+      var title = (lines.shift() || '').trim();
+      var meta = {};
+      var desc = [];
+      lines.forEach(function(line){
+        var m = line.match(/^\s*[-*]\s*([A-Za-z]+)\s*:\s*(.+?)\s*$/);
+        if(m && !desc.length){ meta[m[1].toLowerCase()] = m[2].trim(); }
+        else if(line.trim() || desc.length){ desc.push(line); }
+      });
+      var sl = slug(title);
+      var enabled = String('enabled' in meta ? meta.enabled : 'true').toLowerCase();
+      return {
+        cat: cat,
+        title: title,
+        id: cat + '-' + sl,
+        icon: meta.icon || 'dot',
+        enabled: enabled !== 'false' && enabled !== 'no' && enabled !== '0',
+        video: meta.video || (cat + '-' + sl),
+        label: meta.panel || meta.label || (cat === 'design' ? 'design-time' : 'runtime') + ' — ' + sl,
+        desc: desc.join('\n').replace(/\n{2,}/g, '\n').trim()
+      };
+    }).filter(function(f){ return f.title && f.enabled; });
+  }
+
+  function build(feats){
+    listEl.innerHTML = '';
+    visualEl.innerHTML = '';
+    feats.forEach(function(f){
+      var b = document.createElement('button');
+      b.className = 'feat-item';
+      b.type = 'button';
+      b.dataset.cat = f.cat;
+      b.dataset.visual = f.id;
+      b.innerHTML = '<h4>' + iconSvg(f.icon) + esc(f.title) + '</h4><p>' + esc(f.desc) + '</p>';
+      listEl.appendChild(b);
+
+      var p = document.createElement('div');
+      p.className = 'panel';
+      p.dataset.visual = f.id;
+      p.setAttribute('data-video-panel', '');
+      p.innerHTML =
+        '<div class="panel-bar"><div class="dots"><span></span><span></span><span></span></div>' +
+        '<span class="panel-file mono">' + esc(f.label) + '</span>' +
+        '<span class="panel-rec"><span class="dot-rec"></span>00:00</span></div>' +
+        '<div class="panel-body"><video class="stage-video" autoplay muted loop playsinline preload="metadata">' +
+        '<source src="videos/' + esc(f.video) + '.mp4" type="video/mp4"></video>' +
+        '<div class="media-placeholder"><div class="play-glyph"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>' +
+        '<div class="media-label">Drop in: videos/' + esc(f.video) + '.mp4</div></div></div>';
+      visualEl.appendChild(p);
+      initVideoPanel(p);
+    });
+    wire();
+  }
+
+  function wire(){
+    var items  = listEl.querySelectorAll('.feat-item');
+    var panels = visualEl.querySelectorAll('.panel');
+    function showVisual(id){
+      panels.forEach(function(v){ v.classList.toggle('is-active', v.dataset.visual === id); });
+    }
+    function activate(item){
+      items.forEach(function(i){ i.classList.toggle('is-active', i === item); });
+      if(item) showVisual(item.dataset.visual);
+    }
+    function selectCat(cat){
+      root.dataset.active = cat;
+      catBtns.forEach(function(c){ c.classList.toggle('is-active', c.dataset.cat === cat); });
+      var first = null;
+      items.forEach(function(i){
+        var match = i.dataset.cat === cat;
+        i.classList.toggle('is-visible', match);
+        if(match && !first) first = i;
+      });
+      activate(first);
+    }
+    catBtns.forEach(function(c){ c.onclick = function(){ selectCat(c.dataset.cat); }; });
+    items.forEach(function(i){ i.onclick = function(){ activate(i); }; });
+    selectCat(root.dataset.active || 'design');
+  }
+
+  function note(html){
+    if(rootEl){ rootEl.innerHTML = '<div class="feat-note">' + html + '</div>'; }
+    var cats = root.querySelector('.feat-cats');
+    if(cats){ cats.style.display = 'none'; }
+  }
+  function okText(r){ if(!r.ok){ throw new Error(r.status); } return r.text(); }
+
+  Promise.all([
+    fetch('features/designtime.md').then(okText),
+    fetch('features/runtime.md').then(okText)
+  ]).then(function(res){
+    var feats = parse(res[0], 'design').concat(parse(res[1], 'runtime'));
+    if(!feats.length){
+      note('No enabled features found in <code>features/designtime.md</code> or <code>features/runtime.md</code>.');
+      return;
+    }
+    build(feats);
+  }).catch(function(){
+    note('Couldn’t read <code>features/designtime.md</code> / <code>features/runtime.md</code>. ' +
+         'If you opened this page straight from disk, serve the folder over HTTP instead — ' +
+         'run <code>python3 -m http.server</code> in this directory and open the printed URL.');
+  });
+})();
 </script>
