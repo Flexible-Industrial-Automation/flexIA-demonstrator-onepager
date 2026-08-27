@@ -6,6 +6,22 @@ reference (fields, icon names, the marker line).
 
 <!-- features -->
 
+## Unified SWC & device monitoring
+- enabled: true
+- icon: gauge
+- video: flexIA-SW-HW-monitoring
+- panel: flexcloud — centralized-monitoring
+
+Software components and the devices running them appear in one flexCloud view — health, status, and diagnostics without walking to the shop floor.
+
+## Architecture-grounded AI agent
+- enabled: true
+- icon: brain
+- video: 07-flexcloud-ai-reasoning-agent
+- panel: flexcloud — ai-reasoning-agent
+
+An LLM agent reasons over centralized logs and the explicit architecture — including generated communication matrices — and can act: send data, adjust parameters, command a component.
+
 ## Lightweigt, platform-independent deployment agent
 - enabled: true
 - icon: download
@@ -14,25 +30,25 @@ reference (fields, icon names, the marker line).
 
 A lightweight, platform-independent deployment agent for flexIA applications — build, ship, and run them natively or in Docker. The agent also provices device state monitoring and remote control.
 
-## Unified SWC & device monitoring
+## Custom OTA (Over-the-Air Updates)
 - enabled: true
-- icon: gauge
-- video: 05-flexcloud-centralized-monitoring
-- panel: flexcloud — centralized-monitoring
+- icon: rocket
+- video: flexIA-custom-ota
+- panel: flexEngine — Custom OTA
 
-Software components and the devices running them appear in one flexCloud view — health, status, and diagnostics without walking to the shop floor.
+Delivers firmware and application updates to microcontrollers either through a connected flexIA agent acting as a bridge, or directly to the microcontroller when it supports our custom OTA protocol — giving you flexible, reliable update paths regardless of device connectivity.
 
 
-## Remote actions
+## Cloud services
 - enabled: true
 - icon: bolt
-- video: feat-remote-actions
+- video: flexIA-cloudservice-trigger
 - panel: flexcloud — remote-actions
 
-Ping a device, restart a component, or request a communication-protocol change straight from the dashboard.
+flexCloud watches your applications and devices, and acts on what it sees. Define triggers once, and let flexCloud reconfigure the right SWCs and devices automatically — even across projects. State changes anywhere, action anywhere. All running in the cloud, always on.
 
 ## Centralized logging & diagnostics
-- enabled: true
+- enabled: false
 - icon: list
 - video: feat-centralized-logging
 - panel: flexcloud — centralized-logging
@@ -55,10 +71,4 @@ flexCommunicator bridges MQTT, Redis, and Kafka alongside OPC UA and TwinCAT ADS
 
 Adjust component parameters live and watch health signals built into the flexIA software architecture — no redeploy to tune.
 
-## Architecture-grounded AI agent
-- enabled: true
-- icon: brain
-- video: 07-flexcloud-ai-reasoning-agent
-- panel: flexcloud — ai-reasoning-agent
 
-An LLM agent reasons over centralized logs and the explicit architecture — including generated communication matrices — and can act: send data, adjust parameters, command a component.
