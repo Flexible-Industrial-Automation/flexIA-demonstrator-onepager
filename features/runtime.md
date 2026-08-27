@@ -6,6 +6,14 @@ reference (fields, icon names, the marker line).
 
 <!-- features -->
 
+## Lightweigt, platform-independent deployment agent
+- enabled: true
+- icon: download
+- video: flexIA-start-agent
+- panel: flexEngine — Agent configuration and startup
+
+A lightweight, platform-independent deployment agent for flexIA applications — build, ship, and run them natively or in Docker. The agent also provices device state monitoring and remote control.
+
 ## Unified SWC & device monitoring
 - enabled: true
 - icon: gauge
@@ -14,14 +22,6 @@ reference (fields, icon names, the marker line).
 
 Software components and the devices running them appear in one flexCloud view — health, status, and diagnostics without walking to the shop floor.
 
-
-## Lightweigt, platform-independent deployment agent
-- enabled: true
-- icon: download
-- video: flexIA-start-agent
-- panel: flexEngine — Agent configuration and startup
-
-A lightweight, platform-independent deployment agent for flexIA applications — build, ship, and run them natively or in Docker. The agent also provices device state monitoring and remote control.
 
 ## Remote actions
 - enabled: true

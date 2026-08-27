@@ -1,3 +1,5 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>flexIA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -459,13 +461,14 @@ nav{
 .feat-visual .panel{ display:none; }
 .feat-visual .panel.is-active{ display:block; }
 
-.feat-note{
+.md-note{
   grid-column:1 / -1;
+  margin-top:2.4rem;
   border:1px solid var(--line); border-radius:var(--radius-panel);
   background:var(--bg-raised); color:var(--ink-dim);
   padding:1.5rem 1.6rem; font-size:0.92rem; line-height:1.6;
 }
-.feat-note code{
+.md-note code{
   font-family:"IBM Plex Mono",monospace; font-size:0.84rem;
   color:var(--ink); background:var(--bg-raised-2);
   border:1px solid var(--line); border-radius:6px;
@@ -878,122 +881,8 @@ footer a:hover{ color:var(--cyan); }
       <p>flexIA follows the same path your application actually takes — from architecture down to the controller it runs on — without switching tools in between.</p>
     </div>
 
-    <div class="stage">
-      <div class="stage-text">
-        <span class="badge mono">01 · Model — flexModeler</span>
-        <h3>Design the architecture. Not four versions of it.</h3>
-        <p>Model your application's components and architecture explicitly, independent of implementation language — then bind them to real hardware I/O. One design, portable across PLCs, embedded devices, and cloud infrastructure.</p>
-        <div class="check-row">
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Architecture &amp; software-component models in AADL</div>
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Explicit hardware I/O binding</div>
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>High-level patterns — state machines, services, actions,...</div>
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Code generation for complete applications, not individual components, supporting multiple formalisms (Python, C/C++,...)</div>
-        </div>
-      </div>
-      <div class="stage-media panel">
-        <div class="panel-bar">
-          <div class="dots"><span></span><span></span><span></span></div>
-          <span class="panel-file mono">flexmodeler — architecture-view</span>
-          <span class="panel-rec"><span class="dot-rec"></span>00:00</span>
-        </div>
-        <div class="panel-body" data-video-panel>
-          <video class="stage-video" autoplay muted loop playsinline preload="metadata">
-            <source src="videos/01-flexmodeler-architecture-view.mp4" type="video/mp4">
-          </video>
-          <div class="media-placeholder">
-            <div class="play-glyph"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
-            <div class="media-label">Drop in: videos/01-flexmodeler-architecture-view.mp4</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="stage reverse">
-      <div class="stage-text">
-        <span class="badge mono">02 · Implement — flexCommunicator</span>
-        <h3>Build it the way your team already works.</h3>
-        <p>Implement components in C/C++, Python, Rust, or IEC 61131-3 languages such as Structured Text or Function Block Diagram, using high-level patterns like services, actions, and state machines. You can also drop in a simulation model as behavior — a Simulink model or an IP-protected model such as an Functional Mock-up Unit (FMU) — no rewrite required.</p>
-        <div class="tag-row">
-          <span class="tag">C/C++</span><span class="tag">Python</span><span class="tag">Rust</span><span class="tag">IEC 61131-3</span><span class="tag">FMUs &amp; Simulink</span>
-        </div>
-      </div>
-      <div class="stage-media panel">
-        <div class="panel-bar">
-          <div class="dots"><span></span><span></span><span></span></div>
-          <span class="panel-file mono">flexcommunicator — component-build</span>
-          <span class="panel-rec"><span class="dot-rec"></span>00:00</span>
-        </div>
-        <div class="panel-body" data-video-panel>
-          <video class="stage-video" autoplay muted loop playsinline preload="metadata">
-            <source src="videos/02-flexcommunicator-component-build.mp4" type="video/mp4">
-          </video>
-          <div class="media-placeholder">
-            <div class="play-glyph"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
-            <div class="media-label">Drop in: videos/02-flexcommunicator-component-build.mp4</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="stage">
-      <div class="stage-text">
-        <span class="badge mono">03 · Verify — consistency &amp; correctness</span>
-        <h3>Find the wiring mistake on screen, not on the shop floor.</h3>
-        <p>flexIA checks the explicit model — software components, system architecture, and the hardware I/O they're bound to, including OPC UA and TwinCAT — so an inconsistent or incorrect deployment gets flagged before a single node ships.</p>
-        <div class="tag-row">
-          <span class="tag">OPC UA</span><span class="tag">TwinCAT</span><span class="tag">Architecture consistency</span><span class="tag">Deployment correctness</span>
-        </div>
-      </div>
-      <div class="stage-media panel">
-        <div class="panel-bar">
-          <div class="dots"><span></span><span></span><span></span></div>
-          <span class="panel-file mono">consistency-check — arch-vs-hw</span>
-          <span class="panel-rec"><span class="dot-rec"></span>00:00</span>
-        </div>
-        <div class="panel-body" data-video-panel>
-          <video class="stage-video" autoplay muted loop playsinline preload="metadata">
-            <source src="videos/03-consistency-check-arch-vs-hw.mp4" type="video/mp4">
-          </video>
-          <div class="media-placeholder">
-            <div class="play-glyph"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
-            <div class="media-label">Drop in: videos/03-consistency-check-arch-vs-hw.mp4</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="stage reverse">
-      <div class="stage-text">
-        <span class="badge mono">04 · Deploy — flexCloud + flexEngine</span>
-        <h3>One button. Every device, in the right order.</h3>
-        <p>flexCloud orchestrates a single push across a heterogeneous, distributed application. flexEngine, a lightweight on-device agent, brings deterministic startup even to PLC-like hardware where containers aren't an option. The same package promotes across environments too — what you validate in test is exactly what ships to production.</p>
-        <div class="check-row">
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Single-button deployment across the whole fleet</div>
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Deterministic, orchestrated startup</div>
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>No containers required — native on PLC-like targets</div>
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>One package, promoted across every environment</div>
-        </div>
-        <div class="env-row">
-          <span class="tag">Test</span><span class="env-arrow">→</span><span class="tag">Pre-production</span><span class="env-arrow">→</span><span class="tag">Production</span>
-        </div>
-      </div>
-      <div class="stage-media panel">
-        <div class="panel-bar">
-          <div class="dots"><span></span><span></span><span></span></div>
-          <span class="panel-file mono">flexcloud — fleet-deployment</span>
-          <span class="panel-rec"><span class="dot-rec"></span>00:00</span>
-        </div>
-        <div class="panel-body" data-video-panel>
-          <video class="stage-video" autoplay muted loop playsinline preload="metadata">
-            <source src="videos/04-flexcloud-fleet-deployment.mp4" type="video/mp4">
-          </video>
-          <div class="media-placeholder">
-            <div class="play-glyph"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
-            <div class="media-label">Drop in: videos/04-flexcloud-fleet-deployment.mp4</div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- Stages are generated from workflow/stages.md (see workflow/README.md). -->
+    <div class="stages" data-stages></div>
   </section>
 
   <!-- ============ CAPABILITIES (design time / runtime features) ============ -->
@@ -1104,6 +993,35 @@ footer a:hover{ color:var(--cyan); }
 </main>
 
 <script>
+/* ---------- shared helpers ---------- */
+function esc(s){
+  return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){
+    return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c];
+  });
+}
+function slug(s){ return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+function okText(r){ if(!r.ok){ throw new Error(r.status); } return r.text(); }
+function configNote(el, html){
+  if(el){ el.innerHTML = '<div class="md-note">' + html + '</div>'; }
+}
+/* drop the documentation preamble: return whatever follows the marker comment */
+function afterMarker(text, marker){
+  var m = '<' + '!-- ' + marker + ' -->';
+  var at = text.indexOf(m);
+  return at >= 0 ? text.slice(at + m.length) : text;
+}
+/* inner markup (title bar + body) shared by every window-chrome panel */
+function panelInner(label, video){
+  return '<div class="panel-bar"><div class="dots"><span></span><span></span><span></span></div>' +
+    '<span class="panel-file mono">' + esc(label) + '</span>' +
+    '<span class="panel-rec"><span class="dot-rec"></span>00:00</span></div>' +
+    '<div class="panel-body"><video class="stage-video" autoplay muted loop playsinline preload="metadata">' +
+    '<source src="videos/' + esc(video) + '.mp4" type="video/mp4"></video>' +
+    '<div class="media-placeholder"><div class="play-glyph"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>' +
+    '<div class="media-label">Drop in: videos/' + esc(video) + '.mp4</div></div></div>';
+}
+var CHECK_SVG = '<svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>';
+
 /* ---------- window-chrome video panels (static markup + generated ones) ---------- */
 function initVideoPanel(panel){
   var video = panel.querySelector('.stage-video');
@@ -1124,6 +1042,93 @@ function initVideoPanel(panel){
   });
 }
 document.querySelectorAll('[data-video-panel]').forEach(initVideoPanel);
+
+/* ---------- flexIA workflow: stages built from workflow/stages.md ---------- */
+(function(){
+  var section = document.querySelector('#workflow');
+  if(!section) return;
+  var host = section.querySelector('[data-stages]');
+  if(!host) return;
+
+  function parseStages(text){
+    var parts = afterMarker(text, 'stages').split(/^##[ \t]+/m);
+    parts.shift();
+    return parts.map(function(block){
+      var lines = block.split('\n');
+      var badge = (lines.shift() || '').trim();
+      var title = '', prose = [], checks = [], tags = [], env = [], meta = {};
+      lines.forEach(function(line){
+        var h = line.match(/^###[ \t]+(.+?)[ \t]*$/);
+        if(h){ title = h[1].trim(); return; }
+        var m = line.match(/^[ \t]*[-*][ \t]*([A-Za-z]+)[ \t]*:[ \t]*(.+?)[ \t]*$/);
+        if(m){
+          var k = m[1].toLowerCase(), v = m[2].trim();
+          if(k === 'check'){ checks.push(v); }
+          else if(k === 'tag'){ tags.push(v); }
+          else if(k === 'env'){ env = v.split(',').map(function(x){ return x.trim(); }).filter(Boolean); }
+          else { meta[k] = v; }
+          return;
+        }
+        if(line.trim() || prose.length){ prose.push(line); }
+      });
+      var video = meta.video || slug(badge);
+      return {
+        badge: badge, title: title,
+        desc: prose.join('\n').replace(/\n{3,}/g, '\n\n').trim(),
+        checks: checks, tags: tags, env: env,
+        video: video,
+        panel: meta.panel || meta.label || video,
+        layout: (meta.layout || '').toLowerCase()
+      };
+    }).filter(function(s){ return s.badge; });
+  }
+
+  function build(stages){
+    host.innerHTML = '';
+    stages.forEach(function(s, i){
+      var reverse = s.layout === 'reverse' ? true
+                  : s.layout === 'normal'  ? false
+                  : (i % 2 === 1);
+      var t = '<span class="badge mono">' + esc(s.badge) + '</span>';
+      if(s.title){ t += '<h3>' + esc(s.title) + '</h3>'; }
+      s.desc.split(/\n{2,}/).forEach(function(para){
+        para = para.trim();
+        if(para){ t += '<p>' + esc(para.replace(/\n/g, ' ')) + '</p>'; }
+      });
+      if(s.checks.length){
+        t += '<div class="check-row">' + s.checks.map(function(c){
+          return '<div>' + CHECK_SVG + esc(c) + '</div>';
+        }).join('') + '</div>';
+      }
+      if(s.tags.length){
+        t += '<div class="tag-row">' + s.tags.map(function(x){
+          return '<span class="tag">' + esc(x) + '</span>';
+        }).join('') + '</div>';
+      }
+      if(s.env.length){
+        t += '<div class="env-row">' + s.env.map(function(e){
+          return '<span class="tag">' + esc(e) + '</span>';
+        }).join('<span class="env-arrow">→</span>') + '</div>';
+      }
+
+      var stage = document.createElement('div');
+      stage.className = 'stage' + (reverse ? ' reverse' : '');
+      stage.innerHTML = '<div class="stage-text">' + t + '</div>' +
+                        '<div class="stage-media panel" data-video-panel>' + panelInner(s.panel, s.video) + '</div>';
+      host.appendChild(stage);
+      initVideoPanel(stage.querySelector('.stage-media.panel'));
+    });
+  }
+
+  fetch('workflow/stages.md').then(okText).then(function(text){
+    var stages = parseStages(text);
+    if(!stages.length){ configNote(host, 'No stages found in <code>workflow/stages.md</code>.'); return; }
+    build(stages);
+  }).catch(function(){
+    configNote(host, 'Couldn’t read <code>workflow/stages.md</code>. Serve the folder over HTTP — ' +
+      'run <code>./serve.sh</code> (or <code>python3 -m http.server</code>) in this directory — and reload.');
+  });
+})();
 
 /* ---------- capabilities: features built from features/designtime.md + features/runtime.md ---------- */
 (function(){
@@ -1161,26 +1166,16 @@ document.querySelectorAll('[data-video-panel]').forEach(initVideoPanel);
     link:['M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71','M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71']
   };
 
-  function esc(s){
-    return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){
-      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c];
-    });
-  }
   function iconSvg(name){
     var d = ICONS[name] || ICONS.dot;
     return '<svg viewBox="0 0 24 24">' + d.map(function(p){ return '<path d="' + p + '"/>'; }).join('') + '</svg>';
   }
-  function slug(s){ return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
 
   /* markdown config -> [{cat,title,id,icon,enabled,video,label,desc}] */
   function parse(text, cat){
-    /* everything before the marker comment is documentation and is ignored */
-    var mark = '<' + '!-- features -->';
-    var at = text.indexOf(mark);
-    var body = at >= 0 ? text.slice(at + mark.length) : text;
     /* a heading must sit at column 0, so an indented "## " in an example is safe */
-    var parts = body.split(/^##[ \t]+/m);
-    parts.shift(); /* drop whatever precedes the first heading */
+    var parts = afterMarker(text, 'features').split(/^##[ \t]+/m);
+    parts.shift(); /* drop the documentation preamble */
     return parts.map(function(block){
       var lines = block.split('\n');
       var title = (lines.shift() || '').trim();
@@ -1222,14 +1217,7 @@ document.querySelectorAll('[data-video-panel]').forEach(initVideoPanel);
       p.className = 'panel';
       p.dataset.visual = f.id;
       p.setAttribute('data-video-panel', '');
-      p.innerHTML =
-        '<div class="panel-bar"><div class="dots"><span></span><span></span><span></span></div>' +
-        '<span class="panel-file mono">' + esc(f.label) + '</span>' +
-        '<span class="panel-rec"><span class="dot-rec"></span>00:00</span></div>' +
-        '<div class="panel-body"><video class="stage-video" autoplay muted loop playsinline preload="metadata">' +
-        '<source src="videos/' + esc(f.video) + '.mp4" type="video/mp4"></video>' +
-        '<div class="media-placeholder"><div class="play-glyph"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>' +
-        '<div class="media-label">Drop in: videos/' + esc(f.video) + '.mp4</div></div></div>';
+      p.innerHTML = panelInner(f.label, f.video);
       visualEl.appendChild(p);
       initVideoPanel(p);
     });
@@ -1263,11 +1251,10 @@ document.querySelectorAll('[data-video-panel]').forEach(initVideoPanel);
   }
 
   function note(html){
-    if(rootEl){ rootEl.innerHTML = '<div class="feat-note">' + html + '</div>'; }
+    configNote(rootEl, html);
     var cats = root.querySelector('.feat-cats');
     if(cats){ cats.style.display = 'none'; }
   }
-  function okText(r){ if(!r.ok){ throw new Error(r.status); } return r.text(); }
 
   Promise.all([
     fetch('features/designtime.md').then(okText),
