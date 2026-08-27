@@ -14,13 +14,13 @@ reference (fields, icon names, the marker line).
 
 Software components and the devices running them appear in one flexCloud view — health, status, and diagnostics without walking to the shop floor.
 
-## Architecture-grounded AI agent
+## Architecture-grounded AI assistant
 - enabled: true
 - icon: brain
-- video: 07-flexcloud-ai-reasoning-agent
-- panel: flexcloud — ai-reasoning-agent
+- video: flexIA-AI-Assistant
+- panel: flexcloud — AI-assistant
 
-An LLM agent reasons over centralized logs and the explicit architecture — including generated communication matrices — and can act: send data, adjust parameters, command a component.
+The flexIA AI Assistant doesn't just surface data — it reasons across your entire application: its behavior, its deployment, its full lifecycle. Ask a question, get a system-level answer — connected, contextual, instant. Understand more, troubleshoot faster, deploy with confidence.
 
 ## Lightweigt, platform-independent deployment agent
 - enabled: true
