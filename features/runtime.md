@@ -55,16 +55,16 @@ flexCloud watches your applications and devices, and acts on what it sees. Defin
 
 Every component and device streams to one place, correlated against the architecture model rather than scattered per node.
 
-## Native IT/OT connectivity
+## Unified IT/OT communication, even robotics
 - enabled: true
 - icon: share
 - video: 06-flexcommunicator-it-ot-bridge
-- panel: flexcommunicator — it-ot-bridge
+- panel: flexcommunicator — unified IT/OT communication
 
-flexCommunicator bridges MQTT, Redis, and Kafka alongside OPC UA and TwinCAT ADS — one node talks to a broker and a PLC with no translation layer.
+One architecture every protocol: seamless IT/OT communication across a broad range of industrial and enterprise standards, with native ROS2 and VDA5050 support extending connectivity into robotics and AGV fleets. IT, OT, and robotics — finally united in one architecture. 
 
 ## Online parametrization & health
-- enabled: true
+- enabled: false
 - icon: sliders
 - video: feat-online-parametrization
 - panel: flexcommunicator — online-parametrization

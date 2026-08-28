@@ -1120,7 +1120,7 @@ document.querySelectorAll('[data-video-panel]').forEach(initVideoPanel);
     });
   }
 
-  fetch('workflow/stages.md').then(okText).then(function(text){
+  fetch('workflow/stages.md', {cache: 'no-store'}).then(okText).then(function(text){
     var stages = parseStages(text);
     if(!stages.length){ configNote(host, 'No stages found in <code>workflow/stages.md</code>.'); return; }
     build(stages);
@@ -1257,8 +1257,8 @@ document.querySelectorAll('[data-video-panel]').forEach(initVideoPanel);
   }
 
   Promise.all([
-    fetch('features/designtime.md').then(okText),
-    fetch('features/runtime.md').then(okText)
+    fetch('features/designtime.md', {cache: 'no-store'}).then(okText),
+    fetch('features/runtime.md', {cache: 'no-store'}).then(okText)
   ]).then(function(res){
     var feats = parse(res[0], 'design').concat(parse(res[1], 'runtime'));
     if(!feats.length){

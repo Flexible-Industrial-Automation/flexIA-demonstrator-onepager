@@ -17,7 +17,7 @@ Everything below the marker line is parsed. Everything above it is ignored.
 
 <!-- features -->
 
-## Model-based architecture
+## Model-based architecture-test
 - enabled: true
 - icon: layers
 - video: 01-flexmodeler-architecture-view
