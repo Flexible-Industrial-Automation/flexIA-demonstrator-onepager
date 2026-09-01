@@ -17,37 +17,21 @@ Everything below the marker line is parsed. Everything above it is ignored.
 
 <!-- features -->
 
-## Model-based architecture-test
+## Single-button deployment
+- enabled: true
+- icon: bolt
+- video: 04-flexcloud-fleet-deployment
+- panel: flexcloud — fleet-deployment
+
+flexCloud packages the whole distributed application and pushes it across a heterogeneous fleet in one orchestrated, deterministic step — promoted unchanged from test to production.
+
+## Model-based architecture
 - enabled: true
 - icon: layers
 - video: 01-flexmodeler-architecture-view
 - panel: flexmodeler — architecture-view
 
 Describe components, system architecture, and their interfaces explicitly in AADL — independent of implementation language, portable across every target.
-
-## Explicit hardware I/O binding
-- enabled: true
-- icon: binding
-- video: feat-hardware-binding
-- panel: flexmodeler — hardware-io-binding
-
-Bind software components to real hardware I/O — OPC UA, TwinCAT, field I/O — as part of the model, not an afterthought at commissioning.
-
-## Multi-formalism code generation
-- enabled: true
-- icon: code
-- video: feat-code-generation
-- panel: flexmodeler — code-generation
-
-Generate complete applications — not stub components — toward C/C++, Python, Rust, and IEC 61131-3, from a single architecture.
-
-## Reuse models & protected IP
-- enabled: true
-- icon: cube
-- video: feat-model-reuse
-- panel: flexcommunicator — model-reuse
-
-Drop a Simulink model or an IP-protected FMU in as component behavior — no rewrite, no reverse-engineering.
 
 ## Consistency & correctness checks
 - enabled: true
@@ -57,10 +41,27 @@ Drop a Simulink model or an IP-protected FMU in as component behavior — no rew
 
 Verify the explicit model — architecture against hardware bindings — so an inconsistent or incorrect deployment is flagged on screen, before a node ships.
 
-## Single-button deployment
+## Explicit hardware I/O binding
+- enabled: true
+- icon: binding
+- video: feat-hardware-binding
+- panel: flexmodeler — hardware-io-binding
+
+Bind software components to real hardware I/O — OPC UA, TwinCAT, field I/O — as part of the model, not an afterthought at commissioning.
+
+## Architecture-level code generation
+- enabled: true
+- icon: code
+- video: flexIA-code-generation
+- panel: flexmodeler — Architecture code-generation
+
+One architecture. Every target. We generate the whole application — code, configuration, and deployment — not just the components, across C/C++, Python, Rust, and IEC 61131-3. Design once, deploy everywhere your systems actually run.
+
+## Complex, future proof integrations
 - enabled: true
 - icon: rocket
-- video: 04-flexcloud-fleet-deployment
-- panel: flexcloud — fleet-deployment
+- video: flexIA-trustworthiness-integration
+- panel: flexcommunicator — model-reuse
 
-flexCloud packages the whole distributed application and pushes it across a heterogeneous fleet in one orchestrated, deterministic step — promoted unchanged from test to production.
+Built for complex, future-proof integrations. Bring in simulation models, IP-protected FMUs, Digital twins and AI models with runtime trustworthiness monitoring.
+
