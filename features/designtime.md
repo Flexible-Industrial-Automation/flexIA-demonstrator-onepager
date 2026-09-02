@@ -36,10 +36,10 @@ Describe components, system architecture, and their interfaces explicitly in AAD
 ## Consistency & correctness checks
 - enabled: true
 - icon: shield
-- video: 03-consistency-check-arch-vs-hw
+- video: flexIA-architecture-checks
 - panel: consistency-check — arch-vs-hw
 
-Verify the explicit model — architecture against hardware bindings — so an inconsistent or incorrect deployment is flagged on screen, before a node ships.
+Ship with proof, not hope. Architecture Checks tears into every deployment before it goes out the door, SWC compatibility, interface correctness, compute capability and utilization, and flags what's broken on screen, not in the field. Nothing reaches commissioning until it's earned it.
 
 ## Explicit hardware I/O binding
 - enabled: true

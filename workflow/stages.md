@@ -45,10 +45,10 @@ Implement components in C/C++, Python, Rust, or IEC 61131-3 languages such as St
 
 ## 03 · Verify — consistency & correctness
 ### Find the wiring mistake on screen, not on the shop floor.
-- video: 03-consistency-check-arch-vs-hw
+- video: flexIA-architecture-checks
 - panel: consistency-check — arch-vs-hw
 
-flexIA checks the explicit model — software components, system architecture, and the hardware I/O they're bound to, including OPC UA and TwinCAT — so an inconsistent or incorrect deployment gets flagged before a single node ships.
+Deploy with confidence. Architecture Checks proves your automation system is consistent and correct before it reaches the field. Every SWC compatible, every interface correctly bound, every compute device sized for the load it's given. Only proven, validated nodes make it to the field.
 
 - tag: OPC UA
 - tag: TwinCAT
