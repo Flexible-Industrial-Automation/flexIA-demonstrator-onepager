@@ -41,13 +41,13 @@ Describe components, system architecture, and their interfaces explicitly in AAD
 
 Ship with proof, not hope. Architecture Checks tears into every deployment before it goes out the door, SWC compatibility, interface correctness, compute capability and utilization, and flags what's broken on screen, not in the field. Nothing reaches commissioning until it's earned it.
 
-## Explicit hardware I/O binding
+## Connect anything. Integrate effortlessly.
 - enabled: true
 - icon: binding
-- video: feat-hardware-binding
+- video: flexIA-hardware-io
 - panel: flexmodeler — hardware-io-binding
 
-Bind software components to real hardware I/O — OPC UA, TwinCAT, field I/O — as part of the model, not an afterthought at commissioning.
+Software components connect directly to real hardware through a broad range of IT/OT technologies — built into the model, not added at commissioning. From OPC UA and TwinCAT to ROS 2 and VDA5050, the same architecture connects industrial equipment, robots, and AGVs. IT. OT. Robotics. One architecture. Built to connect.
 
 ## Architecture-level code generation
 - enabled: true

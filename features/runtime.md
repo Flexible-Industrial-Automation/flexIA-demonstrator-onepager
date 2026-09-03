@@ -31,7 +31,7 @@ The flexIA AI Assistant doesn't just surface data — it reasons across your ent
 Don't just validate your AI models — watch them. Continuous monitoring against specification and uncertainty means you always know how much to trust a model's output, and get flagged the instant you shouldn't.
 
 ## Unified IT/OT communication, even robotics
-- enabled: true
+- enabled: false
 - icon: share
 - video: 06-flexcommunicator-it-ot-bridge
 - panel: flexcommunicator — unified IT/OT communication
