@@ -378,6 +378,19 @@ nav{
   .stage, .stage.reverse{ grid-template-columns:1fr; }
   .stage.reverse .stage-text, .stage.reverse .stage-media{ order:initial; }
 }
+.stage-embed{
+  position:relative;
+  border:1px solid var(--line-strong);
+  border-radius:var(--radius-panel);
+  background:var(--bg-raised);
+  overflow:hidden;
+  box-shadow:var(--shadow-panel);
+}
+.stage-embed iframe{
+  display:block; width:100%; height:400px; border:0;
+  background:var(--bg-raised); color-scheme:dark;
+}
+@media (max-width:880px){ .stage-embed iframe{ height:380px; } }
 .stage-text h3{ font-size:clamp(1.75rem,3.2vw,2.4rem); margin-top:1rem; }
 .stage-text p{ margin-top:1rem; color:var(--ink-dim); font-size:1.03rem; max-width:46ch; }
 .check-row{ margin-top:1.4rem; display:flex; flex-direction:column; gap:0.6rem; }
@@ -1077,6 +1090,7 @@ document.querySelectorAll('[data-video-panel]').forEach(initVideoPanel);
         desc: prose.join('\n').replace(/\n{3,}/g, '\n\n').trim(),
         checks: checks, tags: tags, env: env,
         video: video,
+        embed: meta.embed || '',
         panel: meta.panel || meta.label || video,
         layout: (meta.layout || '').toLowerCase()
       };
@@ -1111,12 +1125,16 @@ document.querySelectorAll('[data-video-panel]').forEach(initVideoPanel);
         }).join('<span class="env-arrow">→</span>') + '</div>';
       }
 
+      var media = s.embed
+        ? '<div class="stage-media stage-embed"><iframe src="' + esc(s.embed) +
+          '" title="' + esc(s.panel) + '" loading="lazy" scrolling="no"></iframe></div>'
+        : '<div class="stage-media panel" data-video-panel>' + panelInner(s.panel, s.video) + '</div>';
+
       var stage = document.createElement('div');
       stage.className = 'stage' + (reverse ? ' reverse' : '');
-      stage.innerHTML = '<div class="stage-text">' + t + '</div>' +
-                        '<div class="stage-media panel" data-video-panel>' + panelInner(s.panel, s.video) + '</div>';
+      stage.innerHTML = '<div class="stage-text">' + t + '</div>' + media;
       host.appendChild(stage);
-      initVideoPanel(stage.querySelector('.stage-media.panel'));
+      if(!s.embed){ initVideoPanel(stage.querySelector('.stage-media.panel')); }
     });
   }
 

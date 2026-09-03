@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>flexIA Publisher — Three Formalisms</title>
+<style>
+  :root{
+    --bg:#0d1117;
+    --panel:#151b23;
+    --panel2:#0f151c;
+    --border:#26303c;
+    --text:#c9d1d9;
+    --dim:#6b7684;
+    --accent:#7ee787;
+    --accent2:#79c0ff;
+    --kw:#ff7b9c;
+    --type:#79c0ff;
+    --fn:#d2a8ff;
+    --num:#ffab70;
+    --str:#a5d6ff;
+    --com:#6b7684;
+
+    --cpp:#5aa7ff;
+    --py:#f3c34a;
+    --st:#7ee787;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0; padding:0; width:100%; height:100%;
+    background:radial-gradient(1200px 700px at 50% 15%, #131a23 0%, #0a0e13 70%);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .stage{
+    width:100%; max-width:900px; padding:26px 18px;
+    display:flex; flex-direction:column; align-items:center; gap:16px;
+  }
+  .tagline{ text-align:center; }
+  .tagline h1{
+    margin:0 0 6px 0; font-size:1.45rem; font-weight:650; letter-spacing:.2px;
+    color:#eef2f6;
+    animation: fadeUp .8s ease both;
+  }
+  .tagline p{
+    margin:0; font-size:.82rem; color:var(--dim);
+    animation: fadeUp .8s ease .1s both;
+  }
+  .tagline p .hl{ color:var(--accent2); font-weight:600; }
+
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(8px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .ide-window{
+    width:100%;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow: 0 20px 60px -20px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.02);
+    animation: fadeUp .9s ease .15s both;
+  }
+
+  .titlebar{
+    display:flex; align-items:center; gap:10px;
+    padding:10px 14px;
+    background:var(--panel2);
+    border-bottom:1px solid var(--border);
+  }
+  .dots{ display:flex; gap:6px; }
+  .dots span{ width:10px; height:10px; border-radius:50%; background:#2a333d; }
+  .wintitle{
+    flex:1; text-align:center; font-size:.72rem; color:var(--dim);
+    letter-spacing:.3px;
+  }
+  .led-indicator{
+    display:flex; align-items:center; gap:6px;
+    font-size:.68rem; color:var(--dim); letter-spacing:.5px;
+  }
+  .led{
+    width:9px; height:9px; border-radius:50%;
+    background:#1c3323;
+    animation: pubPulse .5s steps(1,end) infinite;
+  }
+  @keyframes pubPulse{
+    0%, 12%   { background:var(--accent); box-shadow:0 0 10px 3px rgba(126,231,135,.8); }
+    13%,100%  { background:#1c3323; box-shadow:0 0 0 rgba(126,231,135,0); }
+  }
+
+  .tabbar{
+    display:flex; background:var(--panel2);
+    border-bottom:1px solid var(--border);
+    overflow-x:auto;
+  }
+  .tab{
+    display:flex; align-items:center; gap:8px;
+    padding:9px 16px;
+    font-size:.76rem; color:var(--dim);
+    border-right:1px solid var(--border);
+    white-space:nowrap;
+    position:relative;
+    transition: color .3s ease, background .3s ease;
+  }
+  .tab .dot{ width:7px; height:7px; border-radius:50%; }
+  .tab .dot.cpp{ background:var(--cpp); }
+  .tab .dot.py{ background:var(--py); }
+  .tab .dot.st{ background:var(--st); }
+  .tab.active{ color:#f0f4f8; background:var(--panel); }
+  .tab.active::after{
+    content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px;
+    background:linear-gradient(90deg, var(--accent2), var(--accent));
+  }
+
+  .editor{
+    display:flex;
+    max-height:440px;
+    overflow-y:auto;
+    background:var(--panel);
+    scrollbar-width:thin;
+    scrollbar-color:#2a333d transparent;
+  }
+  .editor::-webkit-scrollbar{ width:8px; }
+  .editor::-webkit-scrollbar-thumb{ background:#2a333d; border-radius:4px; }
+
+  .gutter{
+    margin:0; padding:16px 10px; text-align:right;
+    color:#3a4552; font-size:.74rem; line-height:1.65;
+    user-select:none; border-right:1px solid var(--border);
+    font-family:"SF Mono","Fira Code",Menlo,Consolas,monospace;
+    flex-shrink:0;
+    transition: opacity .28s ease;
+  }
+  .code-wrap{
+    flex:1; overflow-x:auto;
+  }
+  .code{
+    margin:0; padding:16px 18px;
+    font-family:"SF Mono","Fira Code",Menlo,Consolas,monospace;
+    font-size:.74rem; line-height:1.65; white-space:pre;
+    transition: opacity .28s ease;
+  }
+  .kw{ color:var(--kw); }
+  .type{ color:var(--type); }
+  .fn{ color:var(--fn); }
+  .num{ color:var(--num); }
+  .str{ color:var(--str); }
+  .com{ color:var(--com); font-style:italic; }
+
+  .statusbar{
+    display:flex; align-items:center; gap:8px;
+    padding:7px 14px;
+    background:var(--panel2);
+    border-top:1px solid var(--border);
+    font-size:.7rem; color:var(--dim);
+  }
+  .statusbar .lang-label{ color:#dbe4ee; font-weight:600; }
+  .statusbar .spacer{ flex:1; }
+  .cycle-indicator{ letter-spacing:3px; font-size:.6rem; }
+  .cycle-indicator span{ color:#2a333d; transition:color .3s ease; }
+  .cycle-indicator span.on{ color:var(--accent2); }
+
+  .legend{
+    display:flex; gap:18px; flex-wrap:wrap; justify-content:center;
+    font-size:.72rem; color:var(--dim);
+    animation: fadeUp .9s ease .25s both;
+  }
+  .legend span{ display:flex; align-items:center; gap:6px; }
+  .legend i{ width:8px; height:8px; border-radius:50%; display:inline-block; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="tagline">
+      <h1>Same Node. Three Formalisms.</h1>
+      <p>flexIA <span class="hl">Publisher</span> — Python (source) · C++ (dummy) · IEC&nbsp;61131-3 Structured Text (dummy)</p>
+    </div>
+
+    <div class="ide-window">
+      <div class="titlebar">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="wintitle">FormalismIDE — Publisher</div>
+        <div class="led-indicator"><span class="led"></span> PUB · 0.5s</div>
+      </div>
+
+      <div class="tabbar">
+        <div class="tab active" data-lang="0"><span class="dot py"></span>publisher.py</div>
+        <div class="tab" data-lang="1"><span class="dot cpp"></span>publisher.cpp</div>
+        <div class="tab" data-lang="2"><span class="dot st"></span>publisher.st</div>
+      </div>
+
+      <div class="editor">
+        <pre class="gutter" id="gutterView"></pre>
+        <div class="code-wrap"><pre class="code" id="codeView"></pre></div>
+      </div>
+
+      <div class="statusbar">
+        <span class="lang-label" id="langLabel">Python</span>
+        <span id="fileLabel">· publisher.py</span>
+        <span class="spacer"></span>
+        <span class="cycle-indicator" id="cycleDots"><span class="on">●</span><span>●</span><span>●</span></span>
+      </div>
+    </div>
+
+    <div class="legend">
+      <span><i style="background:var(--py)"></i>Python (flexIA source)</span>
+      <span><i style="background:var(--cpp)"></i>C / C++ (dummy translation)</span>
+      <span><i style="background:var(--st)"></i>Structured Text (dummy translation)</span>
+    </div>
+  </div>
+
+<script>
+  const PY = `<span class="com"># flexIA — Publisher node  (Bert Van Acker, 2025-present)</span>
+<span class="kw">import</span> random, time
+<span class="kw">from</span> flexCommunicator.clientLibraries.flcpy.flexNode <span class="kw">import</span> flexNode
+<span class="kw">from</span> flexCommunicator.clientLibraries.flcpy.messages.StandardizedMessages <span class="kw">import</span> DataMessage
+<span class="kw">from</span> flexCommunicator.clientLibraries.flcpy.utils.constants <span class="kw">import</span> *
+
+<span class="kw">class</span> <span class="fn">Publisher</span>(flexNode):
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, config=<span class="str">'config.yaml'</span>, verbose=<span class="kw">True</span>):
+        super().__init__(config=config, verbose=verbose)
+        self._name = <span class="str">"Publisher"</span>
+        self.logger.info(<span class="str">"Publisher instantiated"</span>)
+        self.timer = self.create_timer(timer_period=<span class="num">0.5</span>,
+                        callback=self.send_data, autostart=<span class="kw">True</span>)
+        self.application_status.set(value=APPLICATION_STATUS.RUNNING)
+
+    <span class="kw">def</span> <span class="fn">send_data</span>(self):
+        _dataMessage = DataMessage()
+        _dataMessage.dataType = <span class="str">"Float"</span>
+        _dataMessage.dataUnit = <span class="str">"m"</span>
+        _dataMessage.value = round(random.uniform(<span class="num">0</span>, <span class="num">10</span>), <span class="num">3</span>)
+        self.set_data(data_name=<span class="str">"CustomMessage"</span>, data=_dataMessage)
+        self.logger.info(<span class="str">"Setting data"</span>)
+        _dataMessage.value = round(random.uniform(<span class="num">0</span>, <span class="num">10</span>), <span class="num">3</span>)
+        self.store_data(data_name=<span class="str">"TEST_DATA"</span>, data=_dataMessage)
+
+    <span class="kw">def</span> <span class="fn">register_callbacks</span>(self):
+        <span class="kw">return</span> -1
+
+<span class="kw">def</span> <span class="fn">main</span>():
+    node = Publisher(config=<span class="str">'config.yaml'</span>)
+    node.register_callbacks()
+    node.spin()
+    node.timer.start()
+    <span class="kw">while</span> <span class="kw">True</span>:
+        time.sleep(<span class="num">1</span>)
+
+<span class="kw">if</span> __name__ == <span class="str">'__main__'</span>:
+    main()`;
+
+  const CPP = `<span class="com">// flexIA — Publisher node (dummy C++ translation)</span>
+<span class="com">#include "flexNode.hpp"</span>
+<span class="com">#include "DataMessage.hpp"</span>
+<span class="com">#include &lt;thread&gt;</span>
+<span class="com">#include &lt;chrono&gt;</span>
+<span class="com">#include &lt;cstdlib&gt;</span>
+
+<span class="kw">class</span> <span class="fn">Publisher</span> : <span class="kw">public</span> FlexNode {
+<span class="kw">public</span>:
+    <span class="kw">explicit</span> Publisher(<span class="kw">const</span> std::string&amp; config = <span class="str">"config.yaml"</span>)
+        : FlexNode(config), name_(<span class="str">"Publisher"</span>) {
+        logger.info(<span class="str">"Publisher instantiated"</span>);
+        timer_ = createTimer(<span class="num">0.5</span>, [this]{ sendData(); }, <span class="kw">true</span>);
+        applicationStatus.set(APPLICATION_STATUS::RUNNING);
+    }
+
+    <span class="type">void</span> <span class="fn">sendData</span>() {
+        DataMessage msg;
+        msg.dataType = <span class="str">"Float"</span>;
+        msg.dataUnit = <span class="str">"m"</span>;
+        msg.value    = randomUniform(<span class="num">0.0</span>, <span class="num">10.0</span>);
+        setData(<span class="str">"CustomMessage"</span>, msg);
+        logger.info(<span class="str">"Setting data"</span>);
+        msg.value = randomUniform(<span class="num">0.0</span>, <span class="num">10.0</span>);
+        storeData(<span class="str">"TEST_DATA"</span>, msg);
+    }
+
+    <span class="type">int</span> <span class="fn">registerCallbacks</span>() <span class="kw">override</span> { <span class="kw">return</span> -1; }
+
+<span class="kw">private</span>:
+    std::string name_;
+    Timer timer_;
+};
+
+<span class="type">int</span> <span class="fn">main</span>() {
+    Publisher node(<span class="str">"config.yaml"</span>);
+    node.registerCallbacks();
+    node.spin();
+    node.timer_.start();
+    <span class="kw">while</span> (<span class="kw">true</span>)
+        std::this_thread::sleep_for(std::chrono::seconds(<span class="num">1</span>));
+}`;
+
+  const ST = `<span class="com">(* flexIA — Publisher node (dummy Structured Text translation) *)</span>
+<span class="kw">FUNCTION_BLOCK</span> <span class="fn">Publisher</span>
+<span class="kw">VAR</span>
+    PubTimer    : <span class="type">TON</span>;                        <span class="com">(* 0.5 s publish tick *)</span>
+    DataMessage : <span class="type">ST_DataMessage</span>;
+    AppStatus   : <span class="type">E_APPLICATION_STATUS</span> := RUNNING;
+<span class="kw">END_VAR</span>
+
+<span class="com">(* re-trigger every scan the timer completes: same period as create_timer(0.5) *)</span>
+PubTimer(IN := <span class="kw">NOT</span> PubTimer.Q, PT := T#<span class="num">500</span>ms);
+
+<span class="kw">IF</span> PubTimer.Q <span class="kw">THEN</span>
+    DataMessage.dataType := <span class="str">'Float'</span>;
+    DataMessage.dataUnit := <span class="str">'m'</span>;
+    DataMessage.value    := GenerateRandom(<span class="num">0.0</span>, <span class="num">10.0</span>);
+
+    SetData(<span class="str">'CustomMessage'</span>, DataMessage);
+
+    DataMessage.value    := GenerateRandom(<span class="num">0.0</span>, <span class="num">10.0</span>);
+    StoreData(<span class="str">'TEST_DATA'</span>, DataMessage);
+<span class="kw">END_IF</span>;
+
+<span class="kw">END_FUNCTION_BLOCK</span>`;
+
+  const langs = [
+    { name: "Python",           file: "publisher.py",  code: PY  },
+    { name: "C / C++",          file: "publisher.cpp",  code: CPP },
+    { name: "Structured Text",  file: "publisher.st",   code: ST  }
+  ];
+
+  let idx = 0;
+  const tabs = document.querySelectorAll(".tab");
+  const langLabel = document.getElementById("langLabel");
+  const fileLabel = document.getElementById("fileLabel");
+  const dots = document.querySelectorAll("#cycleDots span");
+  const codeView = document.getElementById("codeView");
+  const gutterView = document.getElementById("gutterView");
+  const editor = document.querySelector(".editor");
+
+  function paint(){
+    const lang = langs[idx];
+    tabs.forEach(t => t.classList.toggle("active", t.dataset.lang == idx));
+    dots.forEach((d,i) => d.classList.toggle("on", i === idx));
+    langLabel.textContent = lang.name;
+    fileLabel.textContent = "· " + lang.file;
+
+    codeView.innerHTML = lang.code;
+    const lineCount = lang.code.split("\\n").length;
+    let nums = "";
+    for (let i = 1; i <= lineCount; i++) nums += i + (i < lineCount ? "\\n" : "");
+    gutterView.textContent = nums;
+    editor.scrollTop = 0;
+  }
+
+  function swap(){
+    codeView.style.opacity = 0;
+    gutterView.style.opacity = 0;
+    setTimeout(() => {
+      idx = (idx + 1) % langs.length;
+      paint();
+      codeView.style.opacity = 1;
+      gutterView.style.opacity = 1;
+    }, 280);
+  }
+
+  paint();
+  setInterval(swap, 4200);
+</script>
+</body>
+</html>

@@ -7,6 +7,7 @@ Per stage: the `##` line is the small badge, the `###` line is the headline, pla
 sentences are the description, and repeatable bullets add the rest:
 
     - video: 02-flexcommunicator-component-build   -> videos/<name>.mp4
+    - embed: videos/some-page.html                  iframe instead of the video panel
     - panel: flexcommunicator — component-build     mock window title bar
     - check: a checkmark bullet                     (repeat for more)
     - tag: a pill                                   (repeat for more)
@@ -32,7 +33,7 @@ Model your application's components and architecture explicitly, independent of 
 
 ## 02 · Implement — flexCommunicator
 ### Build it the way your team already works.
-- video: 02-flexcommunicator-component-build
+- embed: videos/formalisms_ide_embed.html
 - panel: flexcommunicator — component-build
 
 Implement components in C/C++, Python, Rust, or IEC 61131-3 languages such as Structured Text or Function Block Diagram, using high-level patterns like services, actions, and state machines. You can also drop in a simulation model as behavior — a Simulink model or an IP-protected model such as an Functional Mock-up Unit (FMU) — no rewrite required.

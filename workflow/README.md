@@ -41,6 +41,7 @@ Implement components in C/C++, Python, Rust, or IEC 61131-3 … no rewrite requi
 | `###` heading text | the stage headline (`<h3>`) |
 | plain lines (not a bullet, not `###`) | description paragraph(s); blank line starts a new one |
 | `- video: NAME` | `videos/NAME.mp4` in the mock window (file may be added later) |
+| `- embed: PATH` | render `PATH` in an `<iframe>` instead of the video panel (e.g. `videos/formalisms_ide_embed.html`); the page supplies its own chrome, so `panel:` is unused |
 | `- panel: TEXT` | label in the mock window title bar (default: the video name) |
 | `- check: TEXT` | a checkmark bullet — repeat the line for more |
 | `- tag: TEXT` | a pill — repeat the line for more |
