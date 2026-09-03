@@ -28,7 +28,7 @@ flexCloud packages the whole distributed application and pushes it across a hete
 ## Model-based architecture
 - enabled: true
 - icon: layers
-- video: 01-flexmodeler-architecture-view
+- video: flexIA-modeling
 - panel: flexmodeler — architecture-view
 
 Describe components, system architecture, and their interfaces explicitly in AADL — independent of implementation language, portable across every target.

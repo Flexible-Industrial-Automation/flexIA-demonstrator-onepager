@@ -20,7 +20,7 @@ Everything above the marker line is ignored.
 
 ## 01 · Model — flexModeler
 ### Design the architecture. Not four versions of it.
-- video: 01-flexmodeler-architecture-view
+- video: flexIA-modeling
 - panel: flexmodeler — architecture-view
 
 Model your application's components and architecture explicitly, independent of implementation language — then bind them to real hardware and I/O. One design, portable across PLCs, embedded devices, and cloud infrastructure.
