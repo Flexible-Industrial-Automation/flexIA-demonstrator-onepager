@@ -283,7 +283,8 @@ nav{
 }
 
 /* ============ PROBLEM ============ */
-.problem{ padding-top:clamp(4.5rem,8vw,6.5rem); }
+.problem{ padding-top:0; }
+.problem .section-head{ padding-top:clamp(1.5rem,3vw,2.5rem); }
 .problem-art{ margin-top:2.6rem; }
 .problem-art .panel-body{ padding:0.9rem; aspect-ratio:auto; height:380px; }
 .problem-art svg{ width:100%; height:100%; display:block; }
@@ -305,19 +306,28 @@ nav{
 .gap-x text{ fill:var(--warn); font-family:"IBM Plex Mono",monospace; font-weight:700; font-size:10px; text-anchor:middle; }
 .gap-note{ font-family:"IBM Plex Mono",monospace; font-size:9.5px; fill:var(--warn); text-anchor:middle; letter-spacing:0.04em; }
 
-/* problem: automated-warehouse scene */
+/* problem: isometric automated-warehouse scene */
 .warehouse text{ font-family:"IBM Plex Mono",monospace; }
-.wh-struct{ stroke:var(--line-strong); stroke-width:2; fill:none; stroke-linecap:round; }
-.wh-beam{ stroke:var(--line-strong); stroke-width:1.5; }
-.wh-machine{ fill:var(--bg-raised-2); stroke:var(--line-strong); stroke-width:1.6; }
-.wh-machine.solid{ fill:#1c2029; }
-.wh-arm{ stroke:var(--ink-dim); stroke-width:7; stroke-linecap:round; fill:none; }
+.iso-floor{ fill:var(--bg-raised); stroke:var(--line); stroke-width:1; opacity:.45; }
+.iso-grid{ stroke:var(--line-strong); stroke-width:.5; opacity:.3; }
+.iso-t{ fill:#232936; stroke:var(--line-strong); stroke-width:1; }
+.iso-r{ fill:#161a22; stroke:var(--line-strong); stroke-width:1; }
+.iso-l{ fill:#1d222c; stroke:var(--line-strong); stroke-width:1; }
+.rack .iso-t{ fill:#2a3140; }
+.pallet .iso-t{ fill:#3a3222; } .pallet .iso-r{ fill:#211c12; } .pallet .iso-l{ fill:#2b2417; }
+.conv .iso-t{ fill:#2b323f; }
+.pkg .iso-t{ fill:var(--cyan-soft); } .pkg .iso-r{ fill:#10262e; } .pkg .iso-l{ fill:#163540; }
+.srv .iso-t{ fill:#2b323f; }
+.robase .iso-t{ fill:#2b323f; }
+.amr .iso-t{ fill:#313a4c; } .amr .iso-r{ fill:#181d26; } .amr .iso-l{ fill:#20262f; }
+.amr-puck{ fill:var(--cyan); opacity:.85; }
+.amr-trail{ fill:none; stroke:var(--line-strong); stroke-width:1; stroke-dasharray:2 4; opacity:.5; }
+.wh-arm{ stroke:var(--ink-dim); stroke-width:6; stroke-linecap:round; fill:none; }
 .wh-joint{ fill:var(--bg-raised-2); stroke:var(--ink-dim); stroke-width:2; }
-.wh-box{ fill:var(--bg-raised); stroke:var(--line-strong); stroke-width:1.3; }
-.wh-wheel{ fill:#1c2029; stroke:var(--line-strong); stroke-width:1.6; }
-.wh-led{ fill:var(--cyan); }
-.wh-led.v{ fill:var(--violet); }
-.wh-label{ font-size:8px; fill:var(--ink-faint); letter-spacing:0.09em; }
+.wh-mast{ stroke:var(--line-strong); stroke-width:2.5; fill:none; }
+.wh-cam{ fill:#1c2029; stroke:var(--cyan); stroke-width:1.4; }
+.wh-cone{ fill:var(--cyan); fill-opacity:.10; stroke:var(--cyan); stroke-opacity:.35; stroke-width:1; }
+.wh-cloud path{ fill:url(#whGrad); filter:drop-shadow(0 0 12px var(--violet-soft)); }
 .wh-tag rect{ fill:var(--warn-soft); stroke:var(--warn); stroke-width:1; }
 .wh-tag text{ font-size:8px; fill:var(--warn); font-weight:600; }
 .arch-frame path{ fill:none; stroke:var(--warn); stroke-width:1.3; stroke-dasharray:5 5; }
@@ -326,17 +336,21 @@ nav{
 @media (prefers-reduced-motion:no-preference){
   .arch-frame{ animation:archpulse 3.4s ease-in-out infinite; }
   .status-bad{ animation:flicker 4.2s steps(1,end) infinite; }
-  .wh-amr{ animation:amr-run 7s ease-in-out infinite; }
-  .wh-arm-fore{ animation:arm-nod 3.2s ease-in-out infinite; }
-  .wh-cargo{ animation:belt-travel 4.2s linear infinite; }
-  .wh-led{ animation:blink 1.9s steps(1,end) infinite; }
+  .wh-arm-fore{ animation:arm-nod 3.4s ease-in-out infinite; }
+  .wh-cargo{ animation:belt-travel 4.6s linear infinite; }
+  .wh-cloud{ animation:cloud-bob 4.2s ease-in-out infinite; }
+  .amr-a{ animation:amr-a 6.2s ease-in-out infinite; }
+  .amr-b{ animation:amr-b 7.4s ease-in-out infinite; }
+  .amr-c{ animation:amr-c 5.6s ease-in-out infinite; }
 }
 @keyframes archpulse{ 0%,100%{ opacity:0.4; } 50%{ opacity:0.85; } }
 @keyframes flicker{ 0%,39%,43%,59%,100%{ opacity:0.9; } 41%,57%{ opacity:0.22; } }
-@keyframes amr-run{ 0%,100%{ transform:translateX(0); } 50%{ transform:translateX(-46px); } }
 @keyframes arm-nod{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-5px); } }
-@keyframes belt-travel{ 0%{ transform:translateX(0); opacity:0; } 14%{ opacity:1; } 86%{ opacity:1; } 100%{ transform:translateX(118px); opacity:0; } }
-@keyframes blink{ 0%,72%{ opacity:1; } 73%,100%{ opacity:0.25; } }
+@keyframes cloud-bob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-5px); } }
+@keyframes belt-travel{ 0%{ transform:translate(0,0); opacity:0; } 12%{ opacity:1; } 86%{ opacity:1; } 100%{ transform:translate(184px,76px); opacity:0; } }
+@keyframes amr-a{ 0%,100%{ transform:translate(0,0); } 50%{ transform:translate(92px,38px); } }
+@keyframes amr-b{ 0%,100%{ transform:translate(0,0); } 50%{ transform:translate(-88px,42px); } }
+@keyframes amr-c{ 0%,100%{ transform:translate(0,0); } 50%{ transform:translate(70px,-10px); } }
 
 .problem-lead{ margin-top:2.8rem; color:var(--ink-dim); font-size:1.02rem; max-width:60ch; }
 
@@ -742,125 +756,122 @@ footer a:hover{ color:var(--cyan); }
         <span class="panel-rec"><span class="dot-rec"></span>LIVE</span>
       </div>
       <div class="panel-body">
-        <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg" class="warehouse">
-          <text class="zone-label c-warn" x="360" y="16">ONE WAREHOUSE &#183; SUBSYSTEMS WIRED PIECEMEAL</text>
-
-          <!-- warehouse floor -->
-          <line class="wh-beam" x1="8" y1="288" x2="712" y2="288" style="opacity:.5"/>
-
-          <!-- ===== pallet racking ===== -->
-          <path class="wh-struct" d="M26,282 V78 M128,282 V78 M230,282 V78"/>
-          <path class="wh-beam" d="M24,80 H232 M24,132 H232 M24,186 H232 M24,240 H232"/>
-          <rect class="wh-box" x="40" y="98" width="52" height="32"/>
-          <rect class="wh-box" x="150" y="104" width="60" height="26"/>
-          <rect class="wh-box" x="44" y="152" width="46" height="32"/>
-          <rect class="wh-box" x="146" y="150" width="66" height="34"/>
-          <rect class="wh-box" x="40" y="206" width="72" height="32"/>
-          <rect class="wh-box" x="158" y="212" width="48" height="26"/>
-
-          <!-- ===== PLC control cabinet ===== -->
-          <rect class="wh-machine" x="260" y="218" width="26" height="64" rx="2"/>
-          <circle class="wh-led" cx="268" cy="228" r="2"/>
-          <circle class="wh-led v" cx="268" cy="236" r="2" style="animation-delay:.5s"/>
-          <circle class="wh-led" cx="268" cy="244" r="2" style="animation-delay:1s"/>
-          <text class="wh-label" x="262" y="262" style="font-size:7px">PLC</text>
-
-          <!-- ===== robot cell ===== -->
-          <rect class="wh-machine" x="300" y="252" width="32" height="32" rx="2"/>
-          <path class="wh-arm" d="M316,252 L344,216"/>
-          <g class="wh-arm-fore">
-            <path class="wh-arm" d="M344,216 L392,228"/>
-            <path class="wh-struct" d="M392,221 v14 M392,221 l8,-3 M392,235 l8,3"/>
-          </g>
-          <circle class="wh-joint" cx="316" cy="252" r="5"/>
-          <circle class="wh-joint" cx="344" cy="216" r="4.5"/>
-          <circle class="wh-joint" cx="353" cy="214" r="2.6"/>
-
-          <!-- ===== conveyor ===== -->
-          <rect class="wh-machine" x="372" y="246" width="128" height="12" rx="6"/>
-          <path class="wh-struct" d="M384,258 V284 M486,258 V284"/>
-          <circle class="wh-joint" cx="378" cy="252" r="3"/>
-          <circle class="wh-joint" cx="494" cy="252" r="3"/>
-          <rect class="wh-box wh-cargo" x="380" y="230" width="18" height="16" style="animation-delay:0s"/>
-          <rect class="wh-box wh-cargo" x="380" y="230" width="18" height="16" style="animation-delay:1.4s"/>
-          <rect class="wh-box wh-cargo" x="380" y="230" width="18" height="16" style="animation-delay:2.8s"/>
-          <rect class="wh-machine solid" x="502" y="248" width="14" height="10" rx="1"/>
-          <path class="wh-struct" d="M502,250 h-3 M502,254 h-3 M516,250 h3 M516,254 h3" style="stroke-width:1.4"/>
-          <text class="wh-label" x="500" y="270" style="font-size:7px">&#181;C</text>
-
-          <!-- ===== AMR route + mobile robot ===== -->
-          <path class="gap-line" d="M512,278 H690"/>
-          <g class="wh-amr">
-            <rect class="wh-machine" x="548" y="238" width="58" height="28" rx="4"/>
-            <rect class="wh-box" x="556" y="222" width="26" height="16"/>
-            <path class="wh-arm" d="M586,238 V226" style="stroke-width:4"/>
-            <circle class="wh-joint" cx="586" cy="224" r="3"/>
-            <circle class="wh-wheel" cx="560" cy="268" r="8"/>
-            <circle class="wh-wheel" cx="594" cy="268" r="8"/>
-            <rect class="wh-machine solid" x="587" y="244" width="17" height="12" rx="1"/>
-            <text class="wh-label" x="589" y="253" style="font-size:6.5px;fill:var(--ink-dim)">EDGE</text>
-            <g class="wh-tag" transform="translate(547,204)">
-              <rect x="0" y="0" width="52" height="13" rx="6"/>
-              <text x="26" y="9" text-anchor="middle">autonomy</text>
-            </g>
-          </g>
-
-          <!-- ===== server rack ===== -->
-          <rect class="wh-machine" x="636" y="146" width="60" height="134" rx="3"/>
-          <path class="wh-beam" d="M636,170 H696 M636,194 H696 M636,218 H696 M636,242 H696"/>
-          <circle class="wh-led" cx="688" cy="158" r="2"/>
-          <circle class="wh-led" cx="688" cy="182" r="2" style="animation-delay:.4s"/>
-          <circle class="wh-led v" cx="688" cy="206" r="2" style="animation-delay:.8s"/>
-          <circle class="wh-led" cx="688" cy="230" r="2" style="animation-delay:1.2s"/>
-          <g class="wh-tag" transform="translate(610,126)">
-            <rect x="0" y="0" width="66" height="13" rx="6"/>
-            <text x="33" y="9" text-anchor="middle">Digital Twin</text>
-          </g>
-
-          <!-- ===== AI vision tag on the robot ===== -->
-          <g class="wh-tag" transform="translate(296,170)">
-            <rect x="0" y="0" width="52" height="13" rx="6"/>
-            <text x="26" y="9" text-anchor="middle">AI vision</text>
-          </g>
-
-          <!-- ===== architecture boundary: partial, never closes ===== -->
-          <g class="arch-frame">
-            <path d="M232,286 H16 V56 H540 V148 M540,214 V286"/>
-          </g>
-          <text class="arch-frame" x="24" y="48" style="font-size:8.5px">system architecture &#8212; partial, no single model</text>
-
-          <!-- ===== tangled cross-subsystem data links ===== -->
-          <path class="gap-line" d="M232,180 C240,182 250,204 262,222"/>
-          <path class="gap-line" d="M286,222 C292,200 302,214 314,250"/>
-          <path class="trace c-warn" d="M344,216 C440,150 556,150 636,176" style="opacity:.55"/>
-          <path class="trace c-warn" d="M600,244 C624,240 632,222 636,214" style="opacity:.55"/>
-          <path class="trace c-warn" d="M552,262 C450,300 336,292 292,254" style="opacity:.55"/>
-          <path class="trace c-warn" d="M636,160 C512,92 344,84 232,100" style="opacity:.5"/>
-          <circle class="pulse c-warn" r="2.6" style="offset-path:path('M344,216 C440,150 556,150 636,176'); animation-delay:0.4s;"/>
-          <circle class="pulse c-warn" r="2.6" style="offset-path:path('M552,262 C450,300 336,292 292,254'); animation-delay:1.6s;"/>
-          <circle class="pulse c-warn" r="2.6" style="offset-path:path('M636,160 C512,92 344,84 232,100'); animation-delay:2.6s;"/>
-          <circle class="pulse c-warn" r="2.2" style="offset-path:path('M232,180 C240,182 250,204 262,222'); animation-delay:3.2s;"/>
-
-          <!-- mismatch markers -->
-          <g class="gap-x"><circle cx="276" cy="212" r="8"/><text x="276" y="215">&#10005;</text></g>
-          <g class="gap-x"><circle cx="604" cy="166" r="8"/><text x="604" y="169">&#10005;</text></g>
-          <g class="gap-x"><circle cx="392" cy="288" r="8"/><text x="392" y="291">&#10005;</text></g>
-
-          <!-- M2M tag on the AMR-to-PLC link -->
-          <g class="wh-tag" transform="translate(470,270)">
-            <rect x="0" y="0" width="32" height="13" rx="6"/>
-            <text x="16" y="9" text-anchor="middle">M2M</text>
-          </g>
-
-          <!-- floor labels -->
-          <text class="wh-label" x="26" y="302">RACKING</text>
-          <text class="wh-label" x="320" y="302">ROBOT CELL</text>
-          <text class="wh-label" x="410" y="302">CONVEYOR</text>
-          <text class="wh-label" x="560" y="302">AMR</text>
-          <text class="wh-label" x="640" y="302">SERVERS</text>
-
-          <text class="gap-note status-bad" x="360" y="332">no single model across robots, PLCs, edge &amp; servers &#8594; suboptimal system-of-system behavior</text>
+        <svg id="wh-scene" viewBox="0 0 720 350" xmlns="http://www.w3.org/2000/svg" class="warehouse">
+          <defs>
+            <linearGradient id="whGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="var(--cyan)"/>
+              <stop offset="1" stop-color="var(--violet)"/>
+            </linearGradient>
+          </defs>
+          <text class="zone-label c-warn" x="360" y="15" text-anchor="middle">AUTOMATED WAREHOUSE &#183; SUBSYSTEMS RUNNING, NO SINGLE MODEL</text>
+          <g id="wh-stage"></g>
+          <text class="gap-note status-bad" x="360" y="343" text-anchor="middle">no single model across robots, edge &amp; cloud &#8594; suboptimal system-of-system behavior</text>
         </svg>
+        <script>
+        (function(){
+          var NS='http://www.w3.org/2000/svg', stage=document.getElementById('wh-stage');
+          if(!stage) return;
+          var A=46, B=19, OX=288, OY=100;
+          function iso(x,y,z){ return [OX+(x-y)*A, OY+(x+y)*B-(z||0)]; }
+          function el(tag,at,p){ var n=document.createElementNS(NS,tag); for(var k in at){ if(at[k]!=null) n.setAttribute(k,at[k]); } (p||stage).appendChild(n); return n; }
+          function P(a){ return a.map(function(q){ return q[0].toFixed(1)+','+q[1].toFixed(1); }).join(' '); }
+          function box(x1,y1,x2,y2,h,cls,p,z0){
+            z0=z0||0; var G=el('g',{'class':'iso-box '+(cls||'')},p);
+            var Bb=iso(x2,y1,z0),Bc=iso(x2,y2,z0),Bd=iso(x1,y2,z0);
+            var Ta=iso(x1,y1,z0+h),Tb=iso(x2,y1,z0+h),Tc=iso(x2,y2,z0+h),Td=iso(x1,y2,z0+h);
+            el('polygon',{points:P([Td,Tc,Bc,Bd]),'class':'iso-l'},G);
+            el('polygon',{points:P([Tb,Tc,Bc,Bb]),'class':'iso-r'},G);
+            el('polygon',{points:P([Ta,Tb,Tc,Td]),'class':'iso-t'},G);
+            return G;
+          }
+          function ctop(x1,y1,x2,y2,h,z0){ return iso((x1+x2)/2,(y1+y2)/2,(z0||0)+h); }
+          var i;
+
+          // floor + grid (7 x 5)
+          el('polygon',{points:P([iso(0,0),iso(7,0),iso(7,5),iso(0,5)]),'class':'iso-floor'});
+          for(i=1;i<7;i++) el('line',{x1:iso(i,0)[0],y1:iso(i,0)[1],x2:iso(i,5)[0],y2:iso(i,5)[1],'class':'iso-grid'});
+          for(i=1;i<5;i++) el('line',{x1:iso(0,i)[0],y1:iso(0,i)[1],x2:iso(7,i)[0],y2:iso(7,i)[1],'class':'iso-grid'});
+
+          // architecture boundary (open, sits on the floor)
+          var af=el('g',{'class':'arch-frame'});
+          var q0=iso(0.05,0.05,3),q1=iso(4.6,0.05,3),q2=iso(4.6,2.4,3),q3=iso(0.05,3.3,3);
+          el('path',{d:'M'+q0[0]+','+q0[1]+' L'+q1[0]+','+q1[1]+' L'+q2[0]+','+q2[1]},af);
+          el('path',{d:'M'+q0[0]+','+q0[1]+' L'+q3[0]+','+q3[1]},af);
+          var al=el('text',{x:88,y:40,'class':'arch-frame','font-size':8.5}); al.textContent='system architecture — partial, no single model';
+
+          // racking + pallets (back row)
+          [[0.30,1.70],[1.95,3.35],[3.60,5.00],[5.25,6.65]].forEach(function(b){
+            box(b[0],0.30,b[1],0.92,44,'rack');
+            box(b[0]+0.22,0.42,b[1]-0.22,0.85,12,'pallet',null,44);
+          });
+
+          // edge gateway
+          box(0.12,2.05,0.78,2.72,18,'edge');
+          var eg=ctop(0.12,2.05,0.78,2.72,18);
+
+          // robot cell + AI-vision camera
+          box(5.55,1.55,6.45,2.45,15,'robase');
+          var rc=ctop(5.55,1.55,6.45,2.45,15);
+          var fore=el('g',{'class':'wh-arm-fore'});
+          var sh=[rc[0],rc[1]-2], elb=[rc[0]-22,rc[1]-34], wr=[rc[0]-50,rc[1]-24];
+          el('path',{d:'M'+sh[0]+','+sh[1]+' L'+elb[0]+','+elb[1],'class':'wh-arm'});
+          el('path',{d:'M'+elb[0]+','+elb[1]+' L'+wr[0]+','+wr[1],'class':'wh-arm'},fore);
+          el('circle',{cx:elb[0],cy:elb[1],r:3.2,'class':'wh-joint'},fore);
+          el('circle',{cx:sh[0],cy:sh[1],r:4.2,'class':'wh-joint'});
+          var mb=iso(6.4,1.5), mt=[mb[0],mb[1]-66];
+          el('path',{d:'M'+mb[0]+','+mb[1]+' L'+mt[0]+','+mt[1],'class':'wh-mast'});
+          el('rect',{x:mt[0]-7,y:mt[1]-5,width:14,height:10,rx:2,'class':'wh-cam'});
+          var cs=[mt[0]-2,mt[1]+3];
+          el('polygon',{points:P([cs,iso(3.7,3.5),iso(5.0,3.85)]),'class':'wh-cone'});
+
+          // AMRs running the floor (drawn before the conveyor)
+          function amr(cx,cy,cls){
+            var G=box(cx-0.30,cy-0.26,cx+0.30,cy+0.26,13,'amr '+cls);
+            var t=ctop(cx-0.30,cy-0.26,cx+0.30,cy+0.26,13);
+            el('ellipse',{cx:t[0],cy:t[1]-1,rx:7,ry:3.2,'class':'amr-puck'},G);
+            return {g:G,t:t,c:iso(cx,cy,13)};
+          }
+          var a1=amr(1.35,2.25,'amr-a'), a2=amr(4.15,2.35,'amr-b'), a3=amr(2.55,3.15,'amr-c');
+          [a1,a2,a3].forEach(function(a){ el('path',{d:'M'+(a.c[0]-52)+','+(a.c[1]-22)+' L'+(a.c[0]+52)+','+(a.c[1]+22),'class':'amr-trail'}); });
+
+          // conveyor + packages (in front of the AMRs)
+          box(0.80,3.45,5.90,3.92,13,'conv');
+          for(i=0;i<3;i++){
+            var pk=box(1.05,3.56,1.48,3.82,14,'pkg wh-cargo');
+            pk.style.animationDelay=(i*1.5)+'s';
+          }
+
+          // on-prem server rack (front-right, nearest the viewer)
+          box(6.15,3.95,6.95,4.90,50,'srv');
+          var sv=ctop(6.15,3.95,6.95,4.90,50);
+
+          // cloud (Digital Twin) + comm links
+          var cl=el('g',{'class':'wh-cloud'});
+          el('path',{transform:'translate(470,10) scale(5.2)',d:'M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z'},cl);
+          var CA=[526,56];
+          var cll=el('text',{x:526,y:100,'class':'cloud-label','text-anchor':'middle'}); cll.textContent='Digital Twin';
+          function comm(from,dl){
+            var mx=(from[0]+CA[0])/2, my=Math.min(from[1],CA[1])-24;
+            var d='M'+from[0]+','+from[1]+' Q'+mx+','+my+' '+CA[0]+','+CA[1];
+            el('path',{d:d,'class':'trace c-violet dashed'});
+            var p1=el('circle',{r:2.6,'class':'pulse c-violet'}); p1.style.offsetPath="path('"+d+"')"; p1.style.animationDelay=dl+'s';
+            var p2=el('circle',{r:2.1,'class':'pulse c-violet runtime'}); p2.style.offsetPath="path('"+d+"')"; p2.style.animationDelay=(dl+1.2)+'s';
+          }
+          comm(eg,0.2); comm([mt[0],mt[1]-3],1.0); comm(a2.t,1.9); comm(sv,2.7);
+
+          // tangled cross-subsystem links + mismatch marks
+          function link(p,q){ el('path',{d:'M'+p[0]+','+p[1]+' Q'+((p[0]+q[0])/2)+','+(((p[1]+q[1])/2)-16)+' '+q[0]+','+q[1],'class':'gap-line'}); }
+          link(a1.c, iso(3.0,3.5,7)); link(a1.c, eg); link(rc, iso(5.0,0.9,40)); link(a3.c, a2.c);
+          function xm(p){ var G=el('g',{'class':'gap-x'}); el('circle',{cx:p[0],cy:p[1],r:8},G); var t=el('text',{x:p[0],y:p[1]+3},G); t.textContent='✕'; }
+          xm(iso(2.6,3.0,6)); xm(iso(5.0,1.5,9));
+
+          // tags
+          function tag(x,y,label,w){ var G=el('g',{'class':'wh-tag',transform:'translate('+x+','+y+')'}); el('rect',{x:0,y:0,width:w,height:13,rx:6},G); var t=el('text',{x:w/2,y:9,'text-anchor':'middle'},G); t.textContent=label; }
+          tag(mt[0]+8, mt[1]-2, 'AI vision', 50);
+          tag(a1.t[0]-56, a1.t[1]-4, 'autonomy', 50);
+          var mm=[(a3.c[0]+a2.c[0])/2, (a3.c[1]+a2.c[1])/2]; tag(mm[0]-15, mm[1]-20, 'M2M', 30);
+        })();
+        </script>
       </div>
     </div>
 
