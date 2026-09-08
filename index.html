@@ -305,6 +305,39 @@ nav{
 .gap-x text{ fill:var(--warn); font-family:"IBM Plex Mono",monospace; font-weight:700; font-size:10px; text-anchor:middle; }
 .gap-note{ font-family:"IBM Plex Mono",monospace; font-size:9.5px; fill:var(--warn); text-anchor:middle; letter-spacing:0.04em; }
 
+/* problem: automated-warehouse scene */
+.warehouse text{ font-family:"IBM Plex Mono",monospace; }
+.wh-struct{ stroke:var(--line-strong); stroke-width:2; fill:none; stroke-linecap:round; }
+.wh-beam{ stroke:var(--line-strong); stroke-width:1.5; }
+.wh-machine{ fill:var(--bg-raised-2); stroke:var(--line-strong); stroke-width:1.6; }
+.wh-machine.solid{ fill:#1c2029; }
+.wh-arm{ stroke:var(--ink-dim); stroke-width:7; stroke-linecap:round; fill:none; }
+.wh-joint{ fill:var(--bg-raised-2); stroke:var(--ink-dim); stroke-width:2; }
+.wh-box{ fill:var(--bg-raised); stroke:var(--line-strong); stroke-width:1.3; }
+.wh-wheel{ fill:#1c2029; stroke:var(--line-strong); stroke-width:1.6; }
+.wh-led{ fill:var(--cyan); }
+.wh-led.v{ fill:var(--violet); }
+.wh-label{ font-size:8px; fill:var(--ink-faint); letter-spacing:0.09em; }
+.wh-tag rect{ fill:var(--warn-soft); stroke:var(--warn); stroke-width:1; }
+.wh-tag text{ font-size:8px; fill:var(--warn); font-weight:600; }
+.arch-frame path{ fill:none; stroke:var(--warn); stroke-width:1.3; stroke-dasharray:5 5; }
+.arch-frame text, text.arch-frame{ font-family:"IBM Plex Mono",monospace; fill:var(--warn); letter-spacing:0.05em; }
+.impact.c-warn{ stroke:var(--warn); }
+@media (prefers-reduced-motion:no-preference){
+  .arch-frame{ animation:archpulse 3.4s ease-in-out infinite; }
+  .status-bad{ animation:flicker 4.2s steps(1,end) infinite; }
+  .wh-amr{ animation:amr-run 7s ease-in-out infinite; }
+  .wh-arm-fore{ animation:arm-nod 3.2s ease-in-out infinite; }
+  .wh-cargo{ animation:belt-travel 4.2s linear infinite; }
+  .wh-led{ animation:blink 1.9s steps(1,end) infinite; }
+}
+@keyframes archpulse{ 0%,100%{ opacity:0.4; } 50%{ opacity:0.85; } }
+@keyframes flicker{ 0%,39%,43%,59%,100%{ opacity:0.9; } 41%,57%{ opacity:0.22; } }
+@keyframes amr-run{ 0%,100%{ transform:translateX(0); } 50%{ transform:translateX(-46px); } }
+@keyframes arm-nod{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-5px); } }
+@keyframes belt-travel{ 0%{ transform:translateX(0); opacity:0; } 14%{ opacity:1; } 86%{ opacity:1; } 100%{ transform:translateX(118px); opacity:0; } }
+@keyframes blink{ 0%,72%{ opacity:1; } 73%,100%{ opacity:0.25; } }
+
 .problem-lead{ margin-top:2.8rem; color:var(--ink-dim); font-size:1.02rem; max-width:60ch; }
 
 .gap-grid{ margin-top:1.6rem; display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; }
@@ -579,9 +612,7 @@ footer a:hover{ color:var(--cyan); }
         <div class="hero-trust">
           <span><b>Cosys-Lab</b> · University of Antwerp</span>
           <span>·</span>
-          <span>IOF Industrial Research Fund</span>
-          <span>·</span>
-          <span>TRL3 → TRL5</span>
+          <span>Industrial Research Fund (IOF) POC</span>
         </div>
       </div>
 
@@ -700,127 +731,161 @@ footer a:hover{ color:var(--cyan); }
   <section id="problem" class="wrap problem">
     <div class="section-head">
       <span class="badge warn">The problem</span>
-      <h2>Your system already spans PLCs, SBCs, and servers. Your tooling doesn't.</h2>
-      <p>Industrial applications are increasingly distributed across genuinely different hardware classes — often within the same system. But nothing today treats that as one application: the same logical system gets modeled, built, deployed, and monitored three or four separate times, once per target, with no single source of truth tying it together.</p>
+      <h2>    Automation evolved. The way we design it didn’t.</h2>
+      <p>Industrial automation is no longer just PLCs, machines, and control logic. AI, Digital Twins, edge computing, and increasingly autonomous software are becoming part of the automation stack, while robots and autonomous mobile systems are rapidly becoming integral to warehouses and production environments. But we still engineer them as separate worlds. PLCs, robots, AI, Digital Twins, edge nodes, and cloud services are designed, integrated, and deployed piece by piece — with no unified view of the complete system. The result? Growing integration complexity, fragmented architectures, and system-of-systems behavior that is difficult to predict, validate, and optimize.</p>
     </div>
 
     <div class="problem-art panel">
       <div class="panel-bar">
         <div class="dots"><span></span><span></span><span></span></div>
-        <span class="panel-file mono">today-vs-flexia.flexia</span>
+        <span class="panel-file mono">system-of-system.flexia</span>
         <span class="panel-rec"><span class="dot-rec"></span>LIVE</span>
       </div>
       <div class="panel-body">
-        <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
-          <!-- zones -->
-          <rect class="zone-bg warn" x="0" y="0" width="352" height="340"/>
-          <rect class="zone-bg design" x="368" y="0" width="176" height="340"/>
-          <rect class="zone-bg runtime" x="544" y="0" width="176" height="340"/>
-          <line class="zone-divider" x1="360" y1="0" x2="360" y2="340"/>
-          <text class="zone-label c-warn" x="176" y="24">TODAY — THREE SEPARATE WORLDS</text>
-          <text class="zone-label c-violet" x="540" y="24">FLEXIA — ONE COHERENT SYSTEM</text>
+        <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg" class="warehouse">
+          <text class="zone-label c-warn" x="360" y="16">ONE WAREHOUSE &#183; SUBSYSTEMS WIRED PIECEMEAL</text>
 
-          <!-- LEFT: three isolated silos -->
-          <g class="silo-box">
-            <rect x="16" y="46" width="140" height="52" rx="6"/>
-            <text class="silo-label" x="30" y="66" font-size="10.5">Vendor IDE</text>
-            <text x="30" y="82" font-size="9">PLC program push</text>
-          </g>
-          <g class="dev-box warn">
-            <rect x="196" y="46" width="140" height="52" rx="6"/>
-            <text x="266" y="68" font-size="12" text-anchor="middle">PLC</text>
-            <text class="dev-sub" x="266" y="84" font-size="9" text-anchor="middle">no cloud reach</text>
-          </g>
-          <path class="trace c-warn" d="M156,72 H196" style="opacity:0.6;"/>
-          <circle class="pulse c-warn" r="2.8" style="offset-path:path('M156,72 H196'); animation-delay:0s;"/>
+          <!-- warehouse floor -->
+          <line class="wh-beam" x1="8" y1="288" x2="712" y2="288" style="opacity:.5"/>
 
-          <g class="silo-box">
-            <rect x="16" y="136" width="140" height="52" rx="6"/>
-            <text class="silo-label" x="30" y="156" font-size="10.5">Container Runtime</text>
-            <text x="30" y="172" font-size="9">Docker / Kubernetes</text>
-          </g>
-          <g class="dev-box warn">
-            <rect x="196" y="136" width="140" height="52" rx="6"/>
-            <text x="266" y="158" font-size="12" text-anchor="middle">SBC / SERVER</text>
-            <text class="dev-sub" x="266" y="174" font-size="9" text-anchor="middle">no PLC reach</text>
-          </g>
-          <path class="trace c-warn" d="M156,162 H196" style="opacity:0.6;"/>
-          <circle class="pulse c-warn" r="2.8" style="offset-path:path('M156,162 H196'); animation-delay:1.1s;"/>
+          <!-- ===== pallet racking ===== -->
+          <path class="wh-struct" d="M26,282 V78 M128,282 V78 M230,282 V78"/>
+          <path class="wh-beam" d="M24,80 H232 M24,132 H232 M24,186 H232 M24,240 H232"/>
+          <rect class="wh-box" x="40" y="98" width="52" height="32"/>
+          <rect class="wh-box" x="150" y="104" width="60" height="26"/>
+          <rect class="wh-box" x="44" y="152" width="46" height="32"/>
+          <rect class="wh-box" x="146" y="150" width="66" height="34"/>
+          <rect class="wh-box" x="40" y="206" width="72" height="32"/>
+          <rect class="wh-box" x="158" y="212" width="48" height="26"/>
 
-          <g class="silo-box">
-            <rect x="16" y="226" width="140" height="52" rx="6"/>
-            <text class="silo-label" x="30" y="246" font-size="10.5">IT Tools</text>
-            <text x="30" y="262" font-size="9">logs, metrics</text>
-          </g>
-          <g class="silo-box">
-            <rect x="196" y="226" width="140" height="52" rx="6"/>
-            <text class="silo-label" x="210" y="246" font-size="10.5">OT Tools</text>
-            <text x="210" y="262" font-size="9">SCADA / HMI</text>
-          </g>
-          <path class="gap-line" d="M156,252 H196"/>
-          <g class="gap-x"><circle cx="176" cy="252" r="8"/><text x="176" y="255">✕</text></g>
+          <!-- ===== PLC control cabinet ===== -->
+          <rect class="wh-machine" x="260" y="218" width="26" height="64" rx="2"/>
+          <circle class="wh-led" cx="268" cy="228" r="2"/>
+          <circle class="wh-led v" cx="268" cy="236" r="2" style="animation-delay:.5s"/>
+          <circle class="wh-led" cx="268" cy="244" r="2" style="animation-delay:1s"/>
+          <text class="wh-label" x="262" y="262" style="font-size:7px">PLC</text>
 
-          <!-- gaps between the three silo rows -->
-          <path class="gap-line" d="M10,113 H346"/>
-          <g class="gap-x"><circle cx="176" cy="113" r="8"/><text x="176" y="116">✕</text></g>
-          <path class="gap-line" d="M10,203 H346"/>
-          <g class="gap-x"><circle cx="176" cy="203" r="8"/><text x="176" y="206">✕</text></g>
-          <text class="gap-note" x="176" y="300">no shared model — no single source of truth</text>
+          <!-- ===== robot cell ===== -->
+          <rect class="wh-machine" x="300" y="252" width="32" height="32" rx="2"/>
+          <path class="wh-arm" d="M316,252 L344,216"/>
+          <g class="wh-arm-fore">
+            <path class="wh-arm" d="M344,216 L392,228"/>
+            <path class="wh-struct" d="M392,221 v14 M392,221 l8,-3 M392,235 l8,3"/>
+          </g>
+          <circle class="wh-joint" cx="316" cy="252" r="5"/>
+          <circle class="wh-joint" cx="344" cy="216" r="4.5"/>
+          <circle class="wh-joint" cx="353" cy="214" r="2.6"/>
 
-          <!-- RIGHT: one flexCloud hub reaching every target -->
-          <path class="trace c-cyan" d="M470,170 H500 V72  H560"/>
-          <path class="trace c-violet" d="M470,170 H500 V170 H560"/>
-          <path class="trace c-cyan" d="M470,170 H500 V268 H560"/>
-          <circle class="pulse c-cyan" r="3" style="offset-path:path('M470,170 H500 V72  H560'); animation-delay:0.2s;"/>
-          <circle class="pulse c-violet" r="3" style="offset-path:path('M470,170 H500 V170 H560'); animation-delay:1.0s;"/>
-          <circle class="pulse c-cyan" r="3" style="offset-path:path('M470,170 H500 V268 H560'); animation-delay:1.8s;"/>
-          <circle class="impact c-cyan" cx="560" cy="72" style="animation-delay:0.2s;"/>
-          <circle class="impact c-violet" cx="560" cy="170" style="animation-delay:1.0s;"/>
-          <circle class="impact c-cyan" cx="560" cy="268" style="animation-delay:1.8s;"/>
+          <!-- ===== conveyor ===== -->
+          <rect class="wh-machine" x="372" y="246" width="128" height="12" rx="6"/>
+          <path class="wh-struct" d="M384,258 V284 M486,258 V284"/>
+          <circle class="wh-joint" cx="378" cy="252" r="3"/>
+          <circle class="wh-joint" cx="494" cy="252" r="3"/>
+          <rect class="wh-box wh-cargo" x="380" y="230" width="18" height="16" style="animation-delay:0s"/>
+          <rect class="wh-box wh-cargo" x="380" y="230" width="18" height="16" style="animation-delay:1.4s"/>
+          <rect class="wh-box wh-cargo" x="380" y="230" width="18" height="16" style="animation-delay:2.8s"/>
+          <rect class="wh-machine solid" x="502" y="248" width="14" height="10" rx="1"/>
+          <path class="wh-struct" d="M502,250 h-3 M502,254 h-3 M516,250 h3 M516,254 h3" style="stroke-width:1.4"/>
+          <text class="wh-label" x="500" y="270" style="font-size:7px">&#181;C</text>
 
-          <g class="cloud-shape">
-            <path transform="translate(392,148) scale(5.2)" d="M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
+          <!-- ===== AMR route + mobile robot ===== -->
+          <path class="gap-line" d="M512,278 H690"/>
+          <g class="wh-amr">
+            <rect class="wh-machine" x="548" y="238" width="58" height="28" rx="4"/>
+            <rect class="wh-box" x="556" y="222" width="26" height="16"/>
+            <path class="wh-arm" d="M586,238 V226" style="stroke-width:4"/>
+            <circle class="wh-joint" cx="586" cy="224" r="3"/>
+            <circle class="wh-wheel" cx="560" cy="268" r="8"/>
+            <circle class="wh-wheel" cx="594" cy="268" r="8"/>
+            <rect class="wh-machine solid" x="587" y="244" width="17" height="12" rx="1"/>
+            <text class="wh-label" x="589" y="253" style="font-size:6.5px;fill:var(--ink-dim)">EDGE</text>
+            <g class="wh-tag" transform="translate(547,204)">
+              <rect x="0" y="0" width="52" height="13" rx="6"/>
+              <text x="26" y="9" text-anchor="middle">autonomy</text>
+            </g>
           </g>
-          <text class="cloud-sub" x="437" y="207" font-size="8.5">single source of truth</text>
 
-          <g class="dev-box c-cyan">
-            <rect x="560" y="46" width="140" height="52" rx="6"/>
-            <text x="630" y="68" font-size="12" text-anchor="middle">PLC</text>
+          <!-- ===== server rack ===== -->
+          <rect class="wh-machine" x="636" y="146" width="60" height="134" rx="3"/>
+          <path class="wh-beam" d="M636,170 H696 M636,194 H696 M636,218 H696 M636,242 H696"/>
+          <circle class="wh-led" cx="688" cy="158" r="2"/>
+          <circle class="wh-led" cx="688" cy="182" r="2" style="animation-delay:.4s"/>
+          <circle class="wh-led v" cx="688" cy="206" r="2" style="animation-delay:.8s"/>
+          <circle class="wh-led" cx="688" cy="230" r="2" style="animation-delay:1.2s"/>
+          <g class="wh-tag" transform="translate(610,126)">
+            <rect x="0" y="0" width="66" height="13" rx="6"/>
+            <text x="33" y="9" text-anchor="middle">Digital Twin</text>
           </g>
-          <g class="dev-box c-violet">
-            <rect x="560" y="144" width="140" height="52" rx="6"/>
-            <text x="630" y="166" font-size="12" text-anchor="middle">SBC / SERVER</text>
+
+          <!-- ===== AI vision tag on the robot ===== -->
+          <g class="wh-tag" transform="translate(296,170)">
+            <rect x="0" y="0" width="52" height="13" rx="6"/>
+            <text x="26" y="9" text-anchor="middle">AI vision</text>
           </g>
-          <g class="dev-box c-cyan">
-            <rect x="560" y="242" width="140" height="52" rx="6"/>
-            <text x="630" y="264" font-size="12" text-anchor="middle">MICROCONTROLLER</text>
+
+          <!-- ===== architecture boundary: partial, never closes ===== -->
+          <g class="arch-frame">
+            <path d="M232,286 H16 V56 H540 V148 M540,214 V286"/>
           </g>
+          <text class="arch-frame" x="24" y="48" style="font-size:8.5px">system architecture &#8212; partial, no single model</text>
+
+          <!-- ===== tangled cross-subsystem data links ===== -->
+          <path class="gap-line" d="M232,180 C240,182 250,204 262,222"/>
+          <path class="gap-line" d="M286,222 C292,200 302,214 314,250"/>
+          <path class="trace c-warn" d="M344,216 C440,150 556,150 636,176" style="opacity:.55"/>
+          <path class="trace c-warn" d="M600,244 C624,240 632,222 636,214" style="opacity:.55"/>
+          <path class="trace c-warn" d="M552,262 C450,300 336,292 292,254" style="opacity:.55"/>
+          <path class="trace c-warn" d="M636,160 C512,92 344,84 232,100" style="opacity:.5"/>
+          <circle class="pulse c-warn" r="2.6" style="offset-path:path('M344,216 C440,150 556,150 636,176'); animation-delay:0.4s;"/>
+          <circle class="pulse c-warn" r="2.6" style="offset-path:path('M552,262 C450,300 336,292 292,254'); animation-delay:1.6s;"/>
+          <circle class="pulse c-warn" r="2.6" style="offset-path:path('M636,160 C512,92 344,84 232,100'); animation-delay:2.6s;"/>
+          <circle class="pulse c-warn" r="2.2" style="offset-path:path('M232,180 C240,182 250,204 262,222'); animation-delay:3.2s;"/>
+
+          <!-- mismatch markers -->
+          <g class="gap-x"><circle cx="276" cy="212" r="8"/><text x="276" y="215">&#10005;</text></g>
+          <g class="gap-x"><circle cx="604" cy="166" r="8"/><text x="604" y="169">&#10005;</text></g>
+          <g class="gap-x"><circle cx="392" cy="288" r="8"/><text x="392" y="291">&#10005;</text></g>
+
+          <!-- M2M tag on the AMR-to-PLC link -->
+          <g class="wh-tag" transform="translate(470,270)">
+            <rect x="0" y="0" width="32" height="13" rx="6"/>
+            <text x="16" y="9" text-anchor="middle">M2M</text>
+          </g>
+
+          <!-- floor labels -->
+          <text class="wh-label" x="26" y="302">RACKING</text>
+          <text class="wh-label" x="320" y="302">ROBOT CELL</text>
+          <text class="wh-label" x="410" y="302">CONVEYOR</text>
+          <text class="wh-label" x="560" y="302">AMR</text>
+          <text class="wh-label" x="640" y="302">SERVERS</text>
+
+          <text class="gap-note status-bad" x="360" y="332">no single model across robots, PLCs, edge &amp; servers &#8594; suboptimal system-of-system behavior</text>
         </svg>
       </div>
     </div>
 
-    <p class="problem-lead">The gap isn't an oversight, it's structural, and it shows up at every stage:</p>
+    <p class="problem-lead">The gap is structural: there's no place where the whole system-of-system is designed, checked, and deployed as one. It shows up at every stage:</p>
 
     <div class="gap-grid">
       <div class="gap-card">
         <span class="gap-num">01</span>
-        <h4>Two worlds, no bridge</h4>
-        <p>Container tooling covers SBCs and servers but hard-stops at classic PLCs. Vendor program-push covers PLCs but never reaches the cloud. Nothing spans both.</p>
+        <h4>No system-of-system architecture</h4>
+        <p>Robotics stacks, control logic, AI components and Digital Twins are integrated one by one. Nobody holds a model of how the whole system fits together, so integration problems stay invisible until they bite.</p>
       </div>
       <div class="gap-card">
         <span class="gap-num">02</span>
-        <h4>The wrong unit of deployment</h4>
-        <p>Even within one world, tools push a single artifact replicated across similar devices — fleet repetition, not orchestration of components that must land on different targets and stay wired together.</p>
+        <h4>Fragmented device coverage</h4>
+        <p>Every class of compute has its own siloed toolchain — vendor IDEs for PLCs, container tooling for edge and servers, separate SDKs for microcontrollers. Nothing spans all of them.</p>
       </div>
       <div class="gap-card">
         <span class="gap-num">03</span>
-        <h4>No model, so no early warning</h4>
-        <p>Without a shared architecture model linking components to the hardware they're bound to, mismatches surface during commissioning on real hardware — not on a screen beforehand.</p>
+        <h4>Correctness checked too late</h4>
+        <p>With no system-level model linking components to the hardware they run on, architecture mismatches only surface during commissioning, on real hardware — not on a screen beforehand.</p>
       </div>
       <div class="gap-card">
         <span class="gap-num">04</span>
-        <h4>Implementation locked to one world</h4>
-        <p>Legacy control code, a Simulink model, a partner's IP-protected model — integrating it usually means rewriting it, because no common component model spans language and platform boundaries.</p>
+        <h4>Deployment is manual and per-target</h4>
+        <p>Each device class is built and pushed on its own, once per target. There's no single action that places a whole distributed application across every compute device and keeps the components wired together.</p>
       </div>
     </div>
 
@@ -836,33 +901,28 @@ footer a:hover{ color:var(--cyan); }
         </div>
         <div class="diff-row">
           <div class="diff-dim">Device coverage</div>
-          <div class="diff-old"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>Container tools <i>or</i> vendor PLC tools — pick one</div>
-          <div class="diff-new"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>One model spans PLC, SBC, microcontroller, and server</div>
+          <div class="diff-old"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>A separate toolchain per compute class — vendor IDEs, container tools, microcontroller SDKs</div>
+          <div class="diff-new"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>One model spans PLCs, microcontrollers, edge nodes, and servers</div>
         </div>
         <div class="diff-row">
-          <div class="diff-dim">Deployment unit</div>
-          <div class="diff-old"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>A single artifact, replicated across a fleet</div>
-          <div class="diff-new"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>A wired set of interdependent components, placed correctly</div>
+          <div class="diff-dim">System-of-system architecture</div>
+          <div class="diff-old"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>Components integrated ad hoc, no view of how the whole system fits together</div>
+          <div class="diff-new"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>One architecture model for the whole system-of-system, across robotics and industrial automation</div>
         </div>
         <div class="diff-row">
           <div class="diff-dim">Correctness checking</div>
-          <div class="diff-old"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>Found on the shop floor, during commissioning</div>
-          <div class="diff-new"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Caught on screen, before a single node ships</div>
+          <div class="diff-old"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>Architecture mismatches found on real hardware, during commissioning</div>
+          <div class="diff-new"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Consistency checked at design time, before a single node ships</div>
         </div>
         <div class="diff-row">
-          <div class="diff-dim">Implementation</div>
-          <div class="diff-old"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>Rewrite legacy code, Simulink, or IP models per target</div>
-          <div class="diff-new"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Reuse existing code, models, and protected IP as-is</div>
-        </div>
-        <div class="diff-row">
-          <div class="diff-dim">Monitoring</div>
-          <div class="diff-old"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>Separate IT and OT tools, no system-level view</div>
-          <div class="diff-new"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>One dashboard for software and hardware together</div>
+          <div class="diff-dim">Deployment</div>
+          <div class="diff-old"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>Manual and per-target, repeated once per device class</div>
+          <div class="diff-new"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Single-button deployment across every compute device at once — PLC, microcontroller, server</div>
         </div>
       </div>
     </div>
 
-    <p class="problem-quote">Deployment isn't hard. PLCs aren't hard to program. What's missing is treating it all as <span class="grad">one coherent system</span> — across every device it runs on.</p>
+    <p class="problem-quote">The hard part was never any single device. It's designing, checking, and deploying the whole <span class="grad">system-of-system</span> as one — across every class of compute it runs on.</p>
   </section>
 
   <!-- ============ BENEFIT STRIP ============ -->
