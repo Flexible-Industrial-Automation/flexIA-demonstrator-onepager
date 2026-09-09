@@ -292,7 +292,7 @@ nav{
   gap:clamp(1.6rem,4vw,2.6rem);
 }
 .problem-art{ order:1; width:100%; }
-.problem-intro .section-head{ order:2; max-width:74ch; }
+.problem-intro .section-head{ order:2; max-width:none; width:100%; }
 .problem-art .panel-body{
   aspect-ratio:auto;
   padding:0.7rem;
@@ -310,9 +310,6 @@ nav{
   background:linear-gradient(100deg,var(--cyan),var(--violet));
   -webkit-background-clip:text; background-clip:text; color:transparent;
   font-weight:600; font-size:1.16em; letter-spacing:-0.005em;
-}
-@media (max-width:900px){
-  .problem-intro .section-head{ max-width:60ch; }
 }
 
 .zone-bg.warn{ fill:var(--warn-soft); }
@@ -898,7 +895,6 @@ footer a:hover{ color:var(--cyan); }
       </div>
     </div>
 
-    <p class="problem-lead">The gap is structural: there's no place where the whole system-of-system is designed, checked, and deployed as one. It shows up at every stage:</p>
 
     <div class="gap-grid">
       <div class="gap-card">
@@ -923,7 +919,7 @@ footer a:hover{ color:var(--cyan); }
       </div>
     </div>
 
-    <div class="diff-head">
+    <div class="section-head">
       <span class="badge">Head-to-head</span>
     </div>
     <div class="diff-scroll">
