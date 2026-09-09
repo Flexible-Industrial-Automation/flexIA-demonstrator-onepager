@@ -303,6 +303,14 @@ nav{
     var(--bg-raised);
 }
 .problem-art svg{ width:100%; height:auto; display:block; }
+
+/* problem statement — gradient-highlighted takeaways in running text */
+.problem-intro .section-head p{ line-height:1.68; }
+.prob-hl{
+  background:linear-gradient(100deg,var(--cyan),var(--violet));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  font-weight:600; font-size:1.16em; letter-spacing:-0.005em;
+}
 @media (max-width:900px){
   .problem-intro .section-head{ max-width:60ch; }
 }
@@ -765,7 +773,7 @@ footer a:hover{ color:var(--cyan); }
       <div class="section-head">
         <span class="badge warn">The problem</span>
         <h2>Automation evolved. The way we design it didn’t.</h2>
-        <p>Industrial automation is no longer just PLCs, machines, and control logic. AI, Digital Twins, edge computing, and increasingly autonomous software are becoming part of the automation stack, while robots and autonomous mobile systems are rapidly becoming integral to warehouses and production environments. But we still engineer them as separate worlds. PLCs, robots, AI, Digital Twins, edge nodes, and cloud services are designed, integrated, and deployed piece by piece — with no unified view of the complete system. The result? Growing integration complexity, fragmented architectures, and system-of-systems behavior that is difficult to predict, validate, and optimize.</p>
+        <p>Industrial automation is no longer just PLCs, machines, and control logic. AI, Digital Twins, edge computing, and increasingly autonomous software are becoming part of the automation stack, while robots and autonomous mobile systems are rapidly becoming integral to warehouses and production environments. <span class="prob-hl">But we still engineer them as separate worlds.</span> PLCs, robots, AI, Digital Twins, edge nodes, and cloud services are designed, integrated, and deployed piece by piece — with no unified view of the complete system. The result? <span class="prob-hl">Growing integration complexity, fragmented architectures, and system-of-systems behavior that is difficult to predict, validate, and optimize.</span></p>
       </div>
 
       <div class="problem-art">
