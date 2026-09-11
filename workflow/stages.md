@@ -36,13 +36,12 @@ Model your application's components and architecture explicitly, independent of 
 - embed: videos/formalisms_ide_embed.html
 - panel: flexcommunicator — component-build
 
-Implement components in C/C++, Python, Rust, or IEC 61131-3 languages such as Structured Text or Function Block Diagram, using high-level patterns like services, actions, and state machines. You can also drop in a simulation model as behavior — a Simulink model or an IP-protected model such as an Functional Mock-up Unit (FMU) — no rewrite required.
+Build it your way. Integrate it without rewriting. Implement components in C/C++, Python, IEC 61131-3 languages such as Structured Text, or plug in existing simulation models from tools like Simulink — all within the same architecture.
 
-- tag: C/C++
-- tag: Python
-- tag: Rust
-- tag: IEC 61131-3
-- tag: FMUs & Simulink
+- check: C/C++, Python, Rust, IEC 61131-3 support
+- check: Simulink & Functional Mock-up Unit (FMU) support
+- check: High-level patterns, such as services, actions, and state machines
+
 
 ## 03 · Verify — consistency & correctness
 ### Find the wiring mistake on screen, not on the shop floor.

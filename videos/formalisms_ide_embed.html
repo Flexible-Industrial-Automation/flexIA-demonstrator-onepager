@@ -24,6 +24,7 @@
     --cpp:#5aa7ff;
     --py:#f3c34a;
     --st:#7ee787;
+    --sim:#ff9f43;
   }
   *{box-sizing:border-box;}
   html,body{
@@ -94,6 +95,7 @@
   .tab .dot.cpp{ background:var(--cpp); }
   .tab .dot.py{ background:var(--py); }
   .tab .dot.st{ background:var(--st); }
+  .tab .dot.sim{ background:var(--sim); }
   .tab.active{ color:#f0f4f8; background:var(--panel); }
   .tab.active::after{
     content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px;
@@ -129,6 +131,15 @@
     font-size:.74rem; line-height:1.65; white-space:pre;
     transition: opacity .28s ease;
   }
+  .sim-canvas{
+    display:none;
+    flex:1 1 0; min-width:0;
+    align-items:center; justify-content:center;
+    background:#ffffff;
+    transition: opacity .28s ease;
+  }
+  .sim-canvas svg{ width:100%; height:100%; max-width:640px; max-height:260px; }
+
   .kw{ color:var(--kw); }
   .type{ color:var(--type); }
   .fn{ color:var(--fn); }
@@ -163,18 +174,42 @@
       <div class="tab active" data-lang="0"><span class="dot py"></span>publisher.py</div>
       <div class="tab" data-lang="1"><span class="dot cpp"></span>publisher.cpp</div>
       <div class="tab" data-lang="2"><span class="dot st"></span>publisher.st</div>
+      <div class="tab" data-lang="3"><span class="dot sim"></span>publisher.slx</div>
     </div>
 
     <div class="editor">
       <pre class="gutter" id="gutterView"></pre>
       <div class="code-wrap"><pre class="code" id="codeView"></pre></div>
+      <div class="sim-canvas" id="simCanvas">
+        <svg viewBox="0 0 420 200" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="simBlockGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#fcfcfc"/>
+              <stop offset="1" stop-color="#a6a6a6"/>
+            </linearGradient>
+          </defs>
+
+          <line x1="55" y1="100" x2="150" y2="100" stroke="#1a1a1a" stroke-width="1.4"/>
+          <polygon points="150,100 140,95 140,105" fill="#1a1a1a"/>
+          <text x="58" y="90" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#1a1a1a">In1</text>
+
+          <rect x="150" y="66" width="120" height="68" fill="url(#simBlockGrad)"
+                stroke="#1a1a1a" stroke-width="1.2" style="filter:drop-shadow(2px 3px 2px rgba(0,0,0,.22))"/>
+
+          <line x1="270" y1="100" x2="365" y2="100" stroke="#1a1a1a" stroke-width="1.4"/>
+          <polygon points="365,100 355,95 355,105" fill="#1a1a1a"/>
+          <text x="318" y="90" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#1a1a1a">Out1</text>
+
+          <text x="210" y="153" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#1a1a1a">Publisher</text>
+        </svg>
+      </div>
     </div>
 
     <div class="statusbar">
       <span class="lang-label" id="langLabel">Python</span>
       <span id="fileLabel">· publisher.py</span>
       <span class="spacer"></span>
-      <span class="cycle-indicator" id="cycleDots"><span class="on">●</span><span>●</span><span>●</span></span>
+      <span class="cycle-indicator" id="cycleDots"><span class="on">●</span><span>●</span><span>●</span><span>●</span></span>
     </div>
   </div>
 
@@ -279,7 +314,8 @@ PubTimer(IN := <span class="kw">NOT</span> PubTimer.Q, PT := T#<span class="num"
   const langs = [
     { name: "Python",           file: "publisher.py",  code: PY  },
     { name: "C / C++",          file: "publisher.cpp",  code: CPP },
-    { name: "Structured Text",  file: "publisher.st",   code: ST  }
+    { name: "Structured Text",  file: "publisher.st",   code: ST  },
+    { name: "Simulink",         file: "publisher.slx",  diagram: true }
   ];
 
   let idx = 0;
@@ -289,6 +325,8 @@ PubTimer(IN := <span class="kw">NOT</span> PubTimer.Q, PT := T#<span class="num"
   const dots = document.querySelectorAll("#cycleDots span");
   const codeView = document.getElementById("codeView");
   const gutterView = document.getElementById("gutterView");
+  const codeWrap = document.querySelector(".code-wrap");
+  const simCanvas = document.getElementById("simCanvas");
   const editor = document.querySelector(".editor");
 
   function paint(){
@@ -298,22 +336,33 @@ PubTimer(IN := <span class="kw">NOT</span> PubTimer.Q, PT := T#<span class="num"
     langLabel.textContent = lang.name;
     fileLabel.textContent = "· " + lang.file;
 
-    codeView.innerHTML = lang.code;
-    const lineCount = lang.code.split("\\n").length;
-    let nums = "";
-    for (let i = 1; i <= lineCount; i++) nums += i + (i < lineCount ? "\\n" : "");
-    gutterView.textContent = nums;
+    if (lang.diagram){
+      gutterView.style.display = "none";
+      codeWrap.style.display = "none";
+      simCanvas.style.display = "flex";
+    } else {
+      simCanvas.style.display = "none";
+      gutterView.style.display = "";
+      codeWrap.style.display = "";
+      codeView.innerHTML = lang.code;
+      const lineCount = lang.code.split("\\n").length;
+      let nums = "";
+      for (let i = 1; i <= lineCount; i++) nums += i + (i < lineCount ? "\\n" : "");
+      gutterView.textContent = nums;
+    }
     editor.scrollTop = 0;
   }
 
   function swap(){
     codeView.style.opacity = 0;
     gutterView.style.opacity = 0;
+    simCanvas.style.opacity = 0;
     setTimeout(() => {
       idx = (idx + 1) % langs.length;
       paint();
       codeView.style.opacity = 1;
       gutterView.style.opacity = 1;
+      simCanvas.style.opacity = 1;
     }, 280);
   }
 
