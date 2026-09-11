@@ -50,10 +50,10 @@ Build it your way. Integrate it without rewriting. Implement components in C/C++
 
 Deploy with confidence. Architecture Checks proves your automation system is consistent and correct before it reaches the field. Every SWC compatible, every interface correctly bound, every compute device sized for the load it's given. Only proven, validated nodes make it to the field.
 
-- tag: OPC UA
-- tag: TwinCAT
-- tag: Architecture consistency
-- tag: Deployment correctness
+- check: Check everything, from interfaces consistency to resources allocation and timing behavior.
+- check: Combine design-time knowledge with real-world runtime data (using flexEngine)
+- check: Easily add custom checks for your system and application.
+
 
 ## 04 · Deploy — flexCloud + flexEngine
 ### One button. Every device, in the right order.
