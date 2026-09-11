@@ -26,7 +26,7 @@ Everything above the marker line is ignored.
 
 Model your application's components and architecture explicitly, independent of implementation language — then bind them to real hardware and I/O. One design, portable across PLCs, embedded devices, and cloud infrastructure.
 
-- check: Architecture & software-component models in AADL
+- check: Architecture & software-component models
 - check: Explicit hardware I/O binding
 - check: High-level patterns — state machines, services, actions,...
 - check: Code generation for complete applications, not individual components, supporting multiple formalisms (Python, C/C++,...)
