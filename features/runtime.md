@@ -6,6 +6,14 @@ reference (fields, icon names, the marker line).
 
 <!-- features -->
 
+## Single-button deployment
+- enabled: true
+- icon: bolt
+- video: 04-flexcloud-fleet-deployment
+- panel: flexcloud — fleet-deployment
+
+flexCloud packages the whole distributed application and pushes it across a heterogeneous fleet in one orchestrated, deterministic step — promoted unchanged from test to production.
+
 ## Unified SWC & device monitoring
 - enabled: true
 - icon: gauge

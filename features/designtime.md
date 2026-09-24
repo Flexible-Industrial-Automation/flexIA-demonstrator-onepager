@@ -18,7 +18,7 @@ Everything below the marker line is parsed. Everything above it is ignored.
 <!-- features -->
 
 ## Single-button deployment
-- enabled: true
+- enabled: false
 - icon: bolt
 - video: 04-flexcloud-fleet-deployment
 - panel: flexcloud — fleet-deployment

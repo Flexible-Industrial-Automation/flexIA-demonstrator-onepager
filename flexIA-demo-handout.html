@@ -1,0 +1,515 @@
+<title>flexIA Participant Handout</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --paper:      #fbfaf6;
+  --paper-2:    #f3f1ea;
+  --ink:        #1b1d23;
+  --ink-dim:    #565b68;
+  --ink-faint:  #8a8f9b;
+  --rule:       #dcd9d0;
+  --rule-2:     #c9c5b9;
+  --cyan:       #0c8a9c;
+  --cyan-soft:  #e4f3f4;
+  --violet:     #6a3fc0;
+  --violet-soft:#efe8fb;
+  --warn:       #a8402a;
+  --warn-soft:  #f6e9e4;
+}
+
+*{ box-sizing:border-box; }
+html{ background:var(--paper-2); }
+body{
+  margin:0;
+  background:var(--paper-2);
+  color:var(--ink);
+  font-family:"IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{ margin:0; font-weight:700; letter-spacing:-0.015em; text-wrap:balance; color:var(--ink); }
+p{ margin:0; }
+.mono{ font-family:"IBM Plex Mono", ui-monospace, monospace; }
+img{ max-width:100%; }
+
+/* ---------- screen chrome (hidden on print) ---------- */
+.toolbar{
+  position:sticky; top:0; z-index:20;
+  display:flex; align-items:center; justify-content:center; gap:0.9rem;
+  padding:0.7rem 1rem;
+  background:rgba(251,250,246,0.92); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--rule);
+  font-size:12.5px; color:var(--ink-dim);
+}
+.toolbar button{
+  font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:12.5px;
+  color:#fff; background:linear-gradient(100deg,var(--cyan),var(--violet));
+  border:none; border-radius:999px; padding:0.55rem 1.1rem; cursor:pointer;
+}
+.toolbar button:hover{ opacity:0.92; }
+
+.book{
+  display:flex; flex-direction:column; align-items:center;
+  gap:22px;
+  padding-block: 22px 40px;
+  padding-inline: 16px;
+}
+
+/* ---------- one printable sheet ---------- */
+.sheet{
+  background:var(--paper);
+  width:min(210mm, 100%);
+  box-shadow:0 1px 2px rgba(20,18,10,0.06), 0 18px 40px -22px rgba(20,18,10,0.35);
+  padding-block: clamp(22px, 5vw, 18mm);
+  padding-inline: clamp(16px, 6vw, 16mm);
+  display:flex; flex-direction:column;
+  break-after:page; page-break-after:always;
+}
+.sheet:last-child{ break-after:auto; page-break-after:auto; }
+
+.eyebrow{
+  display:inline-flex; align-items:center; gap:0.5em;
+  font-size:8.5pt; font-weight:600; letter-spacing:0.11em; text-transform:uppercase;
+  color:var(--cyan);
+}
+.eyebrow.v{ color:var(--violet); }
+.eyebrow.w{ color:var(--warn); }
+.eyebrow::before{ content:""; width:14px; height:1.4px; background:currentColor; display:inline-block; }
+
+.foot{
+  margin-top:18px; padding-top:14px;
+  border-top:1px solid var(--rule);
+  display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+  font-size:8pt; color:var(--ink-faint);
+}
+.foot .fbrand{ display:flex; align-items:center; gap:0.5em; color:var(--ink-dim); font-weight:600; }
+.foot .fbrand img{ width:14px; height:14px; border-radius:3px; display:block; }
+
+/* ================= PAGE 1 — COVER ================= */
+.cover-top{ display:flex; align-items:center; justify-content:space-between; }
+.brandmark{ display:flex; align-items:center; gap:0.6em; }
+.brandmark img{ width:26px; height:26px; border-radius:6px; display:block; }
+.brandmark span{ font-size:14pt; font-weight:800; letter-spacing:-0.02em; }
+.brandmark .tag{ font-size:8pt; color:var(--ink-faint); }
+
+.cover-hero{ margin-top:clamp(30px,6vw,46px); }
+.cover-hero h1{ font-size:clamp(26pt,6vw,34pt); line-height:1.05; }
+.cover-hero h1 .accent{ color:var(--violet); }
+.cover-sub{ margin-top:14px; max-width:52ch; font-size:11pt; line-height:1.6; color:var(--ink-dim); }
+
+.benefit-strip{
+  margin-top:clamp(26px,5vw,40px);
+  display:grid; grid-template-columns:repeat(3,1fr); gap:16px;
+}
+@media (max-width:620px){ .benefit-strip{ grid-template-columns:1fr; } }
+.benefit-strip .b{
+  border-top:2px solid var(--cyan); padding-top:10px;
+  display:flex; flex-direction:column; gap:5px;
+}
+.benefit-strip .b:nth-child(2){ border-top-color:var(--violet); }
+.benefit-strip .b:nth-child(3){ border-top-color:var(--cyan); }
+.benefit-strip h4{ font-size:10.5pt; }
+.benefit-strip p{ font-size:9pt; color:var(--ink-dim); line-height:1.5; }
+
+.cover-meta{
+  margin-top:clamp(30px,6vw,46px); padding-top:16px; border-top:1px solid var(--rule);
+  display:flex; gap:0.6em; flex-wrap:wrap; font-size:9pt; color:var(--ink-faint);
+}
+.cover-meta b{ color:var(--ink-dim); font-weight:600; }
+
+.cover-art{
+  margin-top:clamp(24px,5vw,34px);
+  border:1px solid var(--rule); background:var(--paper-2);
+  padding:14px 16px; display:flex; gap:14px; align-items:center; flex-wrap:wrap;
+}
+.cover-art .step{ display:flex; align-items:center; gap:0.5em; font-size:9pt; color:var(--ink-dim); }
+.cover-art .step b{ font-family:"IBM Plex Mono",monospace; color:var(--violet); font-size:8.5pt; }
+.cover-art .arrow{ color:var(--ink-faint); }
+
+/* ================= PAGE 2 — PROBLEM ================= */
+h2.pagehead{ font-size:19pt; margin-top:8px; }
+.lede{ margin-top:10px; max-width:74ch; font-size:10.2pt; line-height:1.62; color:var(--ink-dim); }
+.lede strong{ color:var(--ink); font-weight:600; }
+
+.gap-grid{ margin-top:20px; display:grid; grid-template-columns:repeat(2,1fr); gap:14px 18px; }
+@media (max-width:560px){ .gap-grid{ grid-template-columns:1fr; } }
+.gap-card{ border-left:2.5px solid var(--warn); padding-left:12px; }
+.gap-card .n{ font-size:8pt; color:var(--warn); font-weight:600; letter-spacing:0.06em; }
+.gap-card h4{ font-size:10.5pt; margin-top:2px; }
+.gap-card p{ font-size:9pt; color:var(--ink-dim); margin-top:4px; line-height:1.5; }
+
+table.htoh{ margin-top:22px; width:100%; border-collapse:collapse; font-size:8.8pt; }
+table.htoh caption{ text-align:left; font-size:8.5pt; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-faint); padding-bottom:8px; }
+table.htoh th{ text-align:left; font-size:8pt; letter-spacing:0.07em; text-transform:uppercase; color:var(--ink-faint); font-weight:600; padding:6px 10px; border-bottom:1px solid var(--rule-2); }
+table.htoh th.old{ color:var(--warn); }
+table.htoh th.new{ color:var(--cyan); }
+table.htoh td{ padding:8px 10px; border-bottom:1px solid var(--rule); vertical-align:top; line-height:1.45; }
+table.htoh td.dim{ font-family:"IBM Plex Mono",monospace; font-size:8pt; color:var(--ink-faint); white-space:nowrap; }
+table.htoh td.old{ background:var(--warn-soft); color:var(--ink-dim); }
+table.htoh td.new{ background:var(--cyan-soft); color:var(--ink); font-weight:500; }
+
+.pull{
+  margin-top:22px; padding-left:16px; border-left:3px solid var(--violet);
+  font-size:13.5pt; font-weight:600; letter-spacing:-0.01em; line-height:1.4;
+  color:var(--ink-dim); max-width:56ch;
+}
+.pull .accent{ color:var(--violet); }
+
+/* ================= PAGE 3 — WORKFLOW ================= */
+.stage-grid{ margin-top:20px; display:grid; grid-template-columns:1fr 1fr; gap:18px 20px; }
+@media (max-width:560px){ .stage-grid{ grid-template-columns:1fr; } }
+.stage-card{ border:1px solid var(--rule); padding:14px 16px; display:flex; flex-direction:column; gap:8px; }
+.stage-card .badge{
+  align-self:flex-start; font-family:"IBM Plex Mono",monospace; font-size:8pt; font-weight:600;
+  color:var(--violet); background:var(--violet-soft); padding:3px 9px; letter-spacing:0.04em;
+}
+.stage-card h3{ font-size:11.5pt; }
+.stage-card p.desc{ font-size:9pt; color:var(--ink-dim); line-height:1.5; }
+.stage-card ul{ list-style:none; margin:2px 0 0; padding:0; display:flex; flex-direction:column; gap:4px; }
+.stage-card li{ font-size:8.5pt; color:var(--ink-dim); line-height:1.4; display:flex; gap:6px; }
+.stage-card li::before{ content:"✓"; color:var(--cyan); font-weight:700; flex:none; }
+
+.env-strip{ margin-top:18px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:8.5pt; color:var(--ink-faint); }
+.env-strip .tag{ border:1px solid var(--rule-2); padding:3px 10px; color:var(--ink-dim); }
+.env-strip .arrow{ color:var(--ink-faint); }
+
+/* ================= PAGE 4 — CAPABILITIES / ECOSYSTEM / CONTACT ================= */
+.cap-cols{ margin-top:18px; display:grid; grid-template-columns:1fr 1fr; gap:0 22px; }
+@media (max-width:560px){ .cap-cols{ grid-template-columns:1fr; gap:18px; } }
+.cap-col h3.colhead{
+  font-size:9pt; letter-spacing:0.08em; text-transform:uppercase; font-weight:700;
+  padding-bottom:6px; border-bottom:1.5px solid var(--cyan); color:var(--cyan);
+}
+.cap-col.runtime h3.colhead{ border-bottom-color:var(--violet); color:var(--violet); }
+.cap-item{ padding:8px 0; border-bottom:1px solid var(--rule); }
+.cap-item:last-child{ border-bottom:none; }
+.cap-item h4{ font-size:9.3pt; }
+.cap-item p{ font-size:8.3pt; color:var(--ink-dim); margin-top:2px; line-height:1.45; }
+
+.eco-grid{ margin-top:12px; display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+@media (max-width:620px){ .eco-grid{ grid-template-columns:repeat(2,1fr); } }
+.eco-card{ background:var(--paper-2); padding:10px 11px; display:flex; flex-direction:column; gap:5px; }
+.eco-card .tag2{ font-family:"IBM Plex Mono",monospace; font-size:7.5pt; font-weight:700; color:var(--violet); }
+.eco-card h4{ font-size:9.5pt; }
+.eco-card p{ font-size:8pt; color:var(--ink-dim); line-height:1.42; }
+
+.compat{ margin-top:16px; display:grid; grid-template-columns:repeat(2,1fr); gap:8px 22px; }
+@media (max-width:560px){ .compat{ grid-template-columns:1fr; } }
+.compat .g{ display:flex; flex-wrap:wrap; align-items:center; gap:5px; font-size:8pt; }
+.compat .g-label{ color:var(--ink-faint); letter-spacing:0.07em; margin-right:3px; }
+.compat .tag3{ border:1px solid var(--rule-2); padding:2px 7px; color:var(--ink-dim); }
+
+.closing{
+  margin-top:20px; padding:16px 18px;
+  background:linear-gradient(100deg,var(--cyan-soft),var(--violet-soft));
+  display:flex; flex-direction:column; gap:6px;
+}
+.closing h3{ font-size:13pt; }
+.closing p{ font-size:9pt; color:var(--ink-dim); line-height:1.55; max-width:68ch; }
+.closing .cta{ margin-top:4px; font-size:9.5pt; font-weight:600; color:var(--violet); }
+
+@media print{
+  html, body{ background:#fff; }
+  .toolbar{ display:none; }
+  .book{ padding:0; gap:0; }
+  .sheet{ box-shadow:none; width:210mm; min-height:297mm; }
+  @page{ size:A4; margin:0; }
+}
+</style>
+
+<div class="toolbar no-print">
+  <span>flexIA participant handout — 4 pages, A4, ready to print</span>
+  <button onclick="window.print()">Print / Save as PDF</button>
+</div>
+
+<div class="book">
+
+  <!-- ============ PAGE 1 — COVER ============ -->
+  <section class="sheet">
+    <div class="cover-top">
+      <div class="brandmark">
+        <img src="assets/flexIA-logo.png" alt="flexIA logo">
+        <span>flexIA</span>
+      </div>
+      <span class="tag mono">Participant handout · 1/4</span>
+    </div>
+
+    <div class="cover-hero">
+      <span class="eyebrow">Flexible industrial automation</span>
+      <h1 style="margin-top:10px;">Develop once.<br><span class="accent">Deploy anywhere.</span></h1>
+      <p class="cover-sub">flexIA is an end-to-end framework for software-intensive industrial automation — model your system architecture once, verify it, and push it live across PLCs, SBCs, and microcontrollers with a single button.</p>
+    </div>
+
+    <div class="benefit-strip">
+      <div class="b">
+        <h4>Escape the rebuild</h4>
+        <p>One architecture model targets PLCs, SBCs, and microcontrollers — stop re-engineering the same logic for every new controller.</p>
+      </div>
+      <div class="b">
+        <h4>Catch it before it ships</h4>
+        <p>Architecture-level consistency checks surface broken component-to-hardware links at design time, not during commissioning.</p>
+      </div>
+      <div class="b">
+        <h4>Reason about the whole system</h4>
+        <p>AI-based architecture reasoning helps engineers understand distributed, heterogeneous application behavior end to end.</p>
+      </div>
+    </div>
+
+    <div class="cover-art">
+      <div class="step"><b>01</b>&nbsp;Model</div>
+      <span class="arrow">→</span>
+      <div class="step"><b>02</b>&nbsp;Implement</div>
+      <span class="arrow">→</span>
+      <div class="step"><b>03</b>&nbsp;Verify</div>
+      <span class="arrow">→</span>
+      <div class="step"><b>04</b>&nbsp;Deploy</div>
+      <span class="arrow" style="margin-left:auto;">this booklet, page by page →</span>
+    </div>
+
+    <div class="cover-meta">
+      <span><b>Cosys-Lab</b> · University of Antwerp</span>
+      <span>·</span>
+      <span>Industrial Research Fund (IOF) POC</span>
+    </div>
+
+    <div class="foot">
+      <div class="fbrand"><img src="assets/flexIA-logo.png" alt=""> flexIA</div>
+      <span>bert.vanacker@uantwerpen.be</span>
+      <span>1 / 4</span>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 2 — PROBLEM ============ -->
+  <section class="sheet">
+    <span class="eyebrow w">The problem</span>
+    <h2 class="pagehead">Automation evolved. The way we design it didn't.</h2>
+    <p class="lede">Industrial automation is no longer just PLCs, machines, and control logic. AI, Digital Twins, edge computing, and increasingly autonomous software are part of the stack, while robots and autonomous mobile systems are becoming integral to warehouses and production environments. <strong>But we still engineer them as separate worlds</strong> — designed, integrated, and deployed piece by piece, with no unified view of the complete system. The result: <strong>growing integration complexity, fragmented architectures, and system behavior that is difficult to predict, validate, and optimize.</strong></p>
+
+    <div class="gap-grid">
+      <div class="gap-card">
+        <div class="n mono">01</div>
+        <h4>Fragmented device support</h4>
+        <p>Every compute class has its own siloed toolchain — vendor IDEs, container tooling, separate SDKs. Nothing spans all of them.</p>
+      </div>
+      <div class="gap-card">
+        <div class="n mono">02</div>
+        <h4>No system-level overview</h4>
+        <p>Robotics, control logic, AI, and Digital Twins get integrated piece by piece. Nobody holds a model of how the whole system fits together.</p>
+      </div>
+      <div class="gap-card">
+        <div class="n mono">03</div>
+        <h4>No model, no validation</h4>
+        <p>With no model linking components to hardware, architecture mismatches surface during commissioning — not on a screen beforehand.</p>
+      </div>
+      <div class="gap-card">
+        <div class="n mono">04</div>
+        <h4>Per-target deployment</h4>
+        <p>Each device class is built and pushed on its own. There's no single action that deploys a whole distributed application together.</p>
+      </div>
+    </div>
+
+    <table class="htoh">
+      <caption>Head-to-head</caption>
+      <thead>
+        <tr><th></th><th class="old">Existing tooling</th><th class="new">flexIA</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="dim">Device coverage</td>
+          <td class="old">A separate toolchain per compute class</td>
+          <td class="new">One model spans PLCs, microcontrollers, edge nodes, servers</td>
+        </tr>
+        <tr>
+          <td class="dim">System architecture</td>
+          <td class="old">Integrated ad hoc, no whole-system view</td>
+          <td class="new">One architecture model for the whole system</td>
+        </tr>
+        <tr>
+          <td class="dim">Correctness checking</td>
+          <td class="old">Mismatches found on real hardware, during commissioning</td>
+          <td class="new">Checked at design time, before a single node ships</td>
+        </tr>
+        <tr>
+          <td class="dim">Deployment</td>
+          <td class="old">Per-target, repeated once per device class</td>
+          <td class="new">Single-button, across every compute device at once</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="pull">The hard part was never any single device. It's designing, checking, and deploying the whole <span class="accent">system</span> as one.</p>
+
+    <div class="foot">
+      <div class="fbrand"><img src="assets/flexIA-logo.png" alt=""> flexIA</div>
+      <span>bert.vanacker@uantwerpen.be</span>
+      <span>2 / 4</span>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 3 — WORKFLOW ============ -->
+  <section class="sheet">
+    <span class="eyebrow v">The flexIA workflow</span>
+    <h2 class="pagehead">Four stages. One model, start to finish.</h2>
+    <p class="lede">flexIA follows the same path your application actually takes — from architecture down to the controller it runs on — without switching tools in between.</p>
+
+    <div class="stage-grid">
+      <div class="stage-card">
+        <span class="badge mono">01 · Model — flexModeler</span>
+        <h3>Design the architecture. Not four versions of it.</h3>
+        <p class="desc">Model components and architecture explicitly, independent of implementation language — then bind them to real hardware and I/O. One design, portable across PLCs, embedded devices, and cloud infrastructure.</p>
+        <ul>
+          <li>Architecture &amp; software-component models</li>
+          <li>Explicit hardware I/O binding</li>
+          <li>High-level patterns — state machines, services, actions</li>
+          <li>Code generation for complete applications, multiple formalisms</li>
+        </ul>
+      </div>
+      <div class="stage-card">
+        <span class="badge mono">02 · Implement — flexCommunicator</span>
+        <h3>Build it the way your team already works.</h3>
+        <p class="desc">Implement components in C/C++, Python, IEC 61131-3 (e.g. Structured Text), or plug in existing simulation models such as Simulink — all within the same architecture.</p>
+        <ul>
+          <li>C/C++, Python, Rust, IEC 61131-3 support</li>
+          <li>Simulink &amp; Functional Mock-up Unit (FMU) support</li>
+          <li>High-level patterns: services, actions, state machines</li>
+        </ul>
+      </div>
+      <div class="stage-card">
+        <span class="badge mono">03 · Verify — consistency &amp; correctness</span>
+        <h3>Find the wiring mistake on screen, not on the shop floor.</h3>
+        <p class="desc">Architecture Checks proves your system is consistent and correct before it reaches the field — every SWC compatible, every interface correctly bound, every device sized for the load it's given.</p>
+        <ul>
+          <li>Interface consistency, resource allocation, timing behavior</li>
+          <li>Combines design-time knowledge with real-world runtime data</li>
+          <li>Easily add custom checks for your own system</li>
+        </ul>
+      </div>
+      <div class="stage-card">
+        <span class="badge mono">04 · Deploy — flexCloud + flexEngine</span>
+        <h3>One button. Every device, in the right order.</h3>
+        <p class="desc">flexCloud orchestrates a single push across a heterogeneous, distributed application. flexEngine, a lightweight on-device agent, brings deterministic startup even to PLC-like hardware where containers aren't an option.</p>
+        <ul>
+          <li>Single-button deployment across the whole fleet</li>
+          <li>Deterministic, orchestrated startup — no containers required</li>
+          <li>One package, promoted across every environment</li>
+        </ul>
+        <div class="env-strip">
+          <span class="tag">Test</span><span class="arrow">→</span><span class="tag">Pre-production</span><span class="arrow">→</span><span class="tag">Production</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot">
+      <div class="fbrand"><img src="assets/flexIA-logo.png" alt=""> flexIA</div>
+      <span>bert.vanacker@uantwerpen.be</span>
+      <span>3 / 4</span>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 4 — CAPABILITIES / ECOSYSTEM / CONTACT ============ -->
+  <section class="sheet">
+    <span class="eyebrow">Capabilities &amp; ecosystem</span>
+    <h2 class="pagehead">Everything flexIA gives you — design time to runtime.</h2>
+
+    <div class="cap-cols">
+      <div class="cap-col design">
+        <h3 class="colhead">Design time</h3>
+        <div class="cap-item">
+          <h4>Single-button deployment</h4>
+          <p>flexCloud packages the whole application and pushes it across a heterogeneous fleet in one orchestrated step.</p>
+        </div>
+        <div class="cap-item">
+          <h4>Model-based architecture</h4>
+          <p>Components, system architecture, and interfaces described explicitly — independent of implementation language.</p>
+        </div>
+        <div class="cap-item">
+          <h4>Consistency &amp; correctness checks</h4>
+          <p>SWC compatibility, interface correctness, and compute sizing verified before deployment — not in the field.</p>
+        </div>
+        <div class="cap-item">
+          <h4>Connect anything</h4>
+          <p>Hardware I/O binding built into the model — from OPC UA and TwinCAT to ROS 2 and VDA5050.</p>
+        </div>
+        <div class="cap-item">
+          <h4>Architecture-level code generation</h4>
+          <p>Generates the whole application — code, configuration, deployment — across C/C++, Python, Rust, IEC 61131-3.</p>
+        </div>
+        <div class="cap-item">
+          <h4>Complex, future-proof integrations</h4>
+          <p>Bring in simulation models, IP-protected FMUs, Digital Twins, and AI models with runtime trust monitoring.</p>
+        </div>
+      </div>
+
+      <div class="cap-col runtime">
+        <h3 class="colhead">Runtime</h3>
+        <div class="cap-item">
+          <h4>Unified SWC &amp; device monitoring</h4>
+          <p>Components and devices in one flexCloud view — health, status, and diagnostics without walking the floor.</p>
+        </div>
+        <div class="cap-item">
+          <h4>Architecture-grounded AI assistant</h4>
+          <p>Reasons across your whole application's behavior, deployment, and lifecycle — ask a question, get a system-level answer.</p>
+        </div>
+        <div class="cap-item">
+          <h4>Trustworthiness monitoring for AI models</h4>
+          <p>Continuous monitoring against spec and uncertainty — know how much to trust a model's output, always.</p>
+        </div>
+        <div class="cap-item">
+          <h4>Cloud services</h4>
+          <p>Define triggers once; flexCloud reconfigures the right SWCs and devices automatically, even across projects.</p>
+        </div>
+        <div class="cap-item">
+          <h4>Lightweight deployment agent</h4>
+          <p>A platform-independent agent that builds, ships, and runs flexIA applications natively or in Docker.</p>
+        </div>
+      </div>
+    </div>
+
+    <span class="eyebrow" style="margin-top:20px;">The toolbox</span>
+    <div class="eco-grid">
+      <div class="eco-card">
+        <span class="tag2">MD</span>
+        <h4>flexModeler</h4>
+        <p>Modeling environment for architecture, components, and hardware I/O — code generation to C/C++, Python, Rust, IEC 61131-3.</p>
+      </div>
+      <div class="eco-card">
+        <span class="tag2">CM</span>
+        <h4>flexCommunicator</h4>
+        <p>Client libraries (Python, C/C++, Rust) implementing the flexIA architecture — IT/OT messaging, parametrization, health.</p>
+      </div>
+      <div class="eco-card">
+        <span class="tag2">CL</span>
+        <h4>flexCloud</h4>
+        <p>Orchestration center: build, deploy, monitor, and reason over the whole system with an architecture-grounded LLM agent.</p>
+      </div>
+      <div class="eco-card">
+        <span class="tag2">EN</span>
+        <h4>flexEngine</h4>
+        <p>On-device agent connecting every target to flexCloud, with platform-aware checks — even where containers won't run.</p>
+      </div>
+    </div>
+
+    <div class="compat">
+      <div class="g"><span class="g-label mono">FORMALISMS</span><span class="tag3">C/C++</span><span class="tag3">Python</span><span class="tag3">Rust</span><span class="tag3">IEC 61131-3</span><span class="tag3">Simulink</span><span class="tag3">FMU</span></div>
+      <div class="g"><span class="g-label mono">TARGETS</span><span class="tag3">PLC</span><span class="tag3">SBC</span><span class="tag3">Microcontroller</span><span class="tag3">Cloud / Edge</span></div>
+      <div class="g"><span class="g-label mono">IT PROTOCOLS</span><span class="tag3">MQTT</span><span class="tag3">Redis</span><span class="tag3">Kafka</span><span class="tag3">Zenoh</span></div>
+      <div class="g"><span class="g-label mono">OT PROTOCOLS</span><span class="tag3">OPC UA</span><span class="tag3">TwinCAT ADS</span><span class="tag3">MODBUS</span></div>
+    </div>
+
+    <div class="closing">
+      <h3>Ready to stop rebuilding for every controller?</h3>
+      <p>flexIA is developed at Cosys-Lab, University of Antwerp, under the IOF Industrial Research Fund POC program — open-core by design, with an active Company Interest Group shaping what ships next.</p>
+      <span class="cta">Request a walkthrough → bert.vanacker@uantwerpen.be</span>
+    </div>
+
+    <div class="foot">
+      <div class="fbrand"><img src="assets/flexIA-logo.png" alt=""> flexIA</div>
+      <span>Cosys-Lab · University of Antwerp</span>
+      <span>4 / 4</span>
+    </div>
+  </section>
+
+</div>
