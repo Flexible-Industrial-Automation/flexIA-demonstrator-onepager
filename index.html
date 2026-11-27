@@ -612,6 +612,80 @@ footer{
 footer .brand span{ font-size:1.05rem; }
 footer a{ text-decoration:none; color:var(--ink-faint); }
 footer a:hover{ color:var(--cyan); }
+
+/* ============ UPDATE 2026: gif panels, loop hero, agentic, PoC, portal ============ */
+.panel-body img.stage-video{ width:100%; height:auto; display:none; }
+.panel-body.has-video img.stage-video{ display:block; }
+.hero-art{ align-self:center; }
+.hero-art .panel-body{ height:auto; aspect-ratio:auto; padding:0.4rem 0.4rem 0.8rem; }
+.hero-art svg.loop{ width:100%; height:auto; }
+.hero h1{ font-size:clamp(2.5rem,4.6vw,4.2rem); }
+.hero-kicker{ margin-top:1.1rem; font-size:clamp(1.15rem,1.6vw,1.4rem); font-weight:700; letter-spacing:-.01em; color:var(--ink); }
+.hero-kicker + .hero-sub{ margin-top:.7rem; }
+.loop .card rect{ fill:var(--bg-raised-2); stroke:var(--line-strong); stroke-width:1.2; }
+.loop .card text{ fill:var(--ink); font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:14px; }
+.loop .card .sub{ fill:var(--ink-faint); font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:9.5px; letter-spacing:.06em; }
+.loop .arc{ fill:none; stroke:url(#loopGrad); stroke-width:3; stroke-linecap:round; }
+.loop .gate rect{ fill:var(--bg); stroke:var(--cyan); stroke-width:2; }
+.loop .gate path{ fill:none; stroke:var(--cyan); stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round; }
+.loop .trace{ fill:none; stroke:var(--violet); stroke-width:1.6; stroke-dasharray:2 7; stroke-linecap:round; }
+.loop .trace-label{ fill:var(--violet); font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.18em; }
+.loop .core{ fill:rgba(155,123,255,.08); stroke:rgba(155,123,255,.35); }
+.loop .core-t{ fill:var(--ink); font-family:"IBM Plex Sans",sans-serif; font-weight:800; font-size:17px; }
+.loop .core-s{ fill:var(--ink-dim); font-family:"IBM Plex Sans",sans-serif; font-size:11.5px; }
+.loop .core-s.c{ fill:var(--cyan); font-weight:600; }
+.loop .spark{ fill:var(--cyan); }
+.benefit-grid.four{ grid-template-columns:repeat(4,1fr); gap:2rem; }
+@media (max-width:980px){ .benefit-grid.four{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:560px){ .benefit-grid.four{ grid-template-columns:1fr; } }
+.st{ font-family:"IBM Plex Mono",monospace; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; padding:.25rem .6rem; border-radius:999px; border:1px solid; white-space:nowrap; }
+.st.av{ color:#5ee39b; border-color:rgba(94,227,155,.35); background:rgba(94,227,155,.10); }
+.st.pv{ color:#ffd166; border-color:rgba(255,209,102,.35); background:rgba(255,209,102,.10); }
+.st.lab{ color:var(--violet); border-color:rgba(155,123,255,.4); background:var(--violet-soft); }
+.agentic-grid{ margin-top:2.6rem; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.4rem; }
+@media (max-width:900px){ .agentic-grid{ grid-template-columns:1fr; } }
+.ag-card{ background:var(--bg-raised); border:1px solid var(--line); border-radius:var(--radius-panel); padding:1.4rem; display:flex; flex-direction:column; gap:1rem; min-width:0; }
+.ag-card h3{ font-size:1.35rem; }
+.ag-card p{ color:var(--ink-dim); font-size:.93rem; }
+.ag-card .panel{ margin-top:auto; }
+.chips{ display:flex; flex-wrap:wrap; gap:.45rem; }
+.chips span{ font-family:"IBM Plex Mono",monospace; font-size:.74rem; padding:.3rem .65rem; border-radius:999px; border:1px solid var(--line-strong); color:var(--ink-dim); }
+.chips span.c{ color:var(--cyan); border-color:rgba(69,224,240,.35); background:var(--cyan-soft); }
+.trust-row{ margin-top:1.6rem; display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+@media (max-width:820px){ .trust-row{ grid-template-columns:1fr; } }
+.trust-row div{ border-top:2px solid; border-image:linear-gradient(90deg,var(--cyan),var(--violet)) 1; padding-top:.8rem; }
+.trust-row b{ display:block; font-size:1.02rem; margin-bottom:.25rem; }
+.trust-row span{ color:var(--ink-dim); font-size:.88rem; }
+.poc-grid{ margin-top:2.6rem; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.4rem; }
+@media (max-width:900px){ .poc-grid{ grid-template-columns:1fr; } }
+.steps{ display:flex; flex-wrap:wrap; gap:.3rem; align-items:center; font-family:"IBM Plex Mono",monospace; font-size:.72rem; color:var(--ink-dim); }
+.steps span{ padding:.25rem .55rem; border-radius:6px; background:var(--bg-raised-2); border:1px solid var(--line); }
+.steps i{ color:var(--cyan); font-style:normal; }
+.metrics{ display:grid; grid-template-columns:repeat(3,1fr); gap:.8rem; }
+.metrics div{ background:var(--bg-raised-2); border:1px solid var(--line); border-radius:12px; padding:.8rem .9rem; }
+.metrics b{ display:block; font-size:1.5rem; font-weight:800; letter-spacing:-.02em; background:linear-gradient(100deg,var(--cyan),var(--violet)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.metrics span{ color:var(--ink-dim); font-size:.78rem; line-height:1.35; display:block; }
+.poc-note{ font-size:.8rem; color:var(--ink-faint); }
+.portal-split{ margin-top:2.6rem; display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:2rem; align-items:center; }
+@media (max-width:900px){ .portal-split{ grid-template-columns:1fr; } }
+.portal-text{ display:flex; flex-direction:column; gap:1rem; }
+.portal-text h3{ font-size:1.6rem; }
+.portal-text p{ color:var(--ink-dim); font-size:.95rem; }
+.portal-points{ list-style:none; margin:0; padding:0; display:grid; gap:.8rem; }
+.portal-points li{ color:var(--ink-dim); font-size:.9rem; line-height:1.45; padding-left:1rem; border-left:2px solid; border-image:linear-gradient(180deg,var(--cyan),var(--violet)) 1; }
+.portal-points b{ display:block; color:var(--ink); font-size:1rem; margin-bottom:.1rem; }
+.eco-sub{ margin-top:2.6rem; color:var(--ink-dim); font-size:.95rem; }
+.eco-sub + .eco-grid{ margin-top:1rem; }
+.portal-card{ margin-top:2.6rem; background:linear-gradient(135deg,var(--cyan-soft),var(--violet-soft)); border:1px solid var(--line-strong); border-radius:var(--radius-panel); padding:1.4rem 1.6rem; display:flex; gap:1.2rem; align-items:center; flex-wrap:wrap; }
+.portal-card h4{ font-size:1.3rem; }
+.portal-card p{ color:var(--ink-dim); font-size:.92rem; flex:1 1 380px; }
+.eco-grid.groups{ grid-template-columns:repeat(4,1fr); }
+@media (max-width:980px){ .eco-grid.groups{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:560px){ .eco-grid.groups{ grid-template-columns:1fr; } }
+.eco-card .g-stage{ font-family:"IBM Plex Mono",monospace; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--cyan); }
+.eco-card ul{ list-style:none; margin:0; padding:0; display:grid; gap:.55rem; }
+.eco-card li{ font-size:.86rem; color:var(--ink-dim); line-height:1.4; }
+.eco-card li b{ color:var(--ink); font-weight:600; display:block; font-size:.95rem; }
 </style>
 
 <div class="glow-field"><span class="glow-1"></span><span class="glow-2"></span><span class="glow-3"></span></div>
@@ -625,7 +699,9 @@ footer a:hover{ color:var(--cyan); }
     <div class="nav-links">
       <a href="#problem">Problem</a>
       <a href="#workflow">Workflow</a>
+      <a href="#agentic">Agents</a>
       <a href="#capabilities">Capabilities</a>
+      <a href="#poc">Lab</a>
       <a href="#ecosystem">Ecosystem</a>
       <a href="#about">About</a>
       <a class="nav-cta" href="mailto:bert.vanacker@uantwerpen.be?subject=flexIA%20%E2%80%94%20walkthrough%20request">Request a walkthrough</a>
@@ -639,9 +715,10 @@ footer a:hover{ color:var(--cyan); }
   <section class="hero wrap">
     <div class="hero-grid">
       <div>
-        <span class="badge">Flexible industrial automation</span>
-        <h1>Develop once.<br><span class="grad">Deploy anywhere.</span></h1>
-        <p class="hero-sub">flexIA is the end-to-end framework for software-intensive industrial automation — model your architecture once, verify it, and push it live across PLCs, SBCs, and microcontrollers with a single button.</p>
+        <span class="badge">Agentic co-engineering for industrial automation</span>
+        <h1>Agentic co&#8209;engineering.<br><span class="grad">Trusted, end to end.</span></h1>
+        <p class="hero-kicker">Develop once. Deploy anywhere.</p>
+        <p class="hero-sub">flexIA is the end-to-end framework for software-intensive industrial automation — from the first requirement to a monitored machine. Model once, deploy across PLCs, SBCs and microcontrollers. AI agents do the routine work at every step; engineers sign every gate, and every verdict traces back to its requirement.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="mailto:bert.vanacker@uantwerpen.be?subject=flexIA%20%E2%80%94%20walkthrough%20request">Request a walkthrough</a>
           <a class="btn btn-ghost" href="#workflow">See how it works ↓</a>
@@ -656,109 +733,39 @@ footer a:hover{ color:var(--cyan); }
       <div class="hero-art panel">
         <div class="panel-bar">
           <div class="dots"><span></span><span></span><span></span></div>
-          <span class="panel-file mono">deployment-overview.flexia</span>
+          <span class="panel-file mono">agentic-co-engineering.flexia</span>
           <span class="panel-rec"><span class="dot-rec"></span>LIVE</span>
         </div>
         <div class="panel-body">
-          <svg viewBox="0 0 640 460" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="edgeGrad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="var(--cyan)"/>
-                <stop offset="1" stop-color="var(--violet)"/>
-              </linearGradient>
-            </defs>
-
-            <!-- design time / runtime zones -->
-            <rect class="zone-bg design" x="0" y="0" width="230" height="460"/>
-            <rect class="zone-bg runtime" x="410" y="0" width="230" height="460"/>
-            <line class="zone-divider" x1="230" y1="0" x2="230" y2="460"/>
-            <line class="zone-divider" x1="410" y1="0" x2="410" y2="460"/>
-            <text class="zone-label c-cyan" x="115" y="24">DESIGN TIME</text>
-            <text class="zone-label c-violet" x="525" y="24">RUNTIME</text>
-
-            <!-- design-time deploy: SWC to cloud -->
-            <path class="trace c-cyan" d="M184,120 H210 V201 H242"/>
-            <path class="trace c-cyan" d="M184,194 H215 V201 H242"/>
-            <path class="trace c-cyan" d="M184,268 H220 V201 H242"/>
-            <path class="trace c-cyan" d="M184,342 H225 V201 H242"/>
-            <circle class="pulse c-cyan" r="3.2" style="offset-path:path('M184,120 H210 V201 H242'); animation-delay:0s;"/>
-            <circle class="pulse c-cyan" r="3.2" style="offset-path:path('M184,194 H215 V201 H242'); animation-delay:0.6s;"/>
-            <circle class="pulse c-cyan" r="3.2" style="offset-path:path('M184,268 H220 V201 H242'); animation-delay:1.2s;"/>
-            <circle class="pulse c-cyan" r="3.2" style="offset-path:path('M184,342 H225 V201 H242'); animation-delay:1.8s;"/>
-
-            <!-- deploy delivery: cloud to device -->
-            <path class="trace c-violet" d="M398,201 H430 V92  H470"/>
-            <path class="trace c-violet" d="M398,201 H420 V230 H470"/>
-            <path class="trace c-violet" d="M398,201 H435 V368 H470"/>
-            <circle class="pulse c-violet" r="3.2" style="offset-path:path('M398,201 H430 V92  H470'); animation-delay:0.4s;"/>
-            <circle class="pulse c-violet" r="3.2" style="offset-path:path('M398,201 H420 V230 H470'); animation-delay:1.2s;"/>
-            <circle class="pulse c-violet" r="3.2" style="offset-path:path('M398,201 H435 V368 H470'); animation-delay:2.0s;"/>
-            <circle class="impact c-violet" cx="470" cy="92"  style="animation-delay:0.4s;"/>
-            <circle class="impact c-violet" cx="470" cy="230" style="animation-delay:1.2s;"/>
-            <circle class="impact c-violet" cx="470" cy="368" style="animation-delay:2.0s;"/>
-
-            <!-- runtime channel: monitoring up, reasoning &amp; reconfiguration down -->
-            <path class="trace dashed c-violet" d="M470,106 H432 V215 H398"/>
-            <path class="trace dashed c-violet" d="M470,244 H422 V215 H398"/>
-            <path class="trace dashed c-violet" d="M470,382 H440 V215 H398"/>
-            <circle class="pulse runtime c-violet" r="2.6" style="offset-path:path('M470,106 H432 V215 H398'); animation-delay:0s;"/>
-            <circle class="pulse runtime c-violet" r="2.6" style="offset-path:path('M470,244 H422 V215 H398'); animation-delay:1.4s;"/>
-            <circle class="pulse runtime c-violet" r="2.6" style="offset-path:path('M470,382 H440 V215 H398'); animation-delay:2.8s;"/>
-
-            <!-- design time: application, modeled as multiple SWCs -->
-            <g class="app-frame">
-              <rect x="16" y="42" width="198" height="374" rx="12"/>
-              <text class="app-label" x="34" y="64" font-size="10.5">APPLICATION</text>
-              <text class="app-sub" x="34" y="78" font-size="9.5">.flexia · 4 SWCs</text>
-            </g>
-            <g class="swc-box c-cyan">
-              <rect x="34" y="94" width="150" height="52" rx="6"/>
-              <circle class="swc-dot" cx="50" cy="120" r="4"/>
-              <text x="64" y="124" font-size="11">SWC A</text>
-            </g>
-            <g class="swc-box c-violet">
-              <rect x="34" y="168" width="150" height="52" rx="6"/>
-              <circle class="swc-dot" cx="50" cy="194" r="4"/>
-              <text x="64" y="198" font-size="11">SWC B</text>
-            </g>
-            <g class="swc-box c-cyan">
-              <rect x="34" y="242" width="150" height="52" rx="6"/>
-              <circle class="swc-dot" cx="50" cy="268" r="4"/>
-              <text x="64" y="272" font-size="11">SWC C</text>
-            </g>
-            <g class="swc-box c-violet">
-              <rect x="34" y="316" width="150" height="52" rx="6"/>
-              <circle class="swc-dot" cx="50" cy="342" r="4"/>
-              <text x="64" y="346" font-size="11">SWC D</text>
-            </g>
-
-            <!-- flexCloud: the actual platform bridging design time and runtime -->
-            <g class="cloud-shape">
-              <path transform="translate(242,123) scale(6.5)" d="M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
-            </g>
-            <text class="cloud-label" x="320" y="283">flexCloud</text>
-            <g class="chip c-cyan"><circle cx="250" cy="304" r="3"/><text x="260" y="307">Deploy</text></g>
-            <g class="chip c-violet"><circle cx="250" cy="330" r="3"/><text x="260" y="333">Monitor</text></g>
-            <g class="chip c-violet"><circle cx="250" cy="356" r="3"/><text x="260" y="359">Reason</text></g>
-            <g class="chip c-violet"><circle cx="250" cy="382" r="3"/><text x="260" y="385">Reconfigure</text></g>
-
-            <!-- runtime: heterogeneous deployment targets -->
-            <g class="dev-box mixed">
-              <rect x="470" y="60" width="150" height="64" rx="8"/>
-              <text x="545" y="90" font-size="13" text-anchor="middle">PLC</text>
-              <text class="dev-sub" x="545" y="106" font-size="9.5" text-anchor="middle">2 SWCs</text>
-            </g>
-            <g class="dev-box c-violet">
-              <rect x="470" y="198" width="150" height="64" rx="8"/>
-              <text x="545" y="228" font-size="13" text-anchor="middle">SBC</text>
-              <text class="dev-sub" x="545" y="244" font-size="9.5" text-anchor="middle">1 SWC</text>
-            </g>
-            <g class="dev-box c-cyan">
-              <rect x="470" y="336" width="150" height="64" rx="8"/>
-              <text x="545" y="366" font-size="13" text-anchor="middle">SERVER</text>
-              <text class="dev-sub" x="545" y="382" font-size="9.5" text-anchor="middle">1 SWC</text>
-            </g>
-          </svg>
+<svg viewBox="0 0 640 476" xmlns="http://www.w3.org/2000/svg" class="loop">
+<defs><linearGradient id="loopGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--cyan)"/><stop offset="1" stop-color="var(--violet)"/></linearGradient>
+<marker id="lp-ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--violet)"/></marker>
+<path id="lp-trace" d="M216.6,275.6 A110,110 0 0 0 423.4,275.6"/></defs>
+<path class="arc" d="M369.1,77.3 A168,168 0 0 1 457.6,141.6" marker-end="url(#lp-ar)"/>
+<g class="gate" transform="translate(418.7,102.1) rotate(45)"><rect x="-11" y="-11" width="22" height="22" rx="3"/><path d="M-5,1 L-1,5 L6,-4" transform="rotate(-45)"/></g>
+<path class="arc" d="M488.0,235.1 A168,168 0 0 1 454.2,339.1" marker-end="url(#lp-ar)"/>
+<g class="gate" transform="translate(479.8,289.9) rotate(45)"><rect x="-11" y="-11" width="22" height="22" rx="3"/><path d="M-5,1 L-1,5 L6,-4" transform="rotate(-45)"/></g>
+<path class="arc" d="M374.7,396.8 A168,168 0 0 1 265.3,396.8" marker-end="url(#lp-ar)"/>
+<g class="gate" transform="translate(320.0,406.0) rotate(45)"><rect x="-11" y="-11" width="22" height="22" rx="3"/><path d="M-5,1 L-1,5 L6,-4" transform="rotate(-45)"/></g>
+<path class="arc" d="M185.8,339.1 A168,168 0 0 1 152.0,235.1" marker-end="url(#lp-ar)"/>
+<g class="gate" transform="translate(160.2,289.9) rotate(45)"><rect x="-11" y="-11" width="22" height="22" rx="3"/><path d="M-5,1 L-1,5 L6,-4" transform="rotate(-45)"/></g>
+<path class="arc" d="M182.4,141.6 A168,168 0 0 1 270.9,77.3" marker-end="url(#lp-ar)"/>
+<g class="gate" transform="translate(221.3,102.1) rotate(45)"><rect x="-11" y="-11" width="22" height="22" rx="3"/><path d="M-5,1 L-1,5 L6,-4" transform="rotate(-45)"/></g>
+<circle class="trace" cx="320" cy="238" r="98"/>
+<text class="trace-label"><textPath href="#lp-trace" startOffset="50%" text-anchor="middle">FULL TRACEABILITY · CHAIN OF TRUST</textPath></text>
+<circle class="core" cx="320" cy="238" r="78"/>
+<path class="spark" transform="translate(294,208) scale(0.7)" d="M0,-10 C1.3,-3.3 3.3,-1.3 10,0 C3.3,1.3 1.3,3.3 0,10 C-1.3,3.3 -3.3,1.3 -10,0 C-3.3,-1.3 -1.3,-3.3 0,-10 Z"/>
+<path class="spark" transform="translate(320,198) scale(1)" d="M0,-10 C1.3,-3.3 3.3,-1.3 10,0 C3.3,1.3 1.3,3.3 0,10 C-1.3,3.3 -3.3,1.3 -10,0 C-3.3,-1.3 -1.3,-3.3 0,-10 Z"/>
+<path class="spark" transform="translate(346,208) scale(0.7)" d="M0,-10 C1.3,-3.3 3.3,-1.3 10,0 C3.3,1.3 1.3,3.3 0,10 C-1.3,3.3 -3.3,1.3 -10,0 C-3.3,-1.3 -1.3,-3.3 0,-10 Z"/>
+<text class="core-t" x="320" y="242" text-anchor="middle">AI co-engineers</text>
+<text class="core-s" x="320" y="262" text-anchor="middle">Agents build.</text>
+<text class="core-s c" x="320" y="278" text-anchor="middle">Engineers decide.</text>
+<g class="card" transform="translate(320.0,70.0)"><rect x="-58" y="-26" width="116" height="52" rx="10"/><text y="-1" text-anchor="middle">Specify</text><text class="sub" y="15" text-anchor="middle">REQUIRE</text></g>
+<g class="card" transform="translate(479.8,186.1)"><rect x="-58" y="-26" width="116" height="52" rx="10"/><text y="-1" text-anchor="middle">Model</text><text class="sub" y="15" text-anchor="middle">DESIGN</text></g>
+<g class="card" transform="translate(418.7,373.9)"><rect x="-58" y="-26" width="116" height="52" rx="10"/><text y="-1" text-anchor="middle">Verify</text><text class="sub" y="15" text-anchor="middle">TEST · SIM</text></g>
+<g class="card" transform="translate(221.3,373.9)"><rect x="-58" y="-26" width="116" height="52" rx="10"/><text y="-1" text-anchor="middle">Release</text><text class="sub" y="15" text-anchor="middle">SIGN · SHIP</text></g>
+<g class="card" transform="translate(160.2,186.1)"><rect x="-58" y="-26" width="116" height="52" rx="10"/><text y="-1" text-anchor="middle">Monitor</text><text class="sub" y="15" text-anchor="middle">OPERATE</text></g>
+</svg>
         </div>
       </div>
     </div>
@@ -945,9 +952,19 @@ footer a:hover{ color:var(--cyan); }
           <div class="diff-new"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Consistency checked at design time, before a single node ships</div>
         </div>
         <div class="diff-row">
+          <div class="diff-dim">Requirements</div>
+          <div class="diff-old"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>Requirements in a document, verified by hand, traced in a spreadsheet</div>
+          <div class="diff-new"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Requirements on the real model generate tests, simulations and monitors; every verdict traces back</div>
+        </div>
+        <div class="diff-row">
+          <div class="diff-dim">AI assistance</div>
+          <div class="diff-old"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>Chat assistants beside the work, with no record of what they changed</div>
+          <div class="diff-new"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Agents inside the workflow, each tool classed, every step behind a signed gate</div>
+        </div>
+        <div class="diff-row">
           <div class="diff-dim">Deployment</div>
           <div class="diff-old"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>Per-target, repeated once per device class</div>
-          <div class="diff-new"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Single-button deployment across every compute device at once — PLC, microcontroller, server</div>
+          <div class="diff-new"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Signed releases, shadow first, rolled out in waves across every device — PLC, microcontroller, server</div>
         </div>
       </div>
     </div>
@@ -957,21 +974,26 @@ footer a:hover{ color:var(--cyan); }
 
   <!-- ============ BENEFIT STRIP ============ -->
   <section class="benefits wrap">
-    <div class="benefit-grid">
+    <div class="benefit-grid four">
       <div class="benefit-card">
         <div class="benefit-icon"><svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
         <h3>Escape the rebuild</h3>
-        <p>One architecture model targets PLCs, SBCs, and microcontrollers — stop re-engineering the same logic for every new controller.</p>
+        <p>One model targets PLCs, SBCs and microcontrollers, in Python, C++, Rust, Arduino or IEC 61131-3.</p>
       </div>
       <div class="benefit-card">
         <div class="benefit-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg></div>
         <h3>Catch it before it ships</h3>
-        <p>Architecture-level consistency checks surface broken component-to-hardware links at design time, not during commissioning.</p>
+        <p>Checks, fault-injected tests and simulation find the problem on screen, not during commissioning.</p>
       </div>
       <div class="benefit-card">
-        <div class="benefit-icon"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
-        <h3>Reason about the whole system</h3>
-        <p>AI-based architecture reasoning helps engineers understand and reason about distributed, heterogeneous application behavior — without digging through logs component by component.</p>
+        <div class="benefit-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <h3>Trace every verdict</h3>
+        <p>Every test, simulation and runtime result comes back to the requirement it proves, and to the regulation behind it.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg></div>
+        <h3>Co-engineer with agents</h3>
+        <p>Agents do the routine work at every step, within their tools and budget; engineers sign each gate.</p>
       </div>
     </div>
   </section>
@@ -980,12 +1002,41 @@ footer a:hover{ color:var(--cyan); }
   <section id="workflow" class="wrap">
     <div class="section-head">
       <span class="badge violet">The flexIA workflow</span>
-      <h2>Four stages. One model, start to finish.</h2>
-      <p>Model your architecture once, develop in the language of your choice, validate before deployment, and deploy with a single button across heterogeneous compute architectures.</p>
+      <h2>Six stages. One model. A gate between each.</h2>
+      <p>From the first requirement to a monitored machine: specify, model, implement, verify, release and monitor — every hand-over a gate an engineer signs, every step open to an agent.</p>
     </div>
 
     <!-- Stages are generated from workflow/stages.md (see workflow/README.md). -->
     <div class="stages" data-stages></div>
+  </section>
+
+
+  <!-- ============ AGENTIC CO-ENGINEERING ============ -->
+  <section id="agentic" class="wrap">
+    <div class="section-head">
+      <span class="badge violet">Agentic co-engineering</span>
+      <h2>Agents build. Engineers decide.</h2>
+      <p>AI agents work inside your engineering workflow, not beside it. Every agent uses the same flexIA tools you do, within the rights you give it, and every hand-over is a gate a named engineer signs.</p>
+    </div>
+    <div class="agentic-grid">
+      <div class="ag-card">
+        <h3>An agent is a block in your workflow</h3>
+        <p>Plug in what it needs: a role, a model, its memory, the tools of the flexIA apps it may use, the patterns it follows and the data it works on. A lead agent can run a team of sub-agents within one budget; the run shows every turn.</p>
+        <div class="chips"><span class="c">Role</span><span class="c">Model</span><span class="c">Memory</span><span class="c">Tools</span><span class="c">Patterns</span><span class="c">Data</span><span class="c">Agents</span></div>
+        <div class="panel"><div class="panel-bar"><div class="dots"><span></span><span></span><span></span></div><span class="panel-file mono">workflows — agent block</span><span class="panel-rec"><span class="dot-rec"></span>LIVE</span></div><div class="panel-body has-video"><img class="stage-video" src="gifs/agents.gif" alt="workflows — agent block" loading="lazy"></div></div>
+      </div>
+      <div class="ag-card">
+        <h3>Gated workflows with signatures you can verify</h3>
+        <p>Follow a proven pattern step by step through the apps. Checks run before work moves on; each gate shows the evidence and needs a named signature. Approved steps are sealed — change anything under the seal and the gate opens again.</p>
+        <div class="chips"><span>Specify</span><span>Import</span><span>Realise</span><span>Retarget</span><span>Derive</span><span>Review</span><span>Interpret</span><span>Enhance</span></div>
+        <div class="panel"><div class="panel-bar"><div class="dots"><span></span><span></span><span></span></div><span class="panel-file mono">workflows — signed gates</span><span class="panel-rec"><span class="dot-rec"></span>LIVE</span></div><div class="panel-body has-video"><img class="stage-video" src="gifs/gates.gif" alt="workflows — signed gates" loading="lazy"></div></div>
+      </div>
+    </div>
+    <div class="trust-row">
+      <div><b>Every tool is classed</b><span>Reads, proposes or acts. An agent that acts gets a gate after it.</span></div>
+      <div><b>Every turn is logged</b><span>Model, tokens, tool calls and what came back, kept with the run.</span></div>
+      <div><b>Every gate is signed</b><span>Evidence, signer and seal, verifiable months later.</span></div>
+    </div>
   </section>
 
   <!-- ============ CAPABILITIES (design time / runtime features) ============ -->
@@ -1022,41 +1073,64 @@ footer a:hover{ color:var(--cyan); }
   </section>
 
 
+
+  <!-- ============ FROM THE LAB: PROOFS OF CONCEPT ============ -->
+  <section id="poc" class="wrap">
+    <div class="section-head">
+      <span class="badge violet">From the lab</span>
+      <h2>Two proofs of concept, built on flexIA.</h2>
+      <p>What the same framework makes possible next: learning from machines that already run. Both work on demo plants today — we are looking for pilot partners to try them on real ones.</p>
+    </div>
+    <div class="poc-grid">
+      <div class="ag-card">
+        <div class="chips"><span class="st lab">Proof of concept</span><span>flexClone</span></div>
+        <h3>Clone a controller nobody can open</h3>
+        <p>Record what an old controller reads and writes — strictly read-only — mine its states, timing and rules, and let an agent turn them into models with evidence on every element, asking the engineer where the recordings can't tell. The clone then runs beside the original until they agree.</p>
+        <div class="steps"><span>Capture</span><i>›</i><span>Annotate</span><i>›</i><span>Interpret</span><i>›</i><span>Approve</span><i>›</i><span>Generate</span><i>›</i><span>Shadow</span></div>
+        <div class="panel"><div class="panel-bar"><div class="dots"><span></span><span></span><span></span></div><span class="panel-file mono">flexclone — demo conveyor controller</span><span class="panel-rec"><span class="dot-rec"></span>LIVE</span></div><div class="panel-body has-video"><img class="stage-video" src="gifs/poc-clone.gif" alt="flexclone — demo conveyor controller" loading="lazy"></div></div>
+        <div class="metrics"><div><b>100 %</b><span>outputs agree over 17,999 cycles</span></div><div><b>4 · 7 · 9</b><span>states, transitions, rules, all evidenced</span></div><div><b>0</b><span>writes to the controller</span></div></div>
+        <p class="poc-note">Demo conveyor controller; first case study on a water treatment cell.</p>
+      </div>
+      <div class="ag-card">
+        <div class="chips"><span class="st lab">Proof of concept</span><span>flexTwin</span></div>
+        <h3>Learn a plant model that knows where it holds</h3>
+        <p>Build a graph of the plant — drives, motors, pumps, valves, tanks — learn each component from read-only captures and its datasheets, and run the model as a shadow beside the plant. It flags leaks, drifting sensors and wear, and keeps a coverage map of where it has been proven.</p>
+        <div class="steps"><span>Capture</span><i>›</i><span>Interpret</span><i>›</i><span>Learn</span><i>›</i><span>Generate</span><i>›</i><span>Shadow</span><i>›</i><span>Trust</span></div>
+        <div class="panel"><div class="panel-bar"><div class="dots"><span></span><span></span><span></span></div><span class="panel-file mono">flextwin — PS-2 pump station</span><span class="panel-rec"><span class="dot-rec"></span>LIVE</span></div><div class="panel-body has-video"><img class="stage-video" src="gifs/poc-twin.gif" alt="flextwin — PS-2 pump station" loading="lazy"></div></div>
+        <div class="metrics"><div><b>6</b><span>components learned, each scored on unseen data</span></div><div><b>5</b><span>fault kinds found in shadow</span></div><div><b>SSP + ONNX</b><span>exported to run beside the plant</span></div></div>
+        <p class="poc-note">PS-2 demo pump station, with faults seeded on purpose.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ ECOSYSTEM ============ -->
   <section id="ecosystem" class="wrap ecosystem">
     <div class="section-head">
       <span class="badge">The toolbox</span>
-      <h2>Four building blocks. One ecosystem.</h2>
-      <p>Each tool package covers one stage of the workflow above — use them together, or drop flexIA into an existing pipeline one block at a time.</p>
+      <h2>One portal brings them together. Every app also stands alone.</h2>
+      <p>The flexIA Portal opens every app on the same project. Each app is also a tool of its own: use the whole stack, or drop one into the pipeline you already have.</p>
     </div>
 
-    <div class="eco-grid">
-      <div class="eco-card">
-        <span class="eco-mono">MD</span>
-        <h4>flexModeler</h4>
-        <p>Modeling environment for system architecture, software components, and hardware I/O — with code generation toward C/C++, Python, Rust, and IEC 61131-3.</p>
+    <div class="portal-split">
+      <div class="portal-text">
+        <span class="eco-mono">IA</span>
+        <h3>flexIA Portal: every app, one place</h3>
+        <p>The portal brings all apps together on one project. Open two side by side, follow a workflow through them with signed gates, let agents work across them, and keep them all up to date with a health check and roll back.</p>
+        <ul class="portal-points">
+          <li><b>Together</b>One project, one sign-in, workflows and agents across the apps.</li>
+          <li><b>Standalone</b>Every app also runs on its own, from its own command line or server, so you can adopt one tool at a time.</li>
+          <li><b>Your computer or a server</b>Desktop mode on your own machine, or a shared server with sign-in.</li>
+        </ul>
       </div>
-      <div class="eco-card">
-        <span class="eco-mono">CM</span>
-        <h4>flexCommunicator</h4>
-        <p>Client libraries in Python, C/C++, and Rust implementing the FlexIA software architecture — IT/OT messaging, online parametrization, and health monitoring built in.</p>
-      </div>
-      <div class="eco-card">
-        <span class="eco-mono">CL</span>
-        <h4>flexCloud</h4>
-        <p>The orchestration center — build, package, and manage FlexIA applications, trigger single-button deployment, centrally monitor and act on SWCs and devices, and reason over the whole system with an architecture-grounded LLM agent.</p>
-      </div>
-      <div class="eco-card">
-        <span class="eco-mono">EN</span>
-        <h4>flexEngine</h4>
-        <p>The on-device agent. Connects every target back to flexCloud and performs platform-aware dependency checks — including hardware where containers won't run.</p>
-      </div>
+      <div class="panel"><div class="panel-bar"><div class="dots"><span></span><span></span><span></span></div><span class="panel-file mono">flexia portal — home</span><span class="panel-rec"><span class="dot-rec"></span>LIVE</span></div><div class="panel-body has-video"><img class="stage-video" src="assets/portal-home.jpg" alt="flexia portal — home" loading="lazy"></div></div>
     </div>
+    <p class="eco-sub">The apps, by stage. Each one works standalone and inside the portal.</p>
+    <div class="eco-grid groups"><div class="eco-card"><span class="g-stage">Specify · Model</span><ul><li><b>flexRequirements</b>requirements, traceability, compliance</li><li><b>flexModeler</b>FXL architecture and code generation</li><li><b>flexDesired</b>behaviour models and rules for agents</li></ul></div><div class="eco-card"><span class="g-stage">Implement · Connect</span><ul><li><b>flexIDE</b>the editor, with flex* completion</li><li><b>flexCommunicator</b>Python, C++ and Rust libraries, IT/OT</li><li><b>flexNode-arduino</b>the same API on microcontrollers</li><li><b>flexConnect</b>explore machines that already run</li></ul></div><div class="eco-card"><span class="g-stage">Verify</span><ul><li><b>flexTest</b>tests in the loop, with faults</li><li><b>flexSim</b>simulation and analysis</li><li><b>flexTestLab</b>lab benches, MiL to HiL</li></ul></div><div class="eco-card"><span class="g-stage">Release · Operate · Learn</span><ul><li><b>flexDeploy + flexEngine</b>signed releases, the device agent</li><li><b>flexMonitor</b>health, signals, alarms</li><li><b>flexML</b>learned models, data to machine</li><li><b>flexClone · flexTwin</b>proofs of concept</li></ul></div></div>
 
     <div class="compat">
       <div class="compat-group">
         <span class="g-label">FORMALISMS</span>
-        <span class="tag">C/C++</span><span class="tag">Python</span><span class="tag">Rust</span><span class="tag">IEC 61131-3</span><span class="tag">Simulink</span><span class="tag">FMU</span>
+        <span class="tag">C/C++</span><span class="tag">Python</span><span class="tag">Rust</span><span class="tag">Arduino</span><span class="tag">IEC 61131-3 ST</span><span class="tag">FMU</span><span class="tag">ONNX</span>
       </div>
       <div class="compat-group">
         <span class="g-label">TARGETS</span>
@@ -1064,11 +1138,11 @@ footer a:hover{ color:var(--cyan); }
       </div>
       <div class="compat-group">
         <span class="g-label">IT PROTOCOLS</span>
-        <span class="tag">MQTT</span><span class="tag">Redis</span><span class="tag">Kafka</span><span class="tag">Zenoh</span><span class="tag">...</span>
+        <span class="tag">MQTT</span><span class="tag">Redis</span><span class="tag">Zenoh</span><span class="tag">ROS 2</span><span class="tag">...</span>
       </div>
       <div class="compat-group">
         <span class="g-label">OT PROTOCOLS</span>
-        <span class="tag">OPC UA</span><span class="tag">TwinCAT ADS</span><span class="tag">MODBUS</span><span class="tag">...</span>
+        <span class="tag">OPC UA</span><span class="tag">TwinCAT ADS</span><span class="tag">CAN</span><span class="tag">EtherCAT</span><span class="tag">...</span>
       </div>
     </div>
   </section>
@@ -1077,7 +1151,7 @@ footer a:hover{ color:var(--cyan); }
   <section id="about" class="closing">
     <div class="wrap">
       <span class="badge violet" style="justify-content:center;">From research bench to shop floor</span>
-      <h2 style="margin-top:1.1rem;">Ready to stop rebuilding for every controller?</h2>
+      <h2 style="margin-top:1.1rem;">Ready to co-engineer with agents you can trust?</h2>
       <p>flexIA is developed at Cosys-Lab, University of Antwerp, under the IOF Industrial Research Fund POC program — open-core by design, with an active Company Interest Group shaping what ships next.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="mailto:bert.vanacker@uantwerpen.be?subject=flexIA%20%E2%80%94%20walkthrough%20request">Request a walkthrough</a>
@@ -1115,6 +1189,13 @@ function afterMarker(text, marker){
 }
 /* inner markup (title bar + body) shared by every window-chrome panel */
 function panelInner(label, video){
+  if(/\.(gif|png|jpe?g|webp)$/i.test(video || '')){
+    return '<div class="panel-bar"><div class="dots"><span></span><span></span><span></span></div>' +
+      '<span class="panel-file mono">' + esc(label) + '</span>' +
+      '<span class="panel-rec"><span class="dot-rec"></span>LIVE</span></div>' +
+      '<div class="panel-body"><img class="stage-video" src="' + esc(video) + '" alt="' + esc(label) + '">' +
+      '<div class="media-placeholder"><div class="media-label">' + esc(video) + '</div></div></div>';
+  }
   return '<div class="panel-bar"><div class="dots"><span></span><span></span><span></span></div>' +
     '<span class="panel-file mono">' + esc(label) + '</span>' +
     '<span class="panel-rec"><span class="dot-rec"></span>00:00</span></div>' +
@@ -1131,6 +1212,14 @@ function initVideoPanel(panel){
   if(!video) return;
   var body = panel.matches('.panel-body') ? panel : panel.querySelector('.panel-body');
   var target = body || panel;
+  if(video.tagName === 'IMG'){
+    var shown = function(){
+      if(video.naturalWidth){ target.style.aspectRatio = video.naturalWidth + ' / ' + video.naturalHeight; }
+      target.classList.add('has-video');
+    };
+    if(video.complete && video.naturalWidth){ shown(); } else { video.addEventListener('load', shown); }
+    return;
+  }
   video.addEventListener('loadedmetadata', function(){
     if(video.videoWidth && video.videoHeight){
       target.style.aspectRatio = video.videoWidth + ' / ' + video.videoHeight;

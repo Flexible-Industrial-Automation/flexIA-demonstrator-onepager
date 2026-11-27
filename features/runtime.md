@@ -6,84 +6,23 @@ reference (fields, icon names, the marker line).
 
 <!-- features -->
 
-## Single-button deployment
+## Signed releases, shadow first
 - enabled: true
-- icon: bolt
-- video: 04-flexcloud-fleet-deployment
-- panel: flexcloud — fleet-deployment
+- icon: rocket
+- video: gifs/05-release.gif
+- panel: flexdeploy — releases
+Signed releases with approvals, a shadow run beside the current version, then rollout in waves with health checks and roll back.
 
-flexCloud packages the whole distributed application and pushes it across a heterogeneous fleet in one orchestrated, deterministic step — promoted unchanged from test to production.
-
-## Unified SWC & device monitoring
+## Unified monitoring
 - enabled: true
 - icon: gauge
-- video: flexIA-SW-HW-monitoring
-- panel: flexcloud — centralized-monitoring
+- video: gifs/06-monitor.gif
+- panel: flexmonitor — overview
+Components, devices, signals, logs and runtime requirement monitors in one view, with alarms while no studio is open.
 
-Software components and the devices running them appear in one flexCloud view — health, status, and diagnostics without walking to the shop floor.
-
-## Architecture-grounded AI assistant
+## Connect to existing machines
 - enabled: true
-- icon: brain
-- video: flexIA-AI-Assistant
-- panel: flexcloud — AI-assistant
-
-The flexIA AI Assistant doesn't just surface data — it reasons across your entire application: its behavior, its deployment, its full lifecycle. Ask a question, get a system-level answer — connected, contextual, instant. Understand more, troubleshoot faster, deploy with confidence.
-
-## Trustworthiness monitoring for AI models
-- enabled: true
-- icon: shield
-- video: flexIA-trustworthiness-integration
-- panel: flexCloud — online-trustworthiness-monitoring
-
-Don't just validate your AI models — watch them. Continuous monitoring against specification and uncertainty means you always know how much to trust a model's output, and get flagged the instant you shouldn't.
-
-## Unified IT/OT communication, even robotics
-- enabled: false
-- icon: share
-- video: 06-flexcommunicator-it-ot-bridge
-- panel: flexcommunicator — unified IT/OT communication
-
-One architecture every protocol: seamless IT/OT communication across a broad range of industrial and enterprise standards, with native ROS2 and VDA5050 support extending connectivity into robotics and AGV fleets. IT, OT, and robotics — finally united in one architecture. 
-
-## Cloud services
-- enabled: true
-- icon: bolt
-- video: flexIA-cloudservice-trigger
-- panel: flexcloud — remote-actions
-
-flexCloud watches your applications and devices, and acts on what it sees. Define triggers once, and let flexCloud reconfigure the right SWCs and devices automatically — even across projects. State changes anywhere, action anywhere. All running in the cloud, always on.
-
-## Lightweigt, platform-independent deployment agent
-- enabled: true
-- icon: download
-- video: flexIA-start-agent
-- panel: flexEngine — Agent configuration and startup
-
-A lightweight, platform-independent deployment agent for flexIA applications — build, ship, and run them natively or in Docker. The agent also provices device state monitoring and remote control.
-
-## Custom OTA (Over-the-Air Updates)
-- enabled: false
-- icon: rocket
-- video: flexIA-custom-ota
-- panel: flexEngine — Custom OTA
-
-Delivers firmware and application updates to microcontrollers either through a connected flexIA agent acting as a bridge, or directly to the microcontroller when it supports our custom OTA protocol — giving you flexible, reliable update paths regardless of device connectivity.
-
-
-## Centralized logging & diagnostics
-- enabled: false
-- icon: list
-- video: feat-centralized-logging
-- panel: flexcloud — centralized-logging
-
-Every component and device streams to one place, correlated against the architecture model rather than scattered per node.
-
-
-## Online parametrization & health
-- enabled: false
-- icon: sliders
-- video: feat-online-parametrization
-- panel: flexcommunicator — online-parametrization
-
-Adjust component parameters live and watch health signals built into the flexIA software architecture — no redeploy to tune.
+- icon: link
+- video: gifs/connect.gif
+- panel: flexconnect — explore
+Explore OPC UA servers, TwinCAT controllers, ROS 2 robots and PLC I/O, watch values live and hand what you need to the model. Strictly read-only towards the machine.

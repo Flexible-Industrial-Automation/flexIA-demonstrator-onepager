@@ -47,7 +47,7 @@ Describe components and architecture explicitly in AADL — portable across ever
 |---|---|---|
 | `enabled` | `true` | `false`, `no` or `0` hides the feature but keeps the text in the file. |
 | `icon` | `dot` | Icon name from the list below. |
-| `video` | slug of the title | Clip shown in the panel: `videos/<value>.mp4`. The file need not exist yet — drop it in later and it appears. |
+| `video` | slug of the title | Clip shown in the panel: `videos/<value>.mp4`, or an image path ending in `.gif`, `.png`, `.jpg` or `.webp` (e.g. `gifs/agents.gif`), shown as is. A clip need not exist yet — drop it in later and it appears. |
 | `panel` | auto | Text in the mock window's title bar. |
 
 Feature order in the file is the order on the page.
