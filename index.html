@@ -642,6 +642,26 @@ footer a:hover{ color:var(--cyan); }
 .st.av{ color:#5ee39b; border-color:rgba(94,227,155,.35); background:rgba(94,227,155,.10); }
 .st.pv{ color:#ffd166; border-color:rgba(255,209,102,.35); background:rgba(255,209,102,.10); }
 .st.lab{ color:var(--violet); border-color:rgba(155,123,255,.4); background:var(--violet-soft); }
+.hybrid{ margin-top:2.6rem; display:grid; grid-template-columns:minmax(0,1fr) 190px minmax(0,1fr); gap:1.2rem; align-items:stretch; }
+@media (max-width:900px){ .hybrid{ grid-template-columns:1fr; } }
+.hy-card{ background:var(--bg-raised); border:1px solid var(--line); border-radius:var(--radius-panel); padding:1.4rem; display:flex; flex-direction:column; gap:.9rem; min-width:0; }
+.hy-card.det{ border-top:3px solid var(--cyan); }
+.hy-card.ag{ border-top:3px solid var(--violet); }
+.hy-card h3{ font-size:1.25rem; }
+.hy-card .hy-kicker{ font-family:"IBM Plex Mono",monospace; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; }
+.hy-card.det .hy-kicker{ color:var(--cyan); } .hy-card.ag .hy-kicker{ color:var(--violet); }
+.hy-card ul{ list-style:none; margin:0; padding:0; display:grid; gap:.6rem; }
+.hy-card li{ color:var(--ink-dim); font-size:.9rem; line-height:1.4; padding-left:1.2rem; position:relative; }
+.hy-card li::before{ content:""; position:absolute; left:0; top:.5em; width:.5rem; height:.5rem; border-radius:2px; }
+.hy-card.det li::before{ background:var(--cyan); } .hy-card.ag li::before{ background:var(--violet); border-radius:50%; }
+.hy-card li b{ color:var(--ink); font-weight:600; }
+.hy-flow{ display:flex; flex-direction:column; justify-content:center; gap:.5rem; }
+.hy-flow div{ font-family:"IBM Plex Mono",monospace; font-size:.74rem; text-align:center; padding:.55rem .5rem; border-radius:10px; border:1px solid var(--line-strong); background:var(--bg-raised-2); color:var(--ink); }
+.hy-flow div.c{ border-color:rgba(69,224,240,.4); color:var(--cyan); } .hy-flow div.v{ border-color:rgba(155,123,255,.45); color:var(--violet); }
+.hy-flow div.e{ background:linear-gradient(100deg,var(--cyan),var(--violet)); color:#04141a; border:0; font-weight:600; }
+.hy-flow span{ text-align:center; color:var(--ink-faint); font-size:.9rem; line-height:1; }
+@media (max-width:900px){ .hy-flow{ flex-direction:row; flex-wrap:wrap; justify-content:center; } .hy-flow span{ transform:rotate(-90deg); } }
+.hy-note{ margin-top:1.1rem; color:var(--ink-dim); font-size:.92rem; max-width:78ch; }
 .agentic-grid{ margin-top:2.6rem; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.4rem; }
 @media (max-width:900px){ .agentic-grid{ grid-template-columns:1fr; } }
 .ag-card{ background:var(--bg-raised); border:1px solid var(--line); border-radius:var(--radius-panel); padding:1.4rem; display:flex; flex-direction:column; gap:1rem; min-width:0; }
@@ -715,10 +735,10 @@ footer a:hover{ color:var(--cyan); }
   <section class="hero wrap">
     <div class="hero-grid">
       <div>
-        <span class="badge">Agentic co-engineering for industrial automation</span>
+        <span class="badge">Deterministic tools + AI agents, for industrial automation</span>
         <h1>Agentic co&#8209;engineering.<br><span class="grad">Trusted, end to end.</span></h1>
         <p class="hero-kicker">Develop once. Deploy anywhere.</p>
-        <p class="hero-sub">flexIA is the end-to-end framework for software-intensive industrial automation — from the first requirement to a monitored machine. Model once, deploy across PLCs, SBCs and microcontrollers. AI agents do the routine work at every step; engineers sign every gate, and every verdict traces back to its requirement.</p>
+        <p class="hero-sub">flexIA is the end-to-end framework for software-intensive industrial automation — from the first requirement to a monitored machine. Deterministic tools do what must be exact — signal mining, code generation, checks and simulation. AI agents add judgement where it helps. Engineers sign every gate, and every verdict traces back to its requirement.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="mailto:bert.vanacker@uantwerpen.be?subject=flexIA%20%E2%80%94%20walkthrough%20request">Request a walkthrough</a>
           <a class="btn btn-ghost" href="#workflow">See how it works ↓</a>
@@ -757,8 +777,8 @@ footer a:hover{ color:var(--cyan); }
 <path class="spark" transform="translate(294,208) scale(0.7)" d="M0,-10 C1.3,-3.3 3.3,-1.3 10,0 C3.3,1.3 1.3,3.3 0,10 C-1.3,3.3 -3.3,1.3 -10,0 C-3.3,-1.3 -1.3,-3.3 0,-10 Z"/>
 <path class="spark" transform="translate(320,198) scale(1)" d="M0,-10 C1.3,-3.3 3.3,-1.3 10,0 C3.3,1.3 1.3,3.3 0,10 C-1.3,3.3 -3.3,1.3 -10,0 C-3.3,-1.3 -1.3,-3.3 0,-10 Z"/>
 <path class="spark" transform="translate(346,208) scale(0.7)" d="M0,-10 C1.3,-3.3 3.3,-1.3 10,0 C3.3,1.3 1.3,3.3 0,10 C-1.3,3.3 -3.3,1.3 -10,0 C-3.3,-1.3 -1.3,-3.3 0,-10 Z"/>
-<text class="core-t" x="320" y="242" text-anchor="middle">AI co-engineers</text>
-<text class="core-s" x="320" y="262" text-anchor="middle">Agents build.</text>
+<text class="core-t" x="320" y="242" text-anchor="middle">Tools + agents</text>
+<text class="core-s" x="320" y="262" text-anchor="middle">Tools compute, agents judge.</text>
 <text class="core-s c" x="320" y="278" text-anchor="middle">Engineers decide.</text>
 <g class="card" transform="translate(320.0,70.0)"><rect x="-58" y="-26" width="116" height="52" rx="10"/><text y="-1" text-anchor="middle">Specify</text><text class="sub" y="15" text-anchor="middle">REQUIRE</text></g>
 <g class="card" transform="translate(479.8,186.1)"><rect x="-58" y="-26" width="116" height="52" rx="10"/><text y="-1" text-anchor="middle">Model</text><text class="sub" y="15" text-anchor="middle">DESIGN</text></g>
@@ -959,7 +979,7 @@ footer a:hover{ color:var(--cyan); }
         <div class="diff-row">
           <div class="diff-dim">AI assistance</div>
           <div class="diff-old"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>Chat assistants beside the work, with no record of what they changed</div>
-          <div class="diff-new"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Agents inside the workflow, each tool classed, every step behind a signed gate</div>
+          <div class="diff-new"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Deterministic tools compute, agents judge inside the workflow, every step behind a signed gate</div>
         </div>
         <div class="diff-row">
           <div class="diff-dim">Deployment</div>
@@ -992,8 +1012,8 @@ footer a:hover{ color:var(--cyan); }
       </div>
       <div class="benefit-card">
         <div class="benefit-icon"><svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg></div>
-        <h3>Co-engineer with agents</h3>
-        <p>Agents do the routine work at every step, within their tools and budget; engineers sign each gate.</p>
+        <h3>Deterministic and agentic</h3>
+        <p>Tools mine, generate and check exactly; agents add judgement on top; engineers sign each gate.</p>
       </div>
     </div>
   </section>
@@ -1015,9 +1035,41 @@ footer a:hover{ color:var(--cyan); }
   <section id="agentic" class="wrap">
     <div class="section-head">
       <span class="badge violet">Agentic co-engineering</span>
-      <h2>Agents build. Engineers decide.</h2>
-      <p>AI agents work inside your engineering workflow, not beside it. Every agent uses the same flexIA tools you do, within the rights you give it, and every hand-over is a gate a named engineer signs.</p>
+      <h2>Tools compute. Agents judge. Engineers decide.</h2>
+      <p>flexIA is not agents alone. Its deterministic tools do what must be exact and repeatable; AI agents work on top of them, inside your engineering workflow, where judgement helps. Every hand-over is a gate a named engineer signs.</p>
     </div>
+    <div class="hybrid">
+      <div class="hy-card det">
+        <span class="hy-kicker">Deterministic tools</span>
+        <h3>Exact, repeatable, the same every run</h3>
+        <ul>
+          <li><b>Signal mining:</b> states, timing and rules counted from recordings</li>
+          <li><b>Code generation</b> from the model, for every target, stamped</li>
+          <li><b>Checks</b> of models, interfaces, timing and resources</li>
+          <li><b>Test generation, simulation and replay</b>, with parity against the original</li>
+          <li><b>Learning and coverage maps</b> of where a model holds</li>
+          <li><b>Signatures and seals</b> on every approval</li>
+        </ul>
+      </div>
+      <div class="hy-flow" aria-label="How tools and agents work together">
+        <div class="c">Tools compute</div><span>↓</span>
+        <div class="v">Agent judges</div><span>↓</span>
+        <div class="c">Tools check the agent</div><span>↓</span>
+        <div class="e">Engineer signs</div>
+      </div>
+      <div class="hy-card ag">
+        <span class="hy-kicker">AI agents</span>
+        <h3>Judgement, where the data cannot decide</h3>
+        <ul>
+          <li><b>Interpret</b> what the tools mined, and name it</li>
+          <li><b>Ask the engineer</b> where the recordings cannot tell</li>
+          <li><b>Propose</b> requirements, regulation links and fixes, each quoting its source</li>
+          <li><b>Write the glue code</b> and repair it until the generated tests pass</li>
+          <li><b>Review</b> models against the requirements</li>
+        </ul>
+      </div>
+    </div>
+    <p class="hy-note">Everything an agent proposes is checked by the same deterministic tools before an engineer sees it: a mined model replays the recordings, generated code passes the generated tests, a quoted clause must exist in the regulation's text.</p>
     <div class="agentic-grid">
       <div class="ag-card">
         <h3>An agent is a block in your workflow</h3>
@@ -1085,7 +1137,7 @@ footer a:hover{ color:var(--cyan); }
       <div class="ag-card">
         <div class="chips"><span class="st lab">Proof of concept</span><span>flexClone</span></div>
         <h3>Clone a controller nobody can open</h3>
-        <p>Record what an old controller reads and writes — strictly read-only — mine its states, timing and rules, and let an agent turn them into models with evidence on every element, asking the engineer where the recordings can't tell. The clone then runs beside the original until they agree.</p>
+        <p>Record what an old controller reads and writes — strictly read-only. Miners count its states, timing and rules; an agent judges and turns them into models with evidence on every element, asking the engineer where the recordings can't tell. The clone then runs beside the original until they agree.</p>
         <div class="steps"><span>Capture</span><i>›</i><span>Annotate</span><i>›</i><span>Interpret</span><i>›</i><span>Approve</span><i>›</i><span>Generate</span><i>›</i><span>Shadow</span></div>
         <div class="panel"><div class="panel-bar"><div class="dots"><span></span><span></span><span></span></div><span class="panel-file mono">flexclone — demo conveyor controller</span><span class="panel-rec"><span class="dot-rec"></span>LIVE</span></div><div class="panel-body has-video"><img class="stage-video" src="gifs/poc-clone.gif" alt="flexclone — demo conveyor controller" loading="lazy"></div></div>
         <div class="metrics"><div><b>100 %</b><span>outputs agree over 17,999 cycles</span></div><div><b>4 · 7 · 9</b><span>states, transitions, rules, all evidenced</span></div><div><b>0</b><span>writes to the controller</span></div></div>
@@ -1094,7 +1146,7 @@ footer a:hover{ color:var(--cyan); }
       <div class="ag-card">
         <div class="chips"><span class="st lab">Proof of concept</span><span>flexTwin</span></div>
         <h3>Learn a plant model that knows where it holds</h3>
-        <p>Build a graph of the plant — drives, motors, pumps, valves, tanks — learn each component from read-only captures and its datasheets, and run the model as a shadow beside the plant. It flags leaks, drifting sensors and wear, and keeps a coverage map of where it has been proven.</p>
+        <p>Build a graph of the plant — drives, motors, pumps, valves, tanks — learn each component from read-only captures and its datasheets with deterministic fits, while an agent names and asks, and run the model as a shadow beside the plant. It flags leaks, drifting sensors and wear, and keeps a coverage map of where it has been proven.</p>
         <div class="steps"><span>Capture</span><i>›</i><span>Interpret</span><i>›</i><span>Learn</span><i>›</i><span>Generate</span><i>›</i><span>Shadow</span><i>›</i><span>Trust</span></div>
         <div class="panel"><div class="panel-bar"><div class="dots"><span></span><span></span><span></span></div><span class="panel-file mono">flextwin — PS-2 pump station</span><span class="panel-rec"><span class="dot-rec"></span>LIVE</span></div><div class="panel-body has-video"><img class="stage-video" src="gifs/poc-twin.gif" alt="flextwin — PS-2 pump station" loading="lazy"></div></div>
         <div class="metrics"><div><b>6</b><span>components learned, each scored on unseen data</span></div><div><b>5</b><span>fault kinds found in shadow</span></div><div><b>SSP + ONNX</b><span>exported to run beside the plant</span></div></div>
