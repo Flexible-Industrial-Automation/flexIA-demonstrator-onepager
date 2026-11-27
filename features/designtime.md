@@ -17,51 +17,44 @@ Everything below the marker line is parsed. Everything above it is ignored.
 
 <!-- features -->
 
-## Single-button deployment
-- enabled: false
-- icon: bolt
-- video: 04-flexcloud-fleet-deployment
-- panel: flexcloud — fleet-deployment
+## Requirements with full traceability
+- enabled: true
+- icon: list
+- video: gifs/01-specify.gif
+- panel: flexrequirements — traceability
+Requirements on the real model, compiled into test oracles, simulation properties and runtime monitors. Every verdict traces back; a release gate shows what still blocks.
 
-flexCloud packages the whole distributed application and pushes it across a heterogeneous fleet in one orchestrated, deterministic step — promoted unchanged from test to production.
+## Agentic co-engineering
+- enabled: true
+- icon: brain
+- video: gifs/agents.gif
+- panel: workflows — agent block
+AI agents as blocks in your workflow, each with a role, a model, memory, tools and data. Every tool states whether it reads, proposes or acts, and an acting agent gets a gate after it.
+
+## Gated workflows with signatures
+- enabled: true
+- icon: lock
+- video: gifs/gates.gif
+- panel: workflows — signed gates
+Follow a proven pattern step by step through the apps. Each hand-over is a gate a named engineer signs; approved work is sealed, and a broken seal reopens the gate.
 
 ## Model-based architecture
 - enabled: true
 - icon: layers
-- video: flexIA-modeling
+- video: gifs/02-model.gif
 - panel: flexmodeler — architecture-view
+Components, architecture and interfaces described once in FXL, independent of implementation language, portable across every target.
 
-Describe components, system architecture, and their interfaces explicitly in AADL — independent of implementation language, portable across every target.
-
-## Consistency & correctness checks
-- enabled: true
-- icon: shield
-- video: flexIA-architecture-checks
-- panel: consistency-check — arch-vs-hw
-
-Ship with proof, not hope. Architecture Checks tears into every deployment before it goes out the door, SWC compatibility, interface correctness, compute capability and utilization, and flags what's broken on screen, not in the field. Nothing reaches commissioning until it's earned it.
-
-## Connect anything. Integrate effortlessly.
-- enabled: true
-- icon: binding
-- video: flexIA-hardware-io
-- panel: flexmodeler — hardware-io-binding
-
-Software components connect directly to real hardware through a broad range of IT/OT technologies — built into the model, not added at commissioning. From OPC UA and TwinCAT to ROS 2 and VDA5050, the same architecture connects industrial equipment, robots, and AGVs. IT. OT. Robotics. One architecture. Built to connect.
-
-## Architecture-level code generation
+## Every target, PLC included
 - enabled: true
 - icon: code
-- video: flexIA-code-generation
-- panel: flexmodeler — Architecture code-generation
+- video: gifs/03-implement.gif
+- panel: flexide — component
+Python, C++, Rust, Arduino and ROS 2 from one model; on a PLC, a split node with its real-time half in IEC 61131-3 Structured Text for TwinCAT or CODESYS.
 
-One architecture. Every target. We generate the whole application — code, configuration, and deployment — not just the components, across C/C++, Python, Rust, and IEC 61131-3. Design once, deploy everywhere your systems actually run.
-
-## Complex, future proof integrations
+## Test and simulate before it runs
 - enabled: true
-- icon: rocket
-- video: flexIA-trustworthiness-integration
-- panel: flexcommunicator — model-reuse
-
-Built for complex, future-proof integrations. Bring in simulation models, IP-protected FMUs, Digital twins and AI models with runtime trustworthiness monitoring.
-
+- icon: shield
+- video: gifs/04-verify.gif
+- panel: flextest — fault-injection
+Software-in-the-loop tests with injected faults, from a saved machine state, and simulation of the deployed application before anything moves.
